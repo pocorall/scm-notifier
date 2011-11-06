@@ -1,0 +1,100 @@
+
+Version 1.8.3 - 8/Jan/2010
+
+* BUGFIX: [Issue 19] Exception when deleting the last repository from the list
+* BUFFIX: When using "externals" in a repository, it wrongfully tags it as always needing update
+* BUFFIX: Some buttons was not disabled at start
+* BUFFIX: Do not show warning when importing configuration into empty configuration
+* BUFFIX: Log file is written into SVN_Notifier.exe folder instead of SVN_Notifier.ini folder
+* BUFFIX: Uncheck UpdateAllSilently button when it is disabled
+
+
+Version 1.8.2 - 14/Aug/2009
+
+* NEW FEATURE: New option "Show in taskbar"
+* ENHANCEMENT: Added possibility to edit folder name
+* BUGFIX: [Issue 17] Locked files had always "Update Needed" status
+* BUGFIX: [Issue 20] Non-english folder names didn't work
+* Other minor fixes and enhancements
+
+
+Version 1.8.1 - 03/Oct/2008
+
+* ENHANCEMENT: Better SysTray ToolTip text
+* BUGFIX: Conflicted files caused "Need update" status
+* BUGFIX: Problem with localized svn.exe
+* BUGFIX: Problem with spaces in path for "Update All Silently" command
+* BUGFIX: Context menu was enabled for whole main form instead of folder list only
+
+
+Version 1.8.0 - 12/Aug/2008
+
+* ENHANCEMENT: Project migrated to VS2008 and .NET Framework 2.0
+* ENHANCEMENT: Parsing of svn.exe XML output
+* ENHANCEMENT: "Update All" command disabled when "Force to view Change Log before Update" enabled
+* BUGFIX: Disabled installer option "Install for All Users"
+* BUGFIX: Problem with folder status in case of localized svn.exe
+* Other minor fixes
+
+
+Version 1.7.1 - 3/Jun/2008
+
+* BUGFIX: Problem with folder status in case of localized svn.exe
+
+
+Version 1.7.0 - 2/Jun/2008
+
+* NEW FEATURE: New option: Force to see Change Log before Update (requires TortoiseSVN 1.5 or higher)
+* NEW FEATURE: New option: Silent "Update All"
+* NEW FEATURE: Update errors window
+* NEW FEATURE: Allow to use environments variables in folder paths
+* ENHANCEMENT: Delimiter changed to "|" in ini-file
+* BUGFIX: OpenFolder function now works for folders only 
+* BUGFIX: Allow only one version dialog window
+* BUGFIX: Startup folder of setup project was not localized
+* BUGFIX: Avoid svn.exe invoking error(s) during ending session
+* DELETED: Stop of support svnnotifier.googlecode.com
+
+
+Version 1.6.0 - 5/Feb/2008
+
+* ENHANCEMENT: Possibility to assign "check now" action to double click
+* ENHANCEMENT: Folder status re-checked just after commit finished
+* EHNANCEMENT: New version is checked every 3 hours (instead of at startup only)
+* Minor stability fixes
+
+
+Version 1.5.0 - 22/Jan/2008
+
+* NEW FEATURE: Import/export of configuration settings
+* NEW FEATURE: Add separate files for monitoring
+* ENHANCEMENT: Checking for new version works better
+* ENHANCEMENT: "Disable checking" checkbox moved to project property window
+* BUGFIX: Monitoring process may stop or hang sometimes
+* BUGFIX: Local changes status not shown when file needs commit and update at the same time
+* Minor fixes, some UI enhancements
+
+
+Version 1.4.0 - 22/Sep/2007
+
+* NEW FEATURE: Error log window
+* ENHANCEMENT: Added support for _svn directory
+* ENHANCEMENT: Last stable version# now checked via web instead of svn
+* BUGFIX: Added string zero-length checking in GetSvnFolderStatus function
+
+
+Version 1.3.0 - 21/Aug/2007
+
+* NEW FEATURE: New project option "Disable" to skip checking status
+* ENHANCEMENT: Show full path of selected folder in form caption
+* ENHANCEMENT: Show non-updated folders in system tray status
+* ENHANCEMENT: "Hours" added to status update interval
+* ENHANCEMENT: Make show balloon interval configurable
+* BUGFIX: Main window size is changing every startup if set as minimized
+
+
+Version 1.2.1 - 30/Jul/2007
+
+* NEW FEATURE: Check for new version from the main menu
+* BUGFIX: Change log shows full log
+* BUGFIX: Bad folder name in status bar during update
