@@ -10,7 +10,7 @@ rem ------------------------- BUILD ---------------------------
 echo Rebuilding solution ...
 
 set Compiler="%VS90COMNTOOLS%\..\IDE\devenv.com"
-set Solution=SVN_Notifier
+set Solution=SCM_Notifier
 
 %Compiler% /REBUILD Debug %Solution%.sln
 if not "%errorlevel%" == "0" PAUSE

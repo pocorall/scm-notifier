@@ -1,4 +1,9 @@
 //
+// SCM Notifier
+// Copyright Sung-Ho Lee
+// SCM Notifier is forked from SVN Notifier. Part of this program is copyrighted by SVN Notifier authors
+//
+//
 // SVN Notifier
 // Copyright 2007 SIA Computer Hardware Design (www.chd.lv)
 //
@@ -32,7 +37,7 @@ using System.Windows.Forms;
 using DragNDrop;
 
 
-namespace CHD.SVN_Notifier
+namespace CHD.SCM_Notifier
 {
 	public partial class MainForm : Form
 	{
@@ -150,7 +155,7 @@ namespace CHD.SVN_Notifier
 		{
 			SaveFileDialog sfd = new SaveFileDialog
 			{
-				FileName = "SVN_Notifier.ini",
+				FileName = "SCM_Notifier.ini",
 				Filter = "Ini files (*.ini)|*.ini|All files (*.*)|*.*",
 				RestoreDirectory = true
 			};
@@ -257,7 +262,7 @@ namespace CHD.SVN_Notifier
                 }
                 else
                 {
-                    MessageBox.Show("This folder is not under SVN", "SVN Notifier", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("This folder is not under SVN", "SCM Notifier", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
@@ -294,7 +299,7 @@ namespace CHD.SVN_Notifier
                 }
                 else
                 {
-                    MessageBox.Show("This file is not under SVN", "SVN Notifier", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("This file is not under SVN", "SCM Notifier", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
@@ -319,7 +324,7 @@ namespace CHD.SVN_Notifier
 				int selectedIndex = listViewFolders.SelectedIndices[0];
 				string path = folders[listViewFolders.SelectedIndices[0]].Path;
 
-				if (MessageBox.Show ("Are you sure to remove " + path + " from list?", "SVN Notifier", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) != DialogResult.OK)
+				if (MessageBox.Show ("Are you sure to remove " + path + " from list?", "SCM Notifier", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) != DialogResult.OK)
 					return;
 
 				folders.RemoveAt (selectedIndex);
@@ -841,9 +846,9 @@ namespace CHD.SVN_Notifier
 		private void ShowNewVersion()
 		{
 			if (MessageBox.Show (
-				"New stable version of SVN Notifier is available - v" + lastStableVersion + "\n" +
+				"New stable version of SCM Notifier is available - v" + lastStableVersion + "\n" +
 				"Do you want to go to the project home page?",
-				"SVN Notifier",
+				"SCM Notifier",
 				MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
 				new AboutForm().ShowDialog();
 		}
@@ -851,15 +856,15 @@ namespace CHD.SVN_Notifier
 
 		private static void ShowNoNewVersion()
 		{
-			MessageBox.Show ("You are using latest version of SVN Notifier.",
-				"SVN Notifier", MessageBoxButtons.OK, MessageBoxIcon.Information);
+			MessageBox.Show ("You are using latest version of SCM Notifier.",
+				"SCM Notifier", MessageBoxButtons.OK, MessageBoxIcon.Information);
 		}
 
 
 		private static void ErrorCheckingForNewVersion()
 		{
 			MessageBox.Show ("Can't check for new version!",
-				"SVN Notifier", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				"SCM Notifier", MessageBoxButtons.OK, MessageBoxIcon.Error);
 		}
 
 		#endregion
@@ -1350,7 +1355,7 @@ namespace CHD.SVN_Notifier
 					return;
 				}
 
-				const string iniFileName = "SVN_Notifier.ini";
+				const string iniFileName = "SCM_Notifier.ini";
 				if (File.Exists (iniFileName))
 					Config.Init (iniFileName);
 				else
@@ -1395,7 +1400,7 @@ namespace CHD.SVN_Notifier
 
 		private static void ShowError (string s)
 		{
-			MessageBox.Show (s, "SVN Notifier", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			MessageBox.Show (s, "SCM Notifier", MessageBoxButtons.OK, MessageBoxIcon.Error);
 		}
 
         private void listViewFolders_DragEnter(object sender, DragEventArgs e)

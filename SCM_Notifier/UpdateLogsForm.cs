@@ -1,4 +1,9 @@
 //
+// SCM Notifier
+// Copyright Sung-Ho Lee
+// SCM Notifier is forked from SVN Notifier. Part of this program is copyrighted by SVN Notifier authors
+//
+//
 // SVN Notifier
 // Copyright 2007 SIA Computer Hardware Design (www.chd.lv)
 //
@@ -26,7 +31,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace CHD.SVN_Notifier
+namespace CHD.SCM_Notifier
 {
 	public class UpdateLogsForm : Form
 	{

@@ -1,4 +1,8 @@
 //
+// SCM Notifier
+// Copyright Sung-Ho Lee
+// SCM Notifier is forked from SVN Notifier. Part of this program is copyrighted by SVN Notifier authors
+//
 // SVN Notifier
 // Copyright 2007 SIA Computer Hardware Design (www.chd.lv)
 //
@@ -23,7 +27,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Forms;
 
-namespace CHD.SVN_Notifier
+namespace CHD.SCM_Notifier
 {
 	/// <summary>
 	/// Summary description for AboutForm.
@@ -132,7 +136,7 @@ namespace CHD.SVN_Notifier
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size (320, 23);
 			this.label1.TabIndex = 3;
-			this.label1.Text = "SVN Notifier. Version $VER";
+			this.label1.Text = "SCM Notifier. Version $VER";
 			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// label2
@@ -152,7 +156,7 @@ namespace CHD.SVN_Notifier
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size (312, 32);
 			this.label3.TabIndex = 5;
-			this.label3.Text = "SVN Notifier is Open Source Software released under the GNU General Public Licens" +
+			this.label3.Text = "SCM Notifier is Open Source Software released under the GNU General Public Licens" +
 				"e v3.";
 			this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 

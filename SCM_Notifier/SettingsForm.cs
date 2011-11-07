@@ -1,4 +1,9 @@
 //
+// SCM Notifier
+// Copyright Sung-Ho Lee
+// SCM Notifier is forked from SVN Notifier. Part of this program is copyrighted by SVN Notifier authors
+//
+//
 // SVN Notifier
 // Copyright 2007 SIA Computer Hardware Design (www.chd.lv)
 //
@@ -22,7 +27,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
-namespace CHD.SVN_Notifier
+namespace CHD.SCM_Notifier
 {
 	public class SettingsForm : Form
 	{
@@ -522,7 +527,7 @@ namespace CHD.SVN_Notifier
             this.checkBox_PauseApplicationStartup.Name = "checkBox_PauseApplicationStartup";
             this.checkBox_PauseApplicationStartup.Size = new System.Drawing.Size(131, 17);
             this.checkBox_PauseApplicationStartup.TabIndex = 0;
-            this.checkBox_PauseApplicationStartup.Text = "... SVN Notifier startup";
+            this.checkBox_PauseApplicationStartup.Text = "... SCM Notifier startup";
             this.checkBox_PauseApplicationStartup.UseVisualStyleBackColor = true;
             // 
             // label16

@@ -1,4 +1,9 @@
 //
+// SCM Notifier
+// Copyright Sung-Ho Lee
+// SCM Notifier is forked from SVN Notifier. Part of this program is copyrighted by SVN Notifier authors
+//
+//
 // SVN Notifier
 // Copyright 2007 SIA Computer Hardware Design (www.chd.lv)
 //
@@ -21,7 +26,7 @@
 using System;
 using System.IO;
 
-namespace CHD.SVN_Notifier
+namespace CHD.SCM_Notifier
 {
 	public class Config
 	{
@@ -205,15 +210,15 @@ namespace CHD.SVN_Notifier
 					if ((p.Length == 0) || (p.Length == 2) || (p.Length > 4))
 						throw new ApplicationException ("INI-file: Bad format for Folder" + i);
 
-					//	For SVN_Notifier versions < 1.?.?
+					//	For SCM_Notifier versions < 1.?.?
 					if (p.Length == 1)
 						s += ",-1,-1";
 
-					//	For SVN_Notifier versions < 1.3.0
+					//	For SCM_Notifier versions < 1.3.0
 					if (p.Length <= 3)		
 						s += ",False";
 
-					//	For SVN_Notifier versions < 1.5.0
+					//	For SCM_Notifier versions < 1.5.0
 					if (p.Length <= 4)													
 						s += "," + (File.Exists (p[0]) ? (int) SvnFolder.PathType.File : (int) SvnFolder.PathType.Directory);
 
@@ -337,7 +342,7 @@ namespace CHD.SVN_Notifier
 
 
 		/// <summary>
-		/// Path to SVN_Notifier.ini
+		/// Path to SCM_Notifier.ini
 		/// </summary>
 		internal static string iniFileName;
 

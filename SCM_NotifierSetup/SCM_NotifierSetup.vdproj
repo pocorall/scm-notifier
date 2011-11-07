@@ -3,7 +3,7 @@
 "VSVersion" = "3:800"
 "ProjectType" = "8:{978C614F-708E-4E1A-B201-565925725DBA}"
 "IsWebType" = "8:FALSE"
-"ProjectName" = "8:SVN_NotifierSetup"
+"ProjectName" = "8:SCM_NotifierSetup"
 "LanguageId" = "3:1033"
 "CodePage" = "3:1252"
 "UILanguageId" = "3:1033"
@@ -39,7 +39,7 @@
         "DisplayName" = "8:Debug"
         "IsDebugOnly" = "11:TRUE"
         "IsReleaseOnly" = "11:FALSE"
-        "OutputFilename" = "8:Debug\\SVN_NotifierSetup.msi"
+        "OutputFilename" = "8:Debug\\SCM_NotifierSetup.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -71,7 +71,7 @@
         "DisplayName" = "8:Release"
         "IsDebugOnly" = "11:FALSE"
         "IsReleaseOnly" = "11:TRUE"
-        "OutputFilename" = "8:Release\\SVN_NotifierSetup.msi"
+        "OutputFilename" = "8:Release\\SCM_NotifierSetup.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -105,7 +105,7 @@
         {
             "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_EB022F9B88A948679CCE0FAC58D1B3E6"
             {
-            "Name" = "8:Primary output from SVN_Notifier (Active)"
+            "Name" = "8:Primary output from SCM_Notifier (Active)"
             "Condition" = "8:"
             "Object" = "8:_95BF2CA677A841AB81B549B30C999A87"
             "FileType" = "3:2"
@@ -143,7 +143,7 @@
         {
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_58646B05528140D88106AC87DF635428"
             {
-            "SourcePath" = "8:..\\SVN_Notifier\\License.txt"
+            "SourcePath" = "8:..\\SCM_Notifier\\License.txt"
             "TargetName" = "8:License.txt"
             "Tag" = "8:"
             "Folder" = "8:_48D6779D909E4DF8B5A90D53D08A703D"
@@ -180,7 +180,7 @@
             }
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_48D6779D909E4DF8B5A90D53D08A703D"
             {
-            "DefaultLocation" = "8:[ProgramFilesFolder]\\SVN Notifier"
+            "DefaultLocation" = "8:[ProgramFilesFolder]\\SCM Notifier"
             "Name" = "8:#1925"
             "AlwaysCreate" = "11:FALSE"
             "Condition" = "8:"
@@ -205,7 +205,7 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:SVN Notifier 1.8.3"
+        "ProductName" = "8:SCM Notifier 1.8.3"
         "ProductCode" = "8:{CA9FD467-23BB-4921-97AD-9120E07553B3}"
         "PackageCode" = "8:{7FA852D6-1F7E-41C0-9FFE-11E6AC3BAE7F}"
         "UpgradeCode" = "8:{1223A927-70AA-45EF-BC31-5FAAF0AC5D58}"
@@ -328,7 +328,7 @@
         {
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_9C818A9587D94F5EB4BB93C9832B14D9"
             {
-            "Name" = "8:SVN Notifier"
+            "Name" = "8:SCM Notifier"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
@@ -741,7 +741,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_95BF2CA677A841AB81B549B30C999A87"
             {
-            "SourcePath" = "8:..\\SVN_Notifier\\obj\\Release\\SVN_Notifier.exe"
+            "SourcePath" = "8:..\\SCM_Notifier\\obj\\Release\\SCM_Notifier.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_48D6779D909E4DF8B5A90D53D08A703D"

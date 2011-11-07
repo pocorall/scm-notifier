@@ -3,7 +3,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
-namespace CHD.SVN_Notifier
+namespace CHD.SCM_Notifier
 {
 	partial class MainForm
 	{
@@ -91,7 +91,7 @@ namespace CHD.SVN_Notifier
 
 			if (Config.ChangeLogBeforeUpdate && (folder.reviewedRevision < SvnTools.GetRepositoryHeadRevision (folder)))
 			{
-				MessageBox.Show ("You need to see ChangeLog first!", "SVN Notifier", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+				MessageBox.Show ("You need to see ChangeLog first!", "SCM Notifier", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 				return;
 			}
 

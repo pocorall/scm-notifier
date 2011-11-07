@@ -19,8 +19,8 @@ IF not %errorlevel% == 0 GOTO ERROR
 rem ----------------------- UNINSTALL ----------------------------
 
 
-if not exist SVN_NotifierSetup\Release\SVN_NotifierSetup.msi goto BUILD
-msiexec -q -promptrestart -x SVN_NotifierSetup\Release\SVN_NotifierSetup.msi
+if not exist SCM_NotifierSetup\Release\SCM_NotifierSetup.msi goto BUILD
+msiexec -q -promptrestart -x SCM_NotifierSetup\Release\SCM_NotifierSetup.msi
 
 rem If product is not installed
 IF %errorlevel% == 1605 goto BUILD
@@ -36,13 +36,13 @@ rem ------------------------ BUILD ------------------------------
 :BUILD
 
 SET build=Release
-%Compiler% /rebuild %build% SVN_Notifier.sln 
+%Compiler% /rebuild %build% SCM_Notifier.sln 
 SET errmsg=Build failed (errorlevel=%errorlevel%)
 IF not %errorlevel% == 0 GOTO ERROR
 
 rem ----------------------- INSTALL ----------------------------
 
-msiexec -i SVN_NotifierSetup\Release\SVN_NotifierSetup.msi
+msiexec -i SCM_NotifierSetup\Release\SCM_NotifierSetup.msi
 SET errmsg=Install failed (errorlevel=%errorlevel%)
 IF not %errorlevel% == 0 GOTO ERROR
 

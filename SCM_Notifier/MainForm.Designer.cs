@@ -1,7 +1,7 @@
 ﻿using System.Windows.Forms;
 using DragNDrop;
 
-namespace CHD.SVN_Notifier
+namespace CHD.SCM_Notifier
 {
 	partial class MainForm
 	{
@@ -129,7 +129,7 @@ namespace CHD.SVN_Notifier
 			// 
 			this.notifyIcon.ContextMenuStrip = this.trayContextMenuStrip;
 			this.notifyIcon.Icon = ((System.Drawing.Icon) (resources.GetObject ("notifyIcon.Icon")));
-			this.notifyIcon.Text = "SVN Notifier";
+			this.notifyIcon.Text = "SCM Notifier";
 			this.notifyIcon.Visible = true;
 			this.notifyIcon.BalloonTipClicked += new System.EventHandler (this.notifyIcon_BalloonTipClicked);
 			this.notifyIcon.MouseClick += new System.Windows.Forms.MouseEventHandler (this.notifyIcon_MouseClick);
@@ -238,7 +238,7 @@ namespace CHD.SVN_Notifier
 			// 
 			// addFolderToolStripMenuItem
 			// 
-			this.addFolderToolStripMenuItem.Image = global::CHD.SVN_Notifier.Properties.Resources.Toolbar_AddFolder;
+			this.addFolderToolStripMenuItem.Image = global::CHD.SCM_Notifier.Properties.Resources.Toolbar_AddFolder;
 			this.addFolderToolStripMenuItem.Name = "addFolderToolStripMenuItem";
 			this.addFolderToolStripMenuItem.Size = new System.Drawing.Size (152, 22);
 			this.addFolderToolStripMenuItem.Text = "&Add Folder...";
@@ -246,7 +246,7 @@ namespace CHD.SVN_Notifier
 			// 
 			// addFileToolStripMenuItem
 			// 
-			this.addFileToolStripMenuItem.Image = global::CHD.SVN_Notifier.Properties.Resources.Toolbar_AddFile;
+			this.addFileToolStripMenuItem.Image = global::CHD.SCM_Notifier.Properties.Resources.Toolbar_AddFile;
 			this.addFileToolStripMenuItem.Name = "addFileToolStripMenuItem";
 			this.addFileToolStripMenuItem.Size = new System.Drawing.Size (152, 22);
 			this.addFileToolStripMenuItem.Text = "Add F&ile...";
@@ -255,7 +255,7 @@ namespace CHD.SVN_Notifier
 			// deleteToolStripMenuItem
 			// 
 			this.deleteToolStripMenuItem.Enabled = false;
-			this.deleteToolStripMenuItem.Image = global::CHD.SVN_Notifier.Properties.Resources.Toolbar_Remove;
+			this.deleteToolStripMenuItem.Image = global::CHD.SCM_Notifier.Properties.Resources.Toolbar_Remove;
 			this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
 			this.deleteToolStripMenuItem.Size = new System.Drawing.Size (152, 22);
 			this.deleteToolStripMenuItem.Text = "&Delete...";
@@ -317,7 +317,7 @@ namespace CHD.SVN_Notifier
 			// 
 			this.aboutSVNNotifierToolStripMenuItem.Name = "aboutSVNNotifierToolStripMenuItem";
 			this.aboutSVNNotifierToolStripMenuItem.Size = new System.Drawing.Size (174, 22);
-			this.aboutSVNNotifierToolStripMenuItem.Text = "&About SVN Notifier";
+			this.aboutSVNNotifierToolStripMenuItem.Text = "&About SCM Notifier";
 			this.aboutSVNNotifierToolStripMenuItem.Click += new System.EventHandler (this.menuItemAbout_Click);
 			// 
 			// contextMenuStrip
@@ -467,7 +467,7 @@ namespace CHD.SVN_Notifier
 			// btnChangeLog
 			// 
 			this.btnChangeLog.Enabled = false;
-			this.btnChangeLog.Image = global::CHD.SVN_Notifier.Properties.Resources.Toolbar_ShowChangeLogs;
+			this.btnChangeLog.Image = global::CHD.SCM_Notifier.Properties.Resources.Toolbar_ShowChangeLogs;
 			this.btnChangeLog.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
 			this.btnChangeLog.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.btnChangeLog.Name = "btnChangeLog";
@@ -478,7 +478,7 @@ namespace CHD.SVN_Notifier
 			// btnUpdate
 			// 
 			this.btnUpdate.Enabled = false;
-			this.btnUpdate.Image = global::CHD.SVN_Notifier.Properties.Resources.Toolbar_Update;
+			this.btnUpdate.Image = global::CHD.SCM_Notifier.Properties.Resources.Toolbar_Update;
 			this.btnUpdate.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
 			this.btnUpdate.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.btnUpdate.Name = "btnUpdate";
@@ -489,7 +489,7 @@ namespace CHD.SVN_Notifier
 			// btnCommit
 			// 
 			this.btnCommit.Enabled = false;
-			this.btnCommit.Image = global::CHD.SVN_Notifier.Properties.Resources.Toolbar_Commit;
+			this.btnCommit.Image = global::CHD.SCM_Notifier.Properties.Resources.Toolbar_Commit;
 			this.btnCommit.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
 			this.btnCommit.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.btnCommit.Name = "btnCommit";
@@ -500,7 +500,7 @@ namespace CHD.SVN_Notifier
 			// btnOpenFolder
 			// 
 			this.btnOpenFolder.Enabled = false;
-			this.btnOpenFolder.Image = global::CHD.SVN_Notifier.Properties.Resources.Toolbar_OpenFolder;
+			this.btnOpenFolder.Image = global::CHD.SCM_Notifier.Properties.Resources.Toolbar_OpenFolder;
 			this.btnOpenFolder.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
 			this.btnOpenFolder.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.btnOpenFolder.Name = "btnOpenFolder";
@@ -511,7 +511,7 @@ namespace CHD.SVN_Notifier
 			// btnLog
 			// 
 			this.btnLog.Enabled = false;
-			this.btnLog.Image = global::CHD.SVN_Notifier.Properties.Resources.Toolbar_ShowLogs;
+			this.btnLog.Image = global::CHD.SCM_Notifier.Properties.Resources.Toolbar_ShowLogs;
 			this.btnLog.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
 			this.btnLog.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.btnLog.Name = "btnLog";
@@ -524,7 +524,7 @@ namespace CHD.SVN_Notifier
 			this.btnDelete.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
 			this.btnDelete.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
 			this.btnDelete.Enabled = false;
-			this.btnDelete.Image = global::CHD.SVN_Notifier.Properties.Resources.Toolbar_Remove;
+			this.btnDelete.Image = global::CHD.SCM_Notifier.Properties.Resources.Toolbar_Remove;
 			this.btnDelete.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
 			this.btnDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.btnDelete.Name = "btnDelete";
@@ -542,7 +542,7 @@ namespace CHD.SVN_Notifier
 			// 
 			this.btnAddFile.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
 			this.btnAddFile.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.btnAddFile.Image = global::CHD.SVN_Notifier.Properties.Resources.Toolbar_AddFile;
+			this.btnAddFile.Image = global::CHD.SCM_Notifier.Properties.Resources.Toolbar_AddFile;
 			this.btnAddFile.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
 			this.btnAddFile.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.btnAddFile.Name = "btnAddFile";
@@ -560,7 +560,7 @@ namespace CHD.SVN_Notifier
 			// 
 			this.btnAddFolder.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
 			this.btnAddFolder.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.btnAddFolder.Image = global::CHD.SVN_Notifier.Properties.Resources.Toolbar_AddFolder;
+			this.btnAddFolder.Image = global::CHD.SCM_Notifier.Properties.Resources.Toolbar_AddFolder;
 			this.btnAddFolder.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
 			this.btnAddFolder.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.btnAddFolder.Name = "btnAddFolder";
@@ -609,7 +609,7 @@ namespace CHD.SVN_Notifier
 			this.MaximizeBox = false;
 			this.MinimumSize = new System.Drawing.Size (512, 160);
 			this.Name = "MainForm";
-			this.Text = "SVN Notifier";
+			this.Text = "SCM Notifier";
 			this.Deactivate += new System.EventHandler (this.MainForm_Deactivate);
 			this.Activated += new System.EventHandler (this.MainForm_Activated);
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
