@@ -121,23 +121,23 @@
   <data name="Errors" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons\Errors.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="FolderStatus_Error" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Icons\FolderStatus_Error.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Svn_FolderStatus_Error" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Svn_FolderStatus_Error.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="FolderStatus_NeedUpdate" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Icons\FolderStatus_NeedUpdate.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Svn_FolderStatus_NeedUpdate" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Svn_FolderStatus_NeedUpdate.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="FolderStatus_NeedUpdate_Modified" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Icons\FolderStatus_NeedUpdate_Modified.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Svn_FolderStatus_NeedUpdate_Modified" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Svn_FolderStatus_NeedUpdate_Modified.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="FolderStatus_Unknown" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Icons\FolderStatus_Unknown.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Svn_FolderStatus_Unknown" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Svn_FolderStatus_Unknown.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="FolderStatus_UpToDate" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Icons\FolderStatus_UpToDate.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Svn_FolderStatus_UpToDate" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Svn_FolderStatus_UpToDate.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="FolderStatus_UpToDate_Modified" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Icons\FolderStatus_UpToDate_Modified.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Svn_FolderStatus_UpToDate_Modified" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Svn_FolderStatus_UpToDate_Modified.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="Git_FolderStatus_Error" type="System.Resources.ResXFileRef, System.Windows.Forms">

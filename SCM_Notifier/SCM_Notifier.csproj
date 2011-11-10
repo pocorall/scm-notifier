@@ -163,10 +163,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="Icons\Errors.ico" />
-    <None Include="Icons\FolderStatus_Error.png" />
-    <None Include="Icons\FolderStatus_NeedUpdate.png" />
-    <None Include="Icons\FolderStatus_Unknown.png" />
-    <None Include="Icons\FolderStatus_UpToDate.png" />
     <None Include="Icons\Toolbar_AddFile.png" />
     <None Include="Icons\Toolbar_AddFolder.png" />
     <None Include="Icons\Toolbar_OpenFolder.png" />
@@ -197,8 +193,6 @@
       <DependentUpon>UpdateLogsForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <None Include="Icons\FolderStatus_NeedUpdate_Modified.png" />
-    <None Include="Icons\FolderStatus_UpToDate_Modified.png" />
     <None Include="Icons\Toolbar_Commit.png" />
     <None Include="Icons\Toolbar_ShowChangeLogs.png" />
     <None Include="Icons\Toolbar_ShowLogs.png" />
@@ -208,6 +202,12 @@
     <Content Include="Icons\Git_FolderStatus_Unknown.png" />
     <Content Include="Icons\Git_FolderStatus_UpToDate.png" />
     <Content Include="Icons\Git_FolderStatus_UpToDate_Modified.png" />
+    <Content Include="Icons\Svn_FolderStatus_Error.png" />
+    <Content Include="Icons\Svn_FolderStatus_NeedUpdate.png" />
+    <Content Include="Icons\Svn_FolderStatus_NeedUpdate_Modified.png" />
+    <Content Include="Icons\Svn_FolderStatus_Unknown.png" />
+    <Content Include="Icons\Svn_FolderStatus_UpToDate.png" />
+    <Content Include="Icons\Svn_FolderStatus_UpToDate_Modified.png" />
     <Content Include="License.txt" />
     <None Include="Resources\pictureBox1.Image.png" />
   </ItemGroup>

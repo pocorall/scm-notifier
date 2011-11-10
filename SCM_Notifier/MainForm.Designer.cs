@@ -112,11 +112,11 @@ namespace pocorall.SCM_Notifier
 			// 
 			// imageListFolderStatus
 			// 
-            global::pocorall.SCM_Notifier.Properties.Resources.getBitmap(imageListFolderStatus.Images, "FolderStatus_UpToDate");
-            global::pocorall.SCM_Notifier.Properties.Resources.getBitmap(imageListFolderStatus.Images, "FolderStatus_Error");
-            global::pocorall.SCM_Notifier.Properties.Resources.getBitmap(imageListFolderStatus.Images, "FolderStatus_Unknown");
-            global::pocorall.SCM_Notifier.Properties.Resources.getBitmap(imageListFolderStatus.Images, "FolderStatus_UpToDate_Modified");
-            global::pocorall.SCM_Notifier.Properties.Resources.getBitmap(imageListFolderStatus.Images, "FolderStatus_NeedUpdate_Modified");
+            global::pocorall.SCM_Notifier.Properties.Resources.getBitmap(imageListFolderStatus.Images, "Svn_FolderStatus_UpToDate");
+            global::pocorall.SCM_Notifier.Properties.Resources.getBitmap(imageListFolderStatus.Images, "Svn_FolderStatus_Error");
+            global::pocorall.SCM_Notifier.Properties.Resources.getBitmap(imageListFolderStatus.Images, "Svn_FolderStatus_Unknown");
+            global::pocorall.SCM_Notifier.Properties.Resources.getBitmap(imageListFolderStatus.Images, "Svn_FolderStatus_UpToDate_Modified");
+            global::pocorall.SCM_Notifier.Properties.Resources.getBitmap(imageListFolderStatus.Images, "Svn_FolderStatus_NeedUpdate_Modified");
             global::pocorall.SCM_Notifier.Properties.Resources.getBitmap(imageListFolderStatus.Images, "Git_FolderStatus_UpToDate");
             global::pocorall.SCM_Notifier.Properties.Resources.getBitmap(imageListFolderStatus.Images, "Git_FolderStatus_NeedUpdate");
             global::pocorall.SCM_Notifier.Properties.Resources.getBitmap(imageListFolderStatus.Images, "Git_FolderStatus_Error");
