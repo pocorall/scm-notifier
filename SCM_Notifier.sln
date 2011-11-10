@@ -2,7 +2,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCM_Notifier", "SCM_Notifier\SCM_Notifier.csproj", "{047E30FF-665B-422C-9877-8983961F848A}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SCM_Notifier_Setup", "SCM_Notifier_Setup\SCM_Notifier_Setup.vdproj", "{69E1A3A8-5925-47FD-8D54-2ACAD2FD148F}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SCM_Notifier_Setup", "SCM_Notifier_Setup\SCM_Notifier_Setup.vdproj", "{32E9D32C-E6DF-4A7B-B5B0-FDF69724DA1C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,10 +20,10 @@ Global
 		{047E30FF-665B-422C-9877-8983961F848A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{047E30FF-665B-422C-9877-8983961F848A}.Release|x86.ActiveCfg = Release|x86
 		{047E30FF-665B-422C-9877-8983961F848A}.Release|x86.Build.0 = Release|x86
-		{69E1A3A8-5925-47FD-8D54-2ACAD2FD148F}.Debug|Any CPU.ActiveCfg = Debug
-		{69E1A3A8-5925-47FD-8D54-2ACAD2FD148F}.Debug|x86.ActiveCfg = Debug
-		{69E1A3A8-5925-47FD-8D54-2ACAD2FD148F}.Release|Any CPU.ActiveCfg = Release
-		{69E1A3A8-5925-47FD-8D54-2ACAD2FD148F}.Release|x86.ActiveCfg = Release
+		{32E9D32C-E6DF-4A7B-B5B0-FDF69724DA1C}.Debug|Any CPU.ActiveCfg = Debug
+		{32E9D32C-E6DF-4A7B-B5B0-FDF69724DA1C}.Debug|x86.ActiveCfg = Debug
+		{32E9D32C-E6DF-4A7B-B5B0-FDF69724DA1C}.Release|Any CPU.ActiveCfg = Release
+		{32E9D32C-E6DF-4A7B-B5B0-FDF69724DA1C}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
