@@ -802,7 +802,7 @@ namespace pocorall.SCM_Notifier
 		/// </summary>
 		private void CheckForNewVersion (bool forceShowResult)
 		{
-			string lastStableVersionInfo = ReadFromWeb ("http://svnnotifier.tigris.org/LastStableVersion.txt");
+            string lastStableVersionInfo = ReadFromWeb("https://github.com/downloads/pocorall/scm-notifier/LastStableVersion.txt");
 
 			if (lastStableVersionInfo != null)
 			{

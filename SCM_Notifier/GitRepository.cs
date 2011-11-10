@@ -36,12 +36,10 @@ namespace pocorall.SCM_Notifier
             
         }
 
-
         public override int GetRepositoryHeadRevision()
         {
             return GetRepositoryRevision(Config.GitPath, Path, "HEAD");
         }
-
 
         public override int GetRepositoryCommitedRevision()
         {
@@ -59,13 +57,11 @@ namespace pocorall.SCM_Notifier
             ExecuteProcess(Config.TortoiseGitPath, null, arguments, false, false);
         }
 
-
         public override void OpenLogWindow()
         {
             string arguments = String.Format("/command:log /path:\"{0}\"", Path);
             ExecuteProcess(Config.TortoiseGitPath, null, arguments, false, false);
         }
-
 
         /// <summary>
         /// This method waits until updating will finish
@@ -83,7 +79,6 @@ namespace pocorall.SCM_Notifier
             ExecuteResult er = ExecuteProcess(Config.GitPath, Path, arguments, true, true);
             if (er.processOutput.Contains("othing added to commit"))
             {
-
                 arguments = String.Format("/command:push /path:\"{0}\" /notempfile", Path);
                 er = ExecuteProcess(Config.TortoiseGitPath, null, arguments, false, false);
                 svnFolderProcesses.Add(new ScmRepositoryProcess(this, er.process, false));
