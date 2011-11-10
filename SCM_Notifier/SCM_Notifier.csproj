@@ -1,7 +1,8 @@
-﻿<Project DefaultTargets="Build" ToolsVersion="3.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{047E30FF-665B-422C-9877-8983961F848A}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -17,15 +18,16 @@
     <DefaultTargetSchema>IE50</DefaultTargetSchema>
     <DelaySign>false</DelaySign>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>CHD.SCM_Notifier</RootNamespace>
+    <RootNamespace>pocorall.SCM_Notifier</RootNamespace>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <StartupObject>
     </StartupObject>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
-    <OldToolsVersion>0.0</OldToolsVersion>
+    <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>bin\</OutputPath>
@@ -109,6 +111,7 @@
     <Compile Include="ErrorLogForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="GitRepository.cs" />
     <Compile Include="IniFile.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -133,18 +136,17 @@
     <Compile Include="SettingsProjectForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SvnFolder.cs">
+    <Compile Include="ScmRepository.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="SvnTools.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="SvnRepository.cs" />
     <Compile Include="SvnXml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="UpdateLogsForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <None Include="Resources\Image1.bmp" />
     <EmbeddedResource Include="AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -201,7 +203,14 @@
     <None Include="Icons\Toolbar_Commit.png" />
     <None Include="Icons\Toolbar_ShowChangeLogs.png" />
     <None Include="Icons\Toolbar_ShowLogs.png" />
+    <Content Include="Icons\Git_FolderStatus_Error.png" />
+    <Content Include="Icons\Git_FolderStatus_NeedUpdate.png" />
+    <Content Include="Icons\Git_FolderStatus_NeedUpdate_Modified.png" />
+    <Content Include="Icons\Git_FolderStatus_Unknown.png" />
+    <Content Include="Icons\Git_FolderStatus_UpToDate.png" />
+    <Content Include="Icons\Git_FolderStatus_UpToDate_Modified.png" />
     <Content Include="License.txt" />
+    <None Include="Resources\pictureBox1.Image.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

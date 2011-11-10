@@ -3,7 +3,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
-namespace CHD.SCM_Notifier
+namespace pocorall.SCM_Notifier
 {
 	partial class MainForm
 	{
@@ -46,58 +46,27 @@ namespace CHD.SCM_Notifier
 			}
 		}
 
-		//////////////////////////////////////////////////////////////////////////////
-
-		private const int imageIndex_UpToDate = 0;
-		private const int imageIndex_NeedUpdate = 1;
-		private const int imageIndex_Bad = 2;
-		private const int imageIndex_Unknown = 3;
-		private const int imageIndex_UpToDate_Modified = 4;
-		private const int imageIndex_NeedUpdate_Modified = 5;
-
-		private static int GetFolderStatusImageIndex (SvnFolderStatus folderStatus)
-		{
-			switch (folderStatus)
-			{
-				case SvnFolderStatus.NeedUpdate_Modified:
-					return imageIndex_NeedUpdate_Modified;
-
-				case SvnFolderStatus.UpToDate_Modified:
-					return imageIndex_UpToDate_Modified;
-
-				case SvnFolderStatus.UpToDate:
-					return imageIndex_UpToDate;
-
-				case SvnFolderStatus.NeedUpdate:
-					return imageIndex_NeedUpdate;
-
-				case SvnFolderStatus.Error:
-					return imageIndex_Bad;
-
-				default:
-					return imageIndex_Unknown;
-			}
-		}
+		
 
 		//////////////////////////////////////////////////////////////////////////////
 
-		private void UpdateFolder ()
+		private void UpdateFolder()
 		{
 			if (listViewFolders.SelectedIndices.Count == 0)
 				return;
 
 			int selectedIndex = listViewFolders.SelectedIndices[0];
-			SvnFolder folder = folders[selectedIndex];
+			ScmRepository folder = folders[selectedIndex];
 
-			if (Config.ChangeLogBeforeUpdate && (folder.reviewedRevision < SvnTools.GetRepositoryHeadRevision (folder)))
+            if (Config.ChangeLogBeforeUpdate && (folder.reviewedRevision < folder.GetRepositoryHeadRevision()))
 			{
 				MessageBox.Show ("You need to see ChangeLog first!", "SCM Notifier", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 				return;
 			}
 
 			btnUpdate.Enabled = updateToolStripMenuItem.Enabled = checkNowToolStripMenuItem.Enabled = false;
-			folder.Status = SvnFolderStatus.Unknown;
-			listViewFolders.Items[selectedIndex].ImageIndex = imageIndex_Unknown;
+			folder.Status = ScmRepositoryStatus.Unknown;
+            listViewFolders.Items[selectedIndex].ImageIndex = folder.ImageIndex();
 			newNonUpdatedFolders.Clear ();
 
 			statusStrip.Items[0].Text = "Updating '" + folder.Path + "'...";
@@ -107,7 +76,7 @@ namespace CHD.SCM_Notifier
 			updateNotInProgress.Reset ();
 			BeginUpdateFolderStatuses ();
 
-			SvnTools.Update (folder, false);
+            folder.Update(false);
 
 			forcedFolders.Enqueue (folder);
 
@@ -115,38 +84,38 @@ namespace CHD.SCM_Notifier
 		}
 
 
-		private void CommitFolder ()
+		private void CommitFolder()
 		{
 			if (listViewFolders.SelectedIndices.Count == 0)
 				return;
 
 			int selectedIndex = listViewFolders.SelectedIndices[0];
-			SvnTools.Commit (folders[selectedIndex]);
+            folders[selectedIndex].Commit();
 		}
 
 
-		private void UpdateAll ()
+		private void UpdateAll()
 		{
 			newNonUpdatedFolders.Clear ();
 			statusStrip.Items[0].Text = "Updating all...";
-			UpdateTray (true);
+			UpdateTray(true);
 
-			BeginUpdateFolderStatuses ();
+			BeginUpdateFolderStatuses();
 
 			btnUpdate.Enabled = updateToolStripMenuItem.Enabled = checkNowToolStripMenuItem.Enabled = menuItem_UpdateAll.Enabled = false;
 
-			foreach (SvnFolder folder in folders)
-				if ((folder.Status == SvnFolderStatus.NeedUpdate) || (folder.Status == SvnFolderStatus.NeedUpdate_Modified))
+			foreach (ScmRepository folder in folders)
+				if ((folder.Status == ScmRepositoryStatus.NeedUpdate) || (folder.Status == ScmRepositoryStatus.NeedUpdate_Modified))
 				{
-					folder.Status = SvnFolderStatus.Unknown;
-					listViewFolders.Items[folders.IndexOf (folder)].ImageIndex = imageIndex_Unknown;
+					folder.Status = ScmRepositoryStatus.Unknown;
+                    listViewFolders.Items[folders.IndexOf(folder)].ImageIndex = folder.ImageIndex();
 
 					if (Config.UpdateAllSilently)
-						SvnTools.BeginUpdateSilently (folder);
+                        folder.BeginUpdateSilently();
 					else
 					{
 						updateNotInProgress.Reset ();
-						SvnTools.Update (folder, true);
+                        folder.Update(true);
 						forcedFolders.Enqueue (folder);
 						updateNotInProgress.Set ();
 					}
@@ -170,14 +139,14 @@ namespace CHD.SCM_Notifier
 		private void ShowChangeLog ()
 		{
 			int selectedIndex = listViewFolders.SelectedIndices[0];
-			SvnTools.OpenChangeLogWindow (folders[selectedIndex], true);
+            folders[selectedIndex].OpenChangeLogWindow(true);
 		}
 
 
 		private void ShowFullLog ()
 		{
 			int selectedIndex = listViewFolders.SelectedIndices[0];
-			SvnTools.OpenLogWindow (folders[selectedIndex].Path);
+			folders[selectedIndex].OpenLogWindow();
 		}
 
 

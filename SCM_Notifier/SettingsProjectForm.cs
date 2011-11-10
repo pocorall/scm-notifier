@@ -27,7 +27,7 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using Iae.Windows.Forms;
 
-namespace CHD.SCM_Notifier
+namespace pocorall.SCM_Notifier
 {
 	/// <summary>
 	/// Summary description for SettingsProjectForm.
@@ -59,7 +59,7 @@ namespace CHD.SCM_Notifier
 		private TextBox textBox_folder;
 		private FolderBrowserDialog folderBrowserDialog;
 		private Label label10;
-		private SvnFolder folder;
+		private ScmRepository folder;
 
 
 
@@ -421,7 +421,7 @@ namespace CHD.SCM_Notifier
 		#endregion
 
 		
-		public SettingsProjectForm (SvnFolder folder)
+		public SettingsProjectForm (ScmRepository folder)
 		{
 			InitializeComponent();		// Required for Windows Form Designer support
 

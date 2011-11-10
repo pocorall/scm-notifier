@@ -27,7 +27,7 @@ using System.Collections;
 using System.IO;
 using System.Xml;
 
-namespace CHD.SCM_Notifier
+namespace pocorall.SCM_Notifier
 {
 	public class SvnXml
 	{

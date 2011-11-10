@@ -27,14 +27,14 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Forms;
 
-namespace CHD.SCM_Notifier
+namespace pocorall.SCM_Notifier
 {
 	/// <summary>
 	/// Summary description for AboutForm.
 	/// </summary>
 	public class AboutForm : Form
 	{
-		public static Version Version = new Version ("1.8.4");
+		public static Version Version = new Version ("1.9.0");
 		public static string VersionStatus = " alpha";		// " alpha", " beta", ""
 
 		#region Windows Form Designer generated fields
@@ -146,7 +146,7 @@ namespace CHD.SCM_Notifier
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size (312, 24);
 			this.label2.TabIndex = 4;
-			this.label2.Text = "Copyright (C) 2007-2010 Computer Hardware Design Ltd";
+			this.label2.Text = "Copyright (C) 2011 Sung-Ho Lee and Computer Hardware Design Ltd";
 			this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// label3
@@ -166,7 +166,7 @@ namespace CHD.SCM_Notifier
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size (336, 23);
 			this.label4.TabIndex = 6;
-			this.label4.Text = "Developers: Vlad Rudenko, Aleksej Vaschenko, Nikolaj Nahimov";
+			this.label4.Text = "Developers: Sung-Ho Lee, Vlad Rudenko, Aleksej Vaschenko, Nikolaj Nahimov";
 			this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// label5

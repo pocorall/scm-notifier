@@ -31,7 +31,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace CHD.SCM_Notifier
+namespace pocorall.SCM_Notifier
 {
 	public class UpdateLogsForm : Form
 	{
@@ -47,7 +47,6 @@ namespace CHD.SCM_Notifier
 		private ListView listViewLog;
 		private ColumnHeader columnAction;
 		private ColumnHeader columnPath;
-		private Container components;
 
 		#endregion
 
@@ -58,13 +57,6 @@ namespace CHD.SCM_Notifier
 		/// </summary>
 		protected override void Dispose (bool disposing)
 		{
-			if( disposing )
-			{
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
 			base.Dispose( disposing );
 		}
 
@@ -200,10 +192,10 @@ namespace CHD.SCM_Notifier
 		}
 
 		private readonly Hashtable ht = new Hashtable ();
-		private readonly SvnFolderProcess folderProcess;
+		private readonly ScmRepositoryProcess folderProcess;
 
 
-		public UpdateLogsForm (SvnFolderProcess sfp)
+		public UpdateLogsForm (ScmRepositoryProcess sfp)
 		{
 			if (!sfp.isUpdateCommand) throw new ApplicationException();
 			folderProcess = sfp;
@@ -318,7 +310,7 @@ namespace CHD.SCM_Notifier
 
 		private static void PlaySound()
 		{
-			string wavFile = Path.Combine (Path.GetDirectoryName (Config.TortoiseSVNpath), "TortoiseSVN_error.wav");
+			string wavFile = Path.Combine (Path.GetDirectoryName (Config.TortoiseSvnPath), "TortoiseSVN_error.wav");
 			if (File.Exists (wavFile))
 			{
 				PlaySound (wavFile, 0,(int) (SND.SND_ASYNC | SND.SND_FILENAME | SND.SND_NOWAIT));
@@ -328,7 +320,7 @@ namespace CHD.SCM_Notifier
 
 		private void btnLog_Click (object sender, EventArgs e)
 		{
-			SvnTools.OpenChangeLogWindow (folderProcess.folder, false);
+            folderProcess.folder.OpenChangeLogWindow(false);
 		}
 	}
 }

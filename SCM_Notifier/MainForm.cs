@@ -37,7 +37,7 @@ using System.Windows.Forms;
 using DragNDrop;
 
 
-namespace CHD.SCM_Notifier
+namespace pocorall.SCM_Notifier
 {
 	public partial class MainForm : Form
 	{
@@ -63,7 +63,7 @@ namespace CHD.SCM_Notifier
 			else
 				ShowInTaskbar = Config.ShowInTaskbar;
 
-			SvnTools.ErrorAdded += OnErrorAdded;
+            ScmRepository.ErrorAdded += OnErrorAdded;
 			
 			AddPowerEventListener();
 
@@ -106,9 +106,9 @@ namespace CHD.SCM_Notifier
 
 			folders = Config.ReadSvnFolders();
 
-			foreach (SvnFolder folder in folders)
+			foreach (ScmRepository folder in folders)
 			{
-				ListViewItem item = new ListViewItem (folder.Path, imageIndex_Unknown);
+                ListViewItem item = new ListViewItem(folder.Path, folder.ImageIndex());
 
 				if (folder.Disable)
 				{
@@ -248,11 +248,12 @@ namespace CHD.SCM_Notifier
         {
             if (!folders.ContainsPath(path))
             {
-                if (Directory.Exists(path + @"\.svn") || Directory.Exists(path + @"\_svn"))
-                {
-                    folders.Add(new SvnFolder(path, SvnFolder.PathType.Directory));
+                ScmRepository repo = ScmRepository.create(path);
 
-                    listViewFolders.Items.Add(new ListViewItem(path, imageIndex_Unknown));
+                if(repo !=null) 
+                {
+                    folders.Add(repo);
+                    listViewFolders.Items.Add(new ListViewItem(path, repo.ImageIndex()));
                     UpdateListViewFolderNames();
 
                     Config.SaveSvnFolders(folders);
@@ -287,9 +288,10 @@ namespace CHD.SCM_Notifier
             {
                 if (Directory.Exists(path + @"\.svn") || Directory.Exists(path + @"\_svn"))
                 {
-                    folders.Add(new SvnFolder(fileName, SvnFolder.PathType.File));
+                    SvnRepository repo = new SvnRepository(fileName, ScmRepository.PathType.File);
+                    folders.Add(repo);
 
-                    listViewFolders.Items.Add(new ListViewItem(fileName, imageIndex_Unknown));
+                    listViewFolders.Items.Add(new ListViewItem(fileName, repo.ImageIndex()));
                     UpdateListViewFolderNames();
 
                     Config.SaveSvnFolders(folders);
@@ -299,7 +301,7 @@ namespace CHD.SCM_Notifier
                 }
                 else
                 {
-                    MessageBox.Show("This file is not under SVN", "SCM Notifier", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("This file is not under SCM", "SCM Notifier", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
@@ -433,17 +435,17 @@ namespace CHD.SCM_Notifier
 		private void propertiesToolStripMenuItem_Click (object sender, EventArgs e)
 		{
 			int selectedIndex = listViewFolders.SelectedIndices[0];
-			SvnFolder folder = folders[selectedIndex];
+			ScmRepository folder = folders[selectedIndex];
 
 			if (new SettingsProjectForm (folder).ShowDialog (this) == DialogResult.OK)
 			{
 				listViewFolders.Items[selectedIndex].Text = folder.Path;
 				if (folder.Disable)
 				{
-					folder.Status = SvnFolderStatus.Unknown;
+					folder.Status = ScmRepositoryStatus.Unknown;
 					listViewFolders.Items[selectedIndex].Font = new Font (listViewFolders.Font, FontStyle.Strikeout);
 					listViewFolders.Items[selectedIndex].ForeColor = Color.LightGray;
-					listViewFolders.Items[selectedIndex].ImageIndex = imageIndex_Unknown;
+                    listViewFolders.Items[selectedIndex].ImageIndex = folder.ImageIndex();
 				}
 				else
 				{
@@ -485,7 +487,7 @@ namespace CHD.SCM_Notifier
 
 			switch (folders[selectedIndex].Status)
 			{
-				case SvnFolderStatus.NeedUpdate:
+				case ScmRepositoryStatus.NeedUpdate:
 					checkNowToolStripMenuItem.Enabled =
 						updateToolStripMenuItem.Enabled =
 						openToolStripMenuItem.Enabled =
@@ -494,7 +496,7 @@ namespace CHD.SCM_Notifier
 						propertiesToolStripMenuItem.Enabled = true;
 					break;
 
-				case SvnFolderStatus.NeedUpdate_Modified:
+				case ScmRepositoryStatus.NeedUpdate_Modified:
 					checkNowToolStripMenuItem.Enabled =
 						commitToolStripMenuItem.Enabled =
 						updateToolStripMenuItem.Enabled =
@@ -504,7 +506,7 @@ namespace CHD.SCM_Notifier
 						propertiesToolStripMenuItem.Enabled = true;
 					break;
 
-				case SvnFolderStatus.UpToDate_Modified:
+				case ScmRepositoryStatus.UpToDate_Modified:
 					checkNowToolStripMenuItem.Enabled =
 						commitToolStripMenuItem.Enabled =
 						openToolStripMenuItem.Enabled =
@@ -512,20 +514,20 @@ namespace CHD.SCM_Notifier
 						propertiesToolStripMenuItem.Enabled = true;
 					break;
 
-				case SvnFolderStatus.UpToDate:
+				case ScmRepositoryStatus.UpToDate:
 					checkNowToolStripMenuItem.Enabled =
 						openToolStripMenuItem.Enabled =
 						logToolStripMenuItem.Enabled =
 						propertiesToolStripMenuItem.Enabled = true;
 					break;
 
-				case SvnFolderStatus.Unknown:
+				case ScmRepositoryStatus.Unknown:
 					checkNowToolStripMenuItem.Enabled =
 						openToolStripMenuItem.Enabled =
 						propertiesToolStripMenuItem.Enabled = true;
 					break;
 
-				case SvnFolderStatus.Error:
+				case ScmRepositoryStatus.Error:
 					checkNowToolStripMenuItem.Enabled =
 						openToolStripMenuItem.Enabled =
 						propertiesToolStripMenuItem.Enabled = true;
@@ -565,16 +567,16 @@ namespace CHD.SCM_Notifier
 		{
 			if (listViewFolders.SelectedIndices.Count > 0)
 			{
-				SvnFolder folder = folders[listViewFolders.SelectedIndices[0]];
+				ScmRepository folder = folders[listViewFolders.SelectedIndices[0]];
 
 				btnChangeLog.Enabled = btnUpdate.Enabled = btnLog.Enabled = false;
 
-				if ((folder.Status == SvnFolderStatus.NeedUpdate) || (folder.Status == SvnFolderStatus.NeedUpdate_Modified))
+				if ((folder.Status == ScmRepositoryStatus.NeedUpdate) || (folder.Status == ScmRepositoryStatus.NeedUpdate_Modified))
 					btnChangeLog.Enabled = btnUpdate.Enabled = btnLog.Enabled = true;
-				else if ((folder.Status == SvnFolderStatus.UpToDate) || (folder.Status == SvnFolderStatus.UpToDate_Modified))
+				else if ((folder.Status == ScmRepositoryStatus.UpToDate) || (folder.Status == ScmRepositoryStatus.UpToDate_Modified))
 					btnLog.Enabled = true;
 
-				if ((folder.Status == SvnFolderStatus.NeedUpdate_Modified) || (folder.Status == SvnFolderStatus.UpToDate_Modified))
+				if ((folder.Status == ScmRepositoryStatus.NeedUpdate_Modified) || (folder.Status == ScmRepositoryStatus.UpToDate_Modified))
 					btnCommit.Enabled = true;
 
 				deleteToolStripMenuItem.Enabled = true;
@@ -673,8 +675,8 @@ namespace CHD.SCM_Notifier
                     DragAndDropListView.DragItemData data = (DragAndDropListView.DragItemData)e.Data.GetData(typeof(DragAndDropListView.DragItemData));
                     ListViewItem item = (ListViewItem)data.DragItems[0];
 
-                    folders.Remove((SvnFolder)item.Tag);
-                    folders.Insert(item.Index, (SvnFolder)item.Tag);
+                    folders.Remove((ScmRepository)item.Tag);
+                    folders.Insert(item.Index, (ScmRepository)item.Tag);
 
                     Config.SaveSvnFolders(folders);
                 }
@@ -774,11 +776,11 @@ namespace CHD.SCM_Notifier
 		////////////////////////////////////////////////////////////////////////////////////
 
 		private readonly SvnFolderCollection newNonUpdatedFolders = new SvnFolderCollection();
-		private delegate void UpdateListViewMethod (SvnFolder folder, SvnFolderStatus folderStatus, DateTime statusTime);
+		private delegate void UpdateListViewMethod (ScmRepository folder, ScmRepositoryStatus folderStatus, DateTime statusTime);
 		private delegate void SetStatusBarTextMethod (string text);
 		private delegate void UpdateErrorLogMethod (string path, string error);
 		private delegate void CheckedInvokeMethod (Delegate method, object[] args);
-		private delegate void ShowUpdateErrorsMethod (SvnFolderProcess sfp);
+		private delegate void ShowUpdateErrorsMethod (ScmRepositoryProcess sfp);
 
 		internal static Thread statusThread;
 		string firstBalloonPath;
@@ -888,7 +890,7 @@ namespace CHD.SCM_Notifier
 
 			int intervalMs = folders.FindNextStatusUpdateTimeMs (formIsActive);
 
-			if ((intervalMs > 333) && (SvnTools.svnFolderProcesses.Count > 0))
+			if ((intervalMs > 333) && (ScmRepository.svnFolderProcesses.Count > 0))
 				intervalMs = 333;	// Wait commit process(es) finish at least 3 times per second
 
 			statusUpdateTimer.Interval = intervalMs == 0 ? 1 : intervalMs;
@@ -942,7 +944,7 @@ namespace CHD.SCM_Notifier
 				{
 					SafeInvoke (new MethodInvoker (BeginUpdateListView));
 
-					foreach (SvnFolder folder in (SvnFolderCollection) folders.Clone())
+					foreach (ScmRepository folder in (SvnFolderCollection) folders.Clone())
 					{
 						if (folder.Disable) continue;
 
@@ -959,9 +961,9 @@ namespace CHD.SCM_Notifier
 						bool skipUpdateStatus = false;
 
 						// Check commit and update processes for finishing
-						for (int i = 0; i < SvnTools.svnFolderProcesses.Count; i++)
+						for (int i = 0; i < ScmRepository.svnFolderProcesses.Count; i++)
 						{
-							var sfp = (SvnFolderProcess) SvnTools.svnFolderProcesses[i];
+                            var sfp = (ScmRepositoryProcess)ScmRepository.svnFolderProcesses[i];
 
 							if (sfp.process.HasExited)
 							{
@@ -969,19 +971,19 @@ namespace CHD.SCM_Notifier
 									SafeInvoke (new ShowUpdateErrorsMethod (ShowUpdateErrors), new object[] {sfp}, Int32.MaxValue);
 
 								UpdateFolderStatus (sfp.folder);
-								SvnTools.svnFolderProcesses.RemoveAt (i--);
+                                ScmRepository.svnFolderProcesses.RemoveAt(i--);
 							}
 							else if ((folder.Path == sfp.folder.Path) && sfp.isUpdateCommand)
 							{
 								skipUpdateStatus = true;		// Because updating is still in progress
-								SvnTools.ReadProcessOutput (sfp);
+								ScmRepository.ReadProcessOutput (sfp);
 							}
 						}
 
 						while (forcedFolders.Count > 0)
-							UpdateFolderStatus ((SvnFolder) forcedFolders.Dequeue());
+							UpdateFolderStatus ((ScmRepository) forcedFolders.Dequeue());
 
-						if ((folder.StatusTime + new TimeSpan (0, 0, folder.GetInterval (formIsActive)) <= DateTime.Now) && !skipUpdateStatus)
+						if ((folder.StatusUpdateTime + new TimeSpan (0, 0, folder.GetInterval (formIsActive)) <= DateTime.Now) && !skipUpdateStatus)
 							UpdateFolderStatus (folder);
 					}
 
@@ -1016,7 +1018,7 @@ namespace CHD.SCM_Notifier
 			}
 			catch (ThreadAbortException)
 			{
-				SvnTools.KillBackgroundProcess();
+				ScmRepository.KillBackgroundProcess();
 			}
 			catch (Exception e)		// Otherwise it will just lost
 			{
@@ -1091,12 +1093,12 @@ namespace CHD.SCM_Notifier
 		/// <summary>
 		/// Executed on working thread
 		/// </summary>
-		private void UpdateFolderStatus (SvnFolder folder)
+		private void UpdateFolderStatus (ScmRepository folder)
 		{
 			SafeInvoke (new SetStatusBarTextMethod (SetStatusBarText), new object[] {"Checking '" + folder.Path + "'..."});
 			DateTime statusTime = DateTime.Now;
 			if (sessionEndInProgress) return;		// Need to avoid error on svn.exe invoking
-			SvnFolderStatus status = SvnTools.GetSvnFolderStatus (folder);
+            ScmRepositoryStatus status = folder.GetSvnFolderStatus();
 			SafeInvoke (new UpdateListViewMethod (UpdateListView), new object[] {folder, status, statusTime});
 		}
 
@@ -1113,22 +1115,21 @@ namespace CHD.SCM_Notifier
 		}
 
 
-		private void UpdateListView (SvnFolder folder, SvnFolderStatus folderStatus, DateTime statusTime)
+		private void UpdateListView (ScmRepository folder, ScmRepositoryStatus folderStatus, DateTime statusTime)
 		{
 			int i = folders.IndexOf (folder);
 			if (i < 0) return;
 
-			if (statusTime < folder.StatusTime)
+			if (statusTime < folder.StatusUpdateTime)
 				return;
 
 			if (folder.Status != folderStatus)
 			{
-				listViewFolders.Items[i].ImageIndex = GetFolderStatusImageIndex (folderStatus);
+                folder.Status = folderStatus;
+                listViewFolders.Items[i].ImageIndex = folder.ImageIndex();
 
-				folder.Status = folderStatus;
-
-				if ((folderStatus == SvnFolderStatus.NeedUpdate) ||
-					(folderStatus == SvnFolderStatus.NeedUpdate_Modified))
+				if ((folderStatus == ScmRepositoryStatus.NeedUpdate) ||
+					(folderStatus == ScmRepositoryStatus.NeedUpdate_Modified))
 				{
 					newNonUpdatedFolders.Add (folder);
 					UpdateTray (true);
@@ -1169,9 +1170,9 @@ namespace CHD.SCM_Notifier
 			string updateTrayText = "";
 			string errorTrayText = "";
 
-			foreach (SvnFolder folder in folders)
+			foreach (ScmRepository folder in folders)
 			{
-				if (!folder.Disable && (folder.Status == SvnFolderStatus.Error))
+				if (!folder.Disable && (folder.Status == ScmRepositoryStatus.Error))
 				{
 					if (errorTrayText == "")
 						errorTrayText = "Failed:";
@@ -1188,9 +1189,9 @@ namespace CHD.SCM_Notifier
 				}
 			}
 
-			foreach (SvnFolder folder in folders)
+			foreach (ScmRepository folder in folders)
 			{
-				if ((folder.Status == SvnFolderStatus.NeedUpdate) || (folder.Status == SvnFolderStatus.NeedUpdate_Modified))
+				if ((folder.Status == ScmRepositoryStatus.NeedUpdate) || (folder.Status == ScmRepositoryStatus.NeedUpdate_Modified))
 				{
 					if (updateTrayText == "")
 					{
@@ -1220,21 +1221,21 @@ namespace CHD.SCM_Notifier
 			// Update tray icon
 
 			Icon icon;
-			if (folders.ContainsStatus (SvnFolderStatus.Error))
+			if (folders.ContainsStatus (ScmRepositoryStatus.Error))
 			{
 				icon = trayIcon_Error;
 			}
-			else if ((folders.ContainsStatus (SvnFolderStatus.NeedUpdate)) ||
-				(folders.ContainsStatus (SvnFolderStatus.NeedUpdate_Modified)))
+			else if ((folders.ContainsStatus (ScmRepositoryStatus.NeedUpdate)) ||
+				(folders.ContainsStatus (ScmRepositoryStatus.NeedUpdate_Modified)))
 			{
 				icon = trayIcon_NeedUpdate;
 			}
-			else if (folders.ContainsStatus (SvnFolderStatus.Unknown))
+			else if (folders.ContainsStatus (ScmRepositoryStatus.Unknown))
 			{
 				icon = trayIcon_Unknown;
 			}
-			else if ((folders.ContainsStatus (SvnFolderStatus.UpToDate)) ||
-				(folders.ContainsStatus (SvnFolderStatus.UpToDate_Modified)))
+			else if ((folders.ContainsStatus (ScmRepositoryStatus.UpToDate)) ||
+				(folders.ContainsStatus (ScmRepositoryStatus.UpToDate_Modified)))
 			{
 				icon = trayIcon_UpToDate;
 			}
@@ -1247,8 +1248,8 @@ namespace CHD.SCM_Notifier
 
 			// Update menu
 
-			if ((folders.ContainsStatus (SvnFolderStatus.NeedUpdate)
-				|| folders.ContainsStatus (SvnFolderStatus.NeedUpdate_Modified))
+			if ((folders.ContainsStatus (ScmRepositoryStatus.NeedUpdate)
+				|| folders.ContainsStatus (ScmRepositoryStatus.NeedUpdate_Modified))
 				&& !Config.ChangeLogBeforeUpdate)
 			{
 				updateAllToolStripMenuItem.Enabled = true;
@@ -1279,7 +1280,7 @@ namespace CHD.SCM_Notifier
 		}
 
 
-		private void ShowUpdateErrors (SvnFolderProcess sfp)
+		private void ShowUpdateErrors (ScmRepositoryProcess sfp)
 		{
 			new UpdateLogsForm (sfp).ShowDialog (this);
 		}

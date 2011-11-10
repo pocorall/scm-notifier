@@ -1,7 +1,7 @@
 ﻿using System.Windows.Forms;
 using DragNDrop;
 
-namespace CHD.SCM_Notifier
+namespace pocorall.SCM_Notifier
 {
 	partial class MainForm
 	{
@@ -112,15 +112,18 @@ namespace CHD.SCM_Notifier
 			// 
 			// imageListFolderStatus
 			// 
-			this.imageListFolderStatus.ImageStream = ((System.Windows.Forms.ImageListStreamer) (resources.GetObject ("imageListFolderStatus.ImageStream")));
-			this.imageListFolderStatus.TransparentColor = System.Drawing.Color.Transparent;
-			this.imageListFolderStatus.Images.SetKeyName (0, "");
-			this.imageListFolderStatus.Images.SetKeyName (1, "");
-			this.imageListFolderStatus.Images.SetKeyName (2, "");
-			this.imageListFolderStatus.Images.SetKeyName (3, "");
-			this.imageListFolderStatus.Images.SetKeyName (4, "");
-			this.imageListFolderStatus.Images.SetKeyName (5, "");
-			// 
+            global::pocorall.SCM_Notifier.Properties.Resources.getBitmap(imageListFolderStatus.Images, "FolderStatus_UpToDate");
+            global::pocorall.SCM_Notifier.Properties.Resources.getBitmap(imageListFolderStatus.Images, "FolderStatus_Error");
+            global::pocorall.SCM_Notifier.Properties.Resources.getBitmap(imageListFolderStatus.Images, "FolderStatus_Unknown");
+            global::pocorall.SCM_Notifier.Properties.Resources.getBitmap(imageListFolderStatus.Images, "FolderStatus_UpToDate_Modified");
+            global::pocorall.SCM_Notifier.Properties.Resources.getBitmap(imageListFolderStatus.Images, "FolderStatus_NeedUpdate_Modified");
+            global::pocorall.SCM_Notifier.Properties.Resources.getBitmap(imageListFolderStatus.Images, "Git_FolderStatus_UpToDate");
+            global::pocorall.SCM_Notifier.Properties.Resources.getBitmap(imageListFolderStatus.Images, "Git_FolderStatus_NeedUpdate");
+            global::pocorall.SCM_Notifier.Properties.Resources.getBitmap(imageListFolderStatus.Images, "Git_FolderStatus_Error");
+            global::pocorall.SCM_Notifier.Properties.Resources.getBitmap(imageListFolderStatus.Images, "Git_FolderStatus_Unknown");
+            global::pocorall.SCM_Notifier.Properties.Resources.getBitmap(imageListFolderStatus.Images, "Git_FolderStatus_UpToDate_Modified");
+            global::pocorall.SCM_Notifier.Properties.Resources.getBitmap(imageListFolderStatus.Images, "Git_FolderStatus_NeedUpdate_Modified");
+            // 
 			// openFileDialog
 			// 
 			this.openFileDialog.Title = "Select file controlled by Subversion";
@@ -238,7 +241,7 @@ namespace CHD.SCM_Notifier
 			// 
 			// addFolderToolStripMenuItem
 			// 
-			this.addFolderToolStripMenuItem.Image = global::CHD.SCM_Notifier.Properties.Resources.Toolbar_AddFolder;
+			this.addFolderToolStripMenuItem.Image = global::pocorall.SCM_Notifier.Properties.Resources.Toolbar_AddFolder;
 			this.addFolderToolStripMenuItem.Name = "addFolderToolStripMenuItem";
 			this.addFolderToolStripMenuItem.Size = new System.Drawing.Size (152, 22);
 			this.addFolderToolStripMenuItem.Text = "&Add Folder...";
@@ -246,7 +249,7 @@ namespace CHD.SCM_Notifier
 			// 
 			// addFileToolStripMenuItem
 			// 
-			this.addFileToolStripMenuItem.Image = global::CHD.SCM_Notifier.Properties.Resources.Toolbar_AddFile;
+			this.addFileToolStripMenuItem.Image = global::pocorall.SCM_Notifier.Properties.Resources.Toolbar_AddFile;
 			this.addFileToolStripMenuItem.Name = "addFileToolStripMenuItem";
 			this.addFileToolStripMenuItem.Size = new System.Drawing.Size (152, 22);
 			this.addFileToolStripMenuItem.Text = "Add F&ile...";
@@ -255,7 +258,7 @@ namespace CHD.SCM_Notifier
 			// deleteToolStripMenuItem
 			// 
 			this.deleteToolStripMenuItem.Enabled = false;
-			this.deleteToolStripMenuItem.Image = global::CHD.SCM_Notifier.Properties.Resources.Toolbar_Remove;
+			this.deleteToolStripMenuItem.Image = global::pocorall.SCM_Notifier.Properties.Resources.Toolbar_Remove;
 			this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
 			this.deleteToolStripMenuItem.Size = new System.Drawing.Size (152, 22);
 			this.deleteToolStripMenuItem.Text = "&Delete...";
@@ -467,7 +470,7 @@ namespace CHD.SCM_Notifier
 			// btnChangeLog
 			// 
 			this.btnChangeLog.Enabled = false;
-			this.btnChangeLog.Image = global::CHD.SCM_Notifier.Properties.Resources.Toolbar_ShowChangeLogs;
+			this.btnChangeLog.Image = global::pocorall.SCM_Notifier.Properties.Resources.Toolbar_ShowChangeLogs;
 			this.btnChangeLog.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
 			this.btnChangeLog.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.btnChangeLog.Name = "btnChangeLog";
@@ -478,7 +481,7 @@ namespace CHD.SCM_Notifier
 			// btnUpdate
 			// 
 			this.btnUpdate.Enabled = false;
-			this.btnUpdate.Image = global::CHD.SCM_Notifier.Properties.Resources.Toolbar_Update;
+			this.btnUpdate.Image = global::pocorall.SCM_Notifier.Properties.Resources.Toolbar_Update;
 			this.btnUpdate.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
 			this.btnUpdate.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.btnUpdate.Name = "btnUpdate";
@@ -489,7 +492,7 @@ namespace CHD.SCM_Notifier
 			// btnCommit
 			// 
 			this.btnCommit.Enabled = false;
-			this.btnCommit.Image = global::CHD.SCM_Notifier.Properties.Resources.Toolbar_Commit;
+			this.btnCommit.Image = global::pocorall.SCM_Notifier.Properties.Resources.Toolbar_Commit;
 			this.btnCommit.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
 			this.btnCommit.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.btnCommit.Name = "btnCommit";
@@ -500,7 +503,7 @@ namespace CHD.SCM_Notifier
 			// btnOpenFolder
 			// 
 			this.btnOpenFolder.Enabled = false;
-			this.btnOpenFolder.Image = global::CHD.SCM_Notifier.Properties.Resources.Toolbar_OpenFolder;
+			this.btnOpenFolder.Image = global::pocorall.SCM_Notifier.Properties.Resources.Toolbar_OpenFolder;
 			this.btnOpenFolder.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
 			this.btnOpenFolder.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.btnOpenFolder.Name = "btnOpenFolder";
@@ -511,7 +514,7 @@ namespace CHD.SCM_Notifier
 			// btnLog
 			// 
 			this.btnLog.Enabled = false;
-			this.btnLog.Image = global::CHD.SCM_Notifier.Properties.Resources.Toolbar_ShowLogs;
+			this.btnLog.Image = global::pocorall.SCM_Notifier.Properties.Resources.Toolbar_ShowLogs;
 			this.btnLog.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
 			this.btnLog.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.btnLog.Name = "btnLog";
@@ -524,7 +527,7 @@ namespace CHD.SCM_Notifier
 			this.btnDelete.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
 			this.btnDelete.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
 			this.btnDelete.Enabled = false;
-			this.btnDelete.Image = global::CHD.SCM_Notifier.Properties.Resources.Toolbar_Remove;
+			this.btnDelete.Image = global::pocorall.SCM_Notifier.Properties.Resources.Toolbar_Remove;
 			this.btnDelete.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
 			this.btnDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.btnDelete.Name = "btnDelete";
@@ -542,7 +545,7 @@ namespace CHD.SCM_Notifier
 			// 
 			this.btnAddFile.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
 			this.btnAddFile.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.btnAddFile.Image = global::CHD.SCM_Notifier.Properties.Resources.Toolbar_AddFile;
+			this.btnAddFile.Image = global::pocorall.SCM_Notifier.Properties.Resources.Toolbar_AddFile;
 			this.btnAddFile.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
 			this.btnAddFile.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.btnAddFile.Name = "btnAddFile";
@@ -560,7 +563,7 @@ namespace CHD.SCM_Notifier
 			// 
 			this.btnAddFolder.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
 			this.btnAddFolder.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.btnAddFolder.Image = global::CHD.SCM_Notifier.Properties.Resources.Toolbar_AddFolder;
+			this.btnAddFolder.Image = global::pocorall.SCM_Notifier.Properties.Resources.Toolbar_AddFolder;
 			this.btnAddFolder.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
 			this.btnAddFolder.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.btnAddFolder.Name = "btnAddFolder";

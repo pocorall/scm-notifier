@@ -2,3 +2,7 @@ db/
 target/
 .*/
 *.iml
+*.suo
+release/
+debug/
+bin/

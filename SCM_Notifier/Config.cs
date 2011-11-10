@@ -26,20 +26,23 @@
 using System;
 using System.IO;
 
-namespace CHD.SCM_Notifier
+namespace pocorall.SCM_Notifier
 {
 	public class Config
 	{
-		/// <summary>
+        /// <summary>
 		/// Path to svn.exe
 		/// </summary>
-		public static string SVNpath;
+		public static string SvnPath;
 
 
 		/// <summary>
 		/// Path to TortoiseProc.exe
 		/// </summary>
-		public static string TortoiseSVNpath;
+		public static string TortoiseSvnPath;
+
+        public static string GitPath;
+        public static string TortoiseGitPath;
 
 		
 		/// <summary>
@@ -137,9 +140,10 @@ namespace CHD.SCM_Notifier
 			MigrateIfNecessary ();
 
 			// Read settings
-
-			SVNpath = iniFile.ReadString ("Settings", "SVN_path", defaultSVNpath);
-			TortoiseSVNpath = iniFile.ReadString ("Settings", "TortoiseSVN_path", defaultTortoiseSVN_path);
+			SvnPath = iniFile.ReadString ("Settings", "SVN_path", @"C:\Program Files\Sliksvn\bin\svn.exe");
+			TortoiseSvnPath = iniFile.ReadString ("Settings", "TortoiseSVN_path", @"C:\Program Files\TortoiseSVN\bin\TortoiseProc.exe");
+            GitPath = iniFile.ReadString("Settings", "GIT_path", @"C:\Program Files\TortoiseGit\bin\tgit.exe");
+            TortoiseGitPath = iniFile.ReadString("Settings", "TortoiseGIT_path", @"C:\Program Files\TortoiseGit\bin\TortoiseProc.exe");
 
 			DefaultActiveStatusUpdateInterval = iniFile.ReadInteger ("Settings", "DefaultActiveStatusUpdateInterval", 5);
 			DefaultIdleStatusUpdateInterval = iniFile.ReadInteger ("Settings", "DefaultIdleStatusUpdateInterval", 60);
@@ -163,14 +167,16 @@ namespace CHD.SCM_Notifier
 
 		public static bool IsSettingsOK()
 		{
-			return File.Exists (SVNpath) && File.Exists (TortoiseSVNpath);
+            return File.Exists(SvnPath) && File.Exists(TortoiseSvnPath) && File.Exists(GitPath) && File.Exists(TortoiseGitPath);
 		}
 
 
 		public static void SaveSettings ()
 		{
-			iniFile.Write ("Settings", "SVN_path", SVNpath);
-			iniFile.Write ("Settings", "TortoiseSVN_path", TortoiseSVNpath);
+			iniFile.Write ("Settings", "SVN_path", SvnPath);
+			iniFile.Write ("Settings", "TortoiseSVN_path", TortoiseSvnPath);
+            iniFile.Write("Settings", "GIT_path", GitPath);
+            iniFile.Write("Settings", "TortoiseGIT_path", TortoiseGitPath);
 
 			iniFile.Write ("Settings", "DefaultActiveStatusUpdateInterval", DefaultActiveStatusUpdateInterval);
 			iniFile.Write ("Settings", "DefaultIdleStatusUpdateInterval", DefaultIdleStatusUpdateInterval);
@@ -220,7 +226,7 @@ namespace CHD.SCM_Notifier
 
 					//	For SCM_Notifier versions < 1.5.0
 					if (p.Length <= 4)													
-						s += "," + (File.Exists (p[0]) ? (int) SvnFolder.PathType.File : (int) SvnFolder.PathType.Directory);
+						s += "," + (File.Exists (p[0]) ? (int) ScmRepository.PathType.File : (int) ScmRepository.PathType.Directory);
 
 					iniFile.Write ("Folders", "Folder" + i, s);
 				}
@@ -290,7 +296,7 @@ namespace CHD.SCM_Notifier
 				string s = iniFile.ReadString ("Folders", "Folder" + i);
 				if (s.Length == 0) break;
 
-				folders.Add (SvnFolder.Deserialize (s));
+				folders.Add (ScmRepository.Deserialize (s));
 			}
 
 			return folders;
@@ -302,7 +308,7 @@ namespace CHD.SCM_Notifier
 			iniFile.DeleteSection ("Folders");
 
 			int i = 1;
-			foreach (SvnFolder folder in folders)
+			foreach (ScmRepository folder in folders)
 			{
 				iniFile.Write ("Folders", "Folder" + i, folder.Serialize());
 				i++;
@@ -353,8 +359,6 @@ namespace CHD.SCM_Notifier
 
 		#region Private fields
 		
-		private const string defaultSVNpath = @"C:\Program Files\CollabNet Subversion Client\svn.exe";
-		private const string defaultTortoiseSVN_path = @"C:\Program Files\TortoiseSVN\bin\TortoiseProc.exe";
 
 		private static IniFile iniFile;
 

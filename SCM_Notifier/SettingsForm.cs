@@ -27,7 +27,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
-namespace CHD.SCM_Notifier
+namespace pocorall.SCM_Notifier
 {
 	public class SettingsForm : Form
 	{
@@ -997,8 +997,8 @@ namespace CHD.SCM_Notifier
 		
 		private void SettingsForm_Load(object sender, System.EventArgs e)
 		{
-			textBox_SVNpath.Text = Config.SVNpath;
-			textBox_TortoiseSVNpath.Text = Config.TortoiseSVNpath;
+			textBox_SVNpath.Text = Config.SvnPath;
+			textBox_TortoiseSVNpath.Text = Config.TortoiseSvnPath;
 			
 			numericUpDown_DefaultActiveStatusUpdateIntervalHour.Value = Config.DefaultActiveStatusUpdateInterval / 3600;
 			numericUpDown_DefaultActiveStatusUpdateIntervalMin.Value = (Config.DefaultActiveStatusUpdateInterval % 3600) / 60;
@@ -1041,8 +1041,8 @@ namespace CHD.SCM_Notifier
 
 		private void button_OK_Click(object sender, System.EventArgs e)
 		{
-			Config.SVNpath = textBox_SVNpath.Text;
-			Config.TortoiseSVNpath = textBox_TortoiseSVNpath.Text;
+			Config.SvnPath = textBox_SVNpath.Text;
+			Config.TortoiseSvnPath = textBox_TortoiseSVNpath.Text;
 
 			Config.DefaultActiveStatusUpdateInterval = 
 				(int)numericUpDown_DefaultActiveStatusUpdateIntervalHour.Value * 3600

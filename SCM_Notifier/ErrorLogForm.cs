@@ -27,7 +27,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
 
-namespace CHD.SCM_Notifier
+namespace pocorall.SCM_Notifier
 {
 	/// <summary>
 	/// Summary description for SettingsProjectForm.

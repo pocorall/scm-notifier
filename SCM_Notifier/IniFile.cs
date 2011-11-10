@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 using System.ComponentModel;
 using System.IO;
 
-namespace CHD
+namespace pocorall
 {
 	public class IniFile
 	{
