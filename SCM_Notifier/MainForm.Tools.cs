@@ -66,7 +66,7 @@ namespace pocorall.SCM_Notifier
 
 			btnUpdate.Enabled = updateToolStripMenuItem.Enabled = checkNowToolStripMenuItem.Enabled = false;
 			folder.Status = ScmRepositoryStatus.Unknown;
-            listViewFolders.Items[selectedIndex].ImageIndex = folder.ImageIndex();
+            listViewFolders.Items[selectedIndex].ImageKey = folder.IconName;
 			newNonUpdatedFolders.Clear ();
 
 			statusStrip.Items[0].Text = "Updating '" + folder.Path + "'...";
@@ -108,7 +108,7 @@ namespace pocorall.SCM_Notifier
 				if ((folder.Status == ScmRepositoryStatus.NeedUpdate) || (folder.Status == ScmRepositoryStatus.NeedUpdate_Modified))
 				{
 					folder.Status = ScmRepositoryStatus.Unknown;
-                    listViewFolders.Items[folders.IndexOf(folder)].ImageIndex = folder.ImageIndex();
+                    listViewFolders.Items[folders.IndexOf(folder)].ImageKey = folder.IconName;
 
 					if (Config.UpdateAllSilently)
                         folder.BeginUpdateSilently();

@@ -75,7 +75,7 @@ namespace pocorall.SCM_Notifier.Properties {
         internal static void getBitmap(ImageList.ImageCollection images, string bitmapName)
         {
             System.Drawing.Bitmap bitmap = getBitmap(bitmapName);
-            images.Add(bitmap);
+            images.Add(bitmapName, bitmap);
         }
         
         internal static System.Drawing.Bitmap Toolbar_AddFile {

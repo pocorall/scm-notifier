@@ -103,6 +103,11 @@ namespace pocorall.SCM_Notifier
 			Disable = false;
 		}
 
+        public string IconName
+        {
+            get { return scmType + "_FolderStatus_" + GetStatus().ToString(); }
+        }
+
 		public string Serialize () {
 			return scmType + "|"+origPath + "|" + ActiveStatusUpdateInterval + "|" + IdleStatusUpdateInterval + "|" + Disable + "|" + (int)pathType;
 		}

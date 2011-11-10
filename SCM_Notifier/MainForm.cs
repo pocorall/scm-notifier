@@ -108,7 +108,7 @@ namespace pocorall.SCM_Notifier
 
 			foreach (ScmRepository folder in folders)
 			{
-                ListViewItem item = new ListViewItem(folder.Path, folder.ImageIndex());
+                ListViewItem item = new ListViewItem(folder.Path, folder.IconName);
 
 				if (folder.Disable)
 				{
@@ -253,7 +253,7 @@ namespace pocorall.SCM_Notifier
                 if(repo !=null) 
                 {
                     folders.Add(repo);
-                    listViewFolders.Items.Add(new ListViewItem(path, repo.ImageIndex()));
+                    listViewFolders.Items.Add(new ListViewItem(path, repo.IconName));
                     UpdateListViewFolderNames();
 
                     Config.SaveSvnFolders(folders);
@@ -291,7 +291,7 @@ namespace pocorall.SCM_Notifier
                     SvnRepository repo = new SvnRepository(fileName, ScmRepository.PathType.File);
                     folders.Add(repo);
 
-                    listViewFolders.Items.Add(new ListViewItem(fileName, repo.ImageIndex()));
+                    listViewFolders.Items.Add(new ListViewItem(fileName, repo.IconName));
                     UpdateListViewFolderNames();
 
                     Config.SaveSvnFolders(folders);
@@ -445,7 +445,7 @@ namespace pocorall.SCM_Notifier
 					folder.Status = ScmRepositoryStatus.Unknown;
 					listViewFolders.Items[selectedIndex].Font = new Font (listViewFolders.Font, FontStyle.Strikeout);
 					listViewFolders.Items[selectedIndex].ForeColor = Color.LightGray;
-                    listViewFolders.Items[selectedIndex].ImageIndex = folder.ImageIndex();
+                    listViewFolders.Items[selectedIndex].ImageKey = folder.IconName;
 				}
 				else
 				{
@@ -1126,7 +1126,7 @@ namespace pocorall.SCM_Notifier
 			if (folder.Status != folderStatus)
 			{
                 folder.Status = folderStatus;
-                listViewFolders.Items[i].ImageIndex = folder.ImageIndex();
+                listViewFolders.Items[i].ImageKey = folder.IconName;
 
 				if ((folderStatus == ScmRepositoryStatus.NeedUpdate) ||
 					(folderStatus == ScmRepositoryStatus.NeedUpdate_Modified))
