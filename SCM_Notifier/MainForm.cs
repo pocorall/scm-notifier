@@ -970,10 +970,10 @@ namespace pocorall.SCM_Notifier
 								if (sfp.isUpdateCommand && sfp.updateError)
 									SafeInvoke (new ShowUpdateErrorsMethod (ShowUpdateErrors), new object[] {sfp}, Int32.MaxValue);
 
-								UpdateFolderStatus (sfp.folder);
+								UpdateFolderStatus (sfp.repository);
                                 ScmRepository.svnFolderProcesses.RemoveAt(i--);
 							}
-							else if ((folder.Path == sfp.folder.Path) && sfp.isUpdateCommand)
+							else if ((folder.Path == sfp.repository.Path) && sfp.isUpdateCommand)
 							{
 								skipUpdateStatus = true;		// Because updating is still in progress
 								ScmRepository.ReadProcessOutput (sfp);

@@ -209,7 +209,7 @@ namespace pocorall.SCM_Notifier
 
 		private void FillList ()
 		{
-			Text = folderProcess.folder.Path + " - Update... Finished!";
+			Text = folderProcess.repository.Path + " - Update... Finished!";
 			bool conflict = false;
 
 			foreach (string line in folderProcess.processOutput)
@@ -320,7 +320,7 @@ namespace pocorall.SCM_Notifier
 
 		private void btnLog_Click (object sender, EventArgs e)
 		{
-            folderProcess.folder.OpenChangeLogWindow(false);
+            folderProcess.repository.OpenChangeLogWindow(false);
 		}
 	}
 }

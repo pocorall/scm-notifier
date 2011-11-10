@@ -79,9 +79,8 @@ namespace pocorall.SCM_Notifier
 
         public override void Commit()
         {
-            string path = Path;
-            string arguments = String.Format("status -u \"{0}\"", path);
-            ExecuteResult er = ExecuteProcess(Config.GitPath, path, arguments, true, true);
+            string arguments = String.Format("status -u \"{0}\"", Path);
+            ExecuteResult er = ExecuteProcess(Config.GitPath, Path, arguments, true, true);
             if (er.processOutput.Contains("othing added to commit"))
             {
 
@@ -136,7 +135,7 @@ namespace pocorall.SCM_Notifier
         {
             // Skip this folder if update or commit is in progress
             foreach (ScmRepositoryProcess sp in svnFolderProcesses)
-                if (sp.folder.Path == Path)
+                if (sp.repository.Path == Path)
                     return;
 
             updateRevision = GetRepositoryCommitedRevision();
@@ -144,11 +143,6 @@ namespace pocorall.SCM_Notifier
             ExecuteResult er = ExecuteProcess(Config.GitPath, null, arguments, false, false);
             Config.WriteLog("Svn", arguments);
             svnFolderProcesses.Add(new ScmRepositoryProcess(this, er.process, true));
-        }
-
-        public override int ImageIndex()
-        {
-            return (int)Status + 6;
         }
     }
 }

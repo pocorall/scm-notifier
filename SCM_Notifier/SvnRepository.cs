@@ -84,17 +84,16 @@ namespace pocorall.SCM_Notifier
 
         public override ScmRepositoryStatus GetStatus()
         {
-            string path = Path;
-            if (!Directory.Exists(path) && !File.Exists(path))
+            if (!Directory.Exists(Path) && !File.Exists(Path))
             {
-                OnErrorAdded(path, "File or folder don't exist!");
+                OnErrorAdded(Path, "File or folder don't exist!");
                 return ScmRepositoryStatus.Error;
             }
 
             try
             {
-                string arguments = String.Format("status -u --non-interactive --xml \"{0}\"", path);
-                ExecuteResult er = ExecuteProcess(Config.SvnPath, path, arguments, true, true);
+                string arguments = String.Format("status -u --non-interactive --xml \"{0}\"", Path);
+                ExecuteResult er = ExecuteProcess(Config.SvnPath, Path, arguments, true, true);
 
                 SvnXml.Create(er.processOutput);		// Because SVN may return non-valid XML in some cases?
 
@@ -107,7 +106,7 @@ namespace pocorall.SCM_Notifier
 
                     if (!SvnXml.ContainsKey("revision"))
                     {
-                        OnErrorAdded(path, "Folder not found in repository");
+                        OnErrorAdded(Path, "Folder not found in repository");
                         return ScmRepositoryStatus.Error;
                     }
 
@@ -139,7 +138,7 @@ namespace pocorall.SCM_Notifier
         {
             // Skip this folder if update or commit is in progress
             foreach (ScmRepositoryProcess sp in svnFolderProcesses)
-                if (sp.folder.Path == Path)
+                if (sp.repository.Path == Path)
                     return;
 
             updateRevision = GetRepositoryCommitedRevision();
@@ -148,12 +147,5 @@ namespace pocorall.SCM_Notifier
             Config.WriteLog("Svn", arguments);
             svnFolderProcesses.Add(new ScmRepositoryProcess(this, er.process, true));
         }
-
-
-        public override int ImageIndex()
-        {
-            return (int)Status;
-        }
-
     }
 }

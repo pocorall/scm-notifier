@@ -46,7 +46,7 @@ namespace pocorall.SCM_Notifier
 
     public class ScmRepositoryProcess
     {
-        public readonly ScmRepository folder;
+        public readonly ScmRepository repository;
         public readonly Process process;
         public readonly bool isUpdateCommand;
         public ArrayList processOutput = new ArrayList();
@@ -54,7 +54,7 @@ namespace pocorall.SCM_Notifier
 
         public ScmRepositoryProcess(ScmRepository f, Process p, bool isUpdateCommand)
         {
-            folder = f;
+            repository = f;
             process = p;
             updateError = false;
             this.isUpdateCommand = isUpdateCommand;
@@ -105,7 +105,7 @@ namespace pocorall.SCM_Notifier
 
         public string IconName
         {
-            get { return scmType + "_FolderStatus_" + GetStatus().ToString(); }
+            get { return scmType + "_FolderStatus_" + Status.ToString(); }
         }
 
 		public string Serialize () {
@@ -293,8 +293,6 @@ namespace pocorall.SCM_Notifier
                 return 0;
             }
         }
-
-        abstract public int ImageIndex();
 
         abstract public int GetRepositoryHeadRevision();
 
