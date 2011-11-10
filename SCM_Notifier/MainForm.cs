@@ -1098,7 +1098,7 @@ namespace pocorall.SCM_Notifier
 			SafeInvoke (new SetStatusBarTextMethod (SetStatusBarText), new object[] {"Checking '" + folder.Path + "'..."});
 			DateTime statusTime = DateTime.Now;
 			if (sessionEndInProgress) return;		// Need to avoid error on svn.exe invoking
-            ScmRepositoryStatus status = folder.GetSvnFolderStatus();
+            ScmRepositoryStatus status = folder.GetStatus();
 			SafeInvoke (new UpdateListViewMethod (UpdateListView), new object[] {folder, status, statusTime});
 		}
 

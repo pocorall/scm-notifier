@@ -146,7 +146,6 @@
     <Compile Include="UpdateLogsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <None Include="Resources\Image1.bmp" />
     <EmbeddedResource Include="AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
       <SubType>Designer</SubType>

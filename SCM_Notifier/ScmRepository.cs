@@ -303,7 +303,7 @@ namespace pocorall.SCM_Notifier
 
         abstract public void Commit();
 
-        abstract public ScmRepositoryStatus GetSvnFolderStatus();
+        abstract public ScmRepositoryStatus GetStatus();
 
         abstract public void BeginUpdateSilently();
 

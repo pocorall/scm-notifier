@@ -97,7 +97,7 @@ namespace pocorall.SCM_Notifier
             }
         }
 
-        public override ScmRepositoryStatus GetSvnFolderStatus()
+        public override ScmRepositoryStatus GetStatus()
         {
             string path = Path;
             if (!Directory.Exists(path) && !File.Exists(path))
@@ -150,7 +150,5 @@ namespace pocorall.SCM_Notifier
         {
             return (int)Status + 6;
         }
-
-
     }
 }

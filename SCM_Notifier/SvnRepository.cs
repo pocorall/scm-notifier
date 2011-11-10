@@ -82,7 +82,7 @@ namespace pocorall.SCM_Notifier
             svnFolderProcesses.Add(new ScmRepositoryProcess(this, er.process, false));
         }
 
-        public override ScmRepositoryStatus GetSvnFolderStatus()
+        public override ScmRepositoryStatus GetStatus()
         {
             string path = Path;
             if (!Directory.Exists(path) && !File.Exists(path))
