@@ -142,7 +142,7 @@ namespace pocorall.SCM_Notifier
 			// Read settings
 			SvnPath = iniFile.ReadString ("Settings", "SVN_path", @"C:\Program Files\Sliksvn\bin\svn.exe");
 			TortoiseSvnPath = iniFile.ReadString ("Settings", "TortoiseSVN_path", @"C:\Program Files\TortoiseSVN\bin\TortoiseProc.exe");
-            GitPath = iniFile.ReadString("Settings", "GIT_path", @"C:\Program Files\TortoiseGit\bin\tgit.exe");
+            GitPath = iniFile.ReadString("Settings", "GIT_path", @"C:\Program Files (x86)\git\bin\git.exe");
             TortoiseGitPath = iniFile.ReadString("Settings", "TortoiseGIT_path", @"C:\Program Files\TortoiseGit\bin\TortoiseProc.exe");
 
 			DefaultActiveStatusUpdateInterval = iniFile.ReadInteger ("Settings", "DefaultActiveStatusUpdateInterval", 5);
