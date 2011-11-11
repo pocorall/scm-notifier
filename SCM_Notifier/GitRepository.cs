@@ -68,7 +68,8 @@ namespace pocorall.SCM_Notifier
         /// </summary>
         public override void Update(bool updateAll)
         {
-            ExecuteResult er = ExecuteProcess(Config.GitPath, Path, "pull", true, false);
+            string arguments = String.Format("/command:push /pull:\"{0}\" /notempfile", Path);
+            ExecuteResult er = ExecuteProcess(Config.TortoiseGitPath, Path, arguments, true, false);
             string d = ( er.processOutput);
         }
 
