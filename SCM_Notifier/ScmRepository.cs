@@ -251,8 +251,9 @@ namespace pocorall.SCM_Notifier
                 er.processError = String.Join("\n", (string[])lines.ToArray(typeof(string)));
                 lines.Clear();
 
-                if (er.processError.Length > 0)
-                    ErrorAdded(workingPath, er.processError);
+                // BUG?
+//                if (er.processError.Length > 0)
+//                    ErrorAdded(workingPath, er.processError);
 
                 er.process.WaitForExit();
 

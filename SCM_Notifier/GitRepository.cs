@@ -68,16 +68,20 @@ namespace pocorall.SCM_Notifier
         /// </summary>
         public override void Update(bool updateAll)
         {
-            string revision = Config.ChangeLogBeforeUpdate && !updateAll ? " /rev:" + reviewedRevision : "";
-            string arguments = String.Format("/command:pull /path:\"{0}\"{1} /notempfile /closeonend:{2}", Path, revision, Config.UpdateWindowAction);
-            ExecuteProcess(Config.TortoiseGitPath, null, arguments, true, false);
+            ExecuteResult er = ExecuteProcess(Config.GitPath, Path, "pull", true, false);
+            string d = ( er.processOutput);
+        }
+
+        private bool isModified(string response)
+        {
+            return !(response.Contains("othing added to commit") || response.Contains("othing to commit"));
         }
 
         public override void Commit()
         {
             string arguments = String.Format("status -u \"{0}\"", Path);
             ExecuteResult er = ExecuteProcess(Config.GitPath, Path, arguments, true, true);
-            if (er.processOutput.Contains("othing added to commit"))
+            if (!isModified(er.processOutput))
             {
                 arguments = String.Format("/command:push /path:\"{0}\" /notempfile", Path);
                 er = ExecuteProcess(Config.TortoiseGitPath, null, arguments, false, false);
@@ -102,18 +106,29 @@ namespace pocorall.SCM_Notifier
 
             try
             {
+                ExecuteProcess(Config.GitPath, path, "remote update", true, true);
+
                 string arguments = String.Format("status -u \"{0}\"", path);
                 ExecuteResult er = ExecuteProcess(Config.GitPath, path, arguments, true, true);
+                bool needUpdate = false;
+                if(er.processOutput.Contains("branch is behind")) {
+                    needUpdate = true;
+                }
 
-                if (er.processOutput.Contains("Changed but not updated"))
+                if (er.processOutput.Contains("have diverged"))
                 {
-                        return ScmRepositoryStatus.UpToDate_Modified;
+                    return ScmRepositoryStatus.NeedUpdate_Modified;
                 }
-                else if (er.processOutput.Contains("branch is ahead of"))
+
+                if (er.processOutput.Contains("branch is ahead of"))
                 {
-                    return ScmRepositoryStatus.UpToDate_Modified;
+                    return needUpdate ? ScmRepositoryStatus.NeedUpdate_Modified : ScmRepositoryStatus.UpToDate_Modified;
+                }else 
+                if (er.processOutput.Contains("Changed but not updated") || er.processOutput.Contains("Changes not staged for commit"))
+                {
+                    return needUpdate? ScmRepositoryStatus.NeedUpdate_Modified: ScmRepositoryStatus.UpToDate_Modified;
                 }
-                else if (er.processOutput.Contains("othing added to commit"))
+                else if (!isModified(er.processOutput))
                 {
                     return ScmRepositoryStatus.UpToDate;
                 }
@@ -122,7 +137,7 @@ namespace pocorall.SCM_Notifier
             }
             catch
             {
-                return ScmRepositoryStatus.Unknown;
+                return ScmRepositoryStatus.Error;
             }
         }
 
