@@ -252,8 +252,8 @@ namespace pocorall.SCM_Notifier
                 lines.Clear();
 
                 // BUG?
-//                if (er.processError.Length > 0)
-//                    ErrorAdded(workingPath, er.processError);
+                if (er.processError.Length > 0)
+                    ErrorAdded(workingPath, er.processError);
 
                 er.process.WaitForExit();
 

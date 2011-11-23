@@ -107,10 +107,15 @@ namespace pocorall.SCM_Notifier
 
             try
             {
-                ExecuteProcess(Config.GitPath, path, "remote update", true, true);
+                ExecuteResult er = ExecuteProcess(Config.GitPath, path, "remote update", true, true);
+                if (er.processError.Contains("Could not fetch"))
+                {
+                    return ScmRepositoryStatus.Error;
+                }
 
                 string arguments = String.Format("status -u \"{0}\"", path);
-                ExecuteResult er = ExecuteProcess(Config.GitPath, path, arguments, true, true);
+                er = ExecuteProcess(Config.GitPath, path, arguments, true, true);
+
                 bool needUpdate = false;
                 if(er.processOutput.Contains("branch is behind")) {
                     needUpdate = true;
