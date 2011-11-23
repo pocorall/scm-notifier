@@ -136,7 +136,7 @@ namespace pocorall.SCM_Notifier
                 }
                 else if (!isModified(er.processOutput))
                 {
-                    return ScmRepositoryStatus.UpToDate;
+                    return needUpdate? ScmRepositoryStatus.NeedUpdate : ScmRepositoryStatus.UpToDate;
                 }
 
                 return ScmRepositoryStatus.Unknown;
