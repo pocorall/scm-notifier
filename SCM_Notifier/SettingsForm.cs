@@ -43,7 +43,9 @@ namespace pocorall.SCM_Notifier
 		private System.Windows.Forms.Button button_BrowseTortoise;
 		private System.Windows.Forms.OpenFileDialog openFileDialog_svn;
 		private System.Windows.Forms.OpenFileDialog openFileDialog_Tortoise;
-		private System.Windows.Forms.ComboBox comboBox_ItemActions;
+        private System.Windows.Forms.OpenFileDialog openFileDialog_git;
+        private System.Windows.Forms.OpenFileDialog openFileDialog_TortoiseGit;
+        private System.Windows.Forms.ComboBox comboBox_ItemActions;
 		private System.Windows.Forms.Label label7;
 		private System.Windows.Forms.CheckBox checkBox_HideOnStartup;
 		private System.Windows.Forms.CheckBox checkBox_CheckForNewVersion;
@@ -149,6 +151,8 @@ namespace pocorall.SCM_Notifier
             this.button_BrowseTortoise = new System.Windows.Forms.Button();
             this.openFileDialog_svn = new System.Windows.Forms.OpenFileDialog();
             this.openFileDialog_Tortoise = new System.Windows.Forms.OpenFileDialog();
+            this.openFileDialog_git = new System.Windows.Forms.OpenFileDialog();
+            this.openFileDialog_TortoiseGit = new System.Windows.Forms.OpenFileDialog();
             this.comboBox_ItemActions = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.checkBox_HideOnStartup = new System.Windows.Forms.CheckBox();
@@ -315,6 +319,16 @@ namespace pocorall.SCM_Notifier
             // 
             this.openFileDialog_Tortoise.DefaultExt = "exe";
             this.openFileDialog_Tortoise.Filter = "TortoiseProc.exe|TortoiseProc.exe";
+            // 
+            // openFileDialog_git
+            // 
+            this.openFileDialog_git.DefaultExt = "exe";
+            this.openFileDialog_git.Filter = "git.exe|git.exe";
+            // 
+            // openFileDialog_TortoiseGit
+            // 
+            this.openFileDialog_TortoiseGit.DefaultExt = "exe";
+            this.openFileDialog_TortoiseGit.Filter = "TortoiseProc.exe|TortoiseProc.exe";
             // 
             // comboBox_ItemActions
             // 
@@ -1173,9 +1187,9 @@ namespace pocorall.SCM_Notifier
 
         private void button_BrowseGit_Click(object sender, System.EventArgs e)
         {
-            if (openFileDialog_svn.ShowDialog(this) == DialogResult.OK)
+            if (openFileDialog_git.ShowDialog(this) == DialogResult.OK)
             {
-                textBox_GitPath.Text = openFileDialog_svn.FileName;
+                textBox_GitPath.Text = openFileDialog_git.FileName;
                 CheckPathes(sender, e);
             }
         }
@@ -1191,9 +1205,9 @@ namespace pocorall.SCM_Notifier
 
         private void button_BrowseTortoiseGit_Click(object sender, System.EventArgs e)
         {
-            if (openFileDialog_Tortoise.ShowDialog(this) == DialogResult.OK)
+            if (openFileDialog_TortoiseGit.ShowDialog(this) == DialogResult.OK)
             {
-                textBox_TortoiseGitPath.Text = openFileDialog_Tortoise.FileName;
+                textBox_TortoiseGitPath.Text = openFileDialog_TortoiseGit.FileName;
                 CheckPathes(sender, e);
             }
         }
@@ -1206,25 +1220,25 @@ namespace pocorall.SCM_Notifier
 			if (!File.Exists (textBox_SVNpath.Text))
 			{
 				textBox_SVNpath.BackColor = Color.Yellow;
-				button_OK.Enabled = false;
+//				button_OK.Enabled = false;
 
 			}
 				
 			if (!File.Exists (textBox_TortoiseSVNpath.Text))
 			{
 				textBox_TortoiseSVNpath.BackColor = Color.Yellow;
-				button_OK.Enabled = false;
+//				button_OK.Enabled = false;
 			}
             if (!File.Exists(textBox_GitPath.Text))
             {
                 textBox_GitPath.BackColor = Color.Yellow;
-                button_OK.Enabled = false;
+//                button_OK.Enabled = false;
             }
 
             if (!File.Exists(textBox_TortoiseGitPath.Text))
             {
                 textBox_TortoiseGitPath.BackColor = Color.Yellow;
-                button_OK.Enabled = false;
+//                button_OK.Enabled = false;
             }
 		}
 
