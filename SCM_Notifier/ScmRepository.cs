@@ -204,6 +204,7 @@ namespace pocorall.SCM_Notifier
 
         protected static ExecuteResult ExecuteProcess(string executionFile, string workingPath, string arguments, bool waitForExit, bool lowPriority)
         {
+            SetEnvironmentVariable();
             ProcessStartInfo psi = new ProcessStartInfo
             {
                 FileName = executionFile,
@@ -276,6 +277,13 @@ namespace pocorall.SCM_Notifier
             return er;
         }
 
+        private static void SetEnvironmentVariable()
+        {
+            Environment.SetEnvironmentVariable(
+                    "HOME",
+                    Environment.GetEnvironmentVariable("USERPROFILE"));
+            Environment.SetEnvironmentVariable("TERM", "msys");
+        }
         // TODO: Optimize speed; join GetRepositoryHeadRevision and GetRepositoryCommitedRevision functions into one:
         // void int GetRepositoryRevisions (string path, out int headRevision, out int committedRevision)
         protected static int GetRepositoryRevision(string binaryPath, string path, string arg)
