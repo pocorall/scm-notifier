@@ -48,6 +48,8 @@ namespace pocorall.SCM_Notifier
 
         public override void OpenChangeLogWindow(bool updateRevisions)
         {
+            this.OpenLogWindow();
+            return;
             if (updateRevisions)
             {
                 reviewedRevision = GetRepositoryHeadRevision();
