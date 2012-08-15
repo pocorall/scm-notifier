@@ -31,6 +31,13 @@ namespace pocorall.SCM_Notifier
 {
     public class GitRepository : ScmRepository
     {
+        private static readonly Regex regexUpToDate;
+
+        static GitRepository()
+        {
+            regexUpToDate = new Regex(@"^\s=\s\[up to date\]\s.+?\s->\s.+$",RegexOptions.Compiled); 
+        }
+
         public GitRepository(string path) : base("Git", path, ScmRepository.PathType.Directory)
         {
             
@@ -109,19 +116,16 @@ namespace pocorall.SCM_Notifier
 
             try
             {
-                ExecuteResult er = ExecuteProcess(Config.GitPath, path, "remote update", true, true);
+                ExecuteResult er = ExecuteProcess(Config.GitPath, path,"fetch --all --dry-run -v", true, true);
                 if (er.processError.Contains("Could not fetch"))
                 {
                     return ScmRepositoryStatus.Error;
                 }
 
+                bool needUpdate = this.IsNeedUpdate(er.processError);
+
                 string arguments = String.Format("status -u \"{0}\"", path);
                 er = ExecuteProcess(Config.GitPath, path, arguments, true, true);
-
-                bool needUpdate = false;
-                if(er.processOutput.Contains("branch is behind")) {
-                    needUpdate = true;
-                }
 
                 if (er.processOutput.Contains("have diverged"))
                 {
@@ -131,22 +135,37 @@ namespace pocorall.SCM_Notifier
                 if (er.processOutput.Contains("branch is ahead of"))
                 {
                     return needUpdate ? ScmRepositoryStatus.NeedUpdate_Modified : ScmRepositoryStatus.UpToDate_Modified;
-                }else 
+                }
                 if (er.processOutput.Contains("Changed but not updated") || er.processOutput.Contains("Changes not staged for commit"))
                 {
                     return needUpdate? ScmRepositoryStatus.NeedUpdate_Modified: ScmRepositoryStatus.UpToDate_Modified;
                 }
-                else if (!isModified(er.processOutput))
+                if (!isModified(er.processOutput))
                 {
                     return needUpdate? ScmRepositoryStatus.NeedUpdate : ScmRepositoryStatus.UpToDate;
                 }
 
                 return ScmRepositoryStatus.Unknown;
             }
-            catch
+            catch(Exception e)
             {
+                OnErrorAdded(path, e.Message);
                 return ScmRepositoryStatus.Error;
             }
+        }
+
+        private bool IsNeedUpdate(string str)
+        {
+            using (var sr = new StringReader(str))
+            {
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {  
+                    if (line.StartsWith("From")) continue;
+                    if (!regexUpToDate.IsMatch(line)) return true;
+                }
+            }
+            return false;
         }
 
         public override void BeginUpdateSilently()
