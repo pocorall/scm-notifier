@@ -196,7 +196,8 @@ namespace pocorall.SCM_Notifier
 
         protected static void OnErrorAdded(string path, string error)
         {
-            ErrorAdded(path, error);
+            var handler = ErrorAdded;
+            if (handler != null) handler(path, error);
         }
 
         public static ArrayList svnFolderProcesses = ArrayList.Synchronized(new ArrayList());
@@ -204,6 +205,7 @@ namespace pocorall.SCM_Notifier
 
         protected static ExecuteResult ExecuteProcess(string executionFile, string workingPath, string arguments, bool waitForExit, bool lowPriority)
         {
+            SetEnvironmentVariable();
             ProcessStartInfo psi = new ProcessStartInfo
             {
                 FileName = executionFile,
@@ -251,11 +253,10 @@ namespace pocorall.SCM_Notifier
                 er.processError = String.Join("\n", (string[])lines.ToArray(typeof(string)));
                 lines.Clear();
 
-                // BUG?
-                if (er.processError.Length > 0)
-                    ErrorAdded(workingPath, er.processError);
-
                 er.process.WaitForExit();
+
+                if (er.process.ExitCode != 0 && er.processError.Length > 0)
+                    OnErrorAdded(workingPath, er.processError);
 
                 if ((uint)er.process.ExitCode == 0xc0000142)		// STATUS_DLL_INIT_FAILED - Occurs when Windows shutdown in progress
                 {
@@ -276,6 +277,13 @@ namespace pocorall.SCM_Notifier
             return er;
         }
 
+        private static void SetEnvironmentVariable()
+        {
+            Environment.SetEnvironmentVariable(
+                    "HOME",
+                    Environment.GetEnvironmentVariable("USERPROFILE"));
+            Environment.SetEnvironmentVariable("TERM", "msys");
+        }
         // TODO: Optimize speed; join GetRepositoryHeadRevision and GetRepositoryCommitedRevision functions into one:
         // void int GetRepositoryRevisions (string path, out int headRevision, out int committedRevision)
         protected static int GetRepositoryRevision(string binaryPath, string path, string arg)

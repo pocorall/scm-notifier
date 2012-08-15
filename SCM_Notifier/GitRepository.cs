@@ -31,6 +31,13 @@ namespace pocorall.SCM_Notifier
 {
     public class GitRepository : ScmRepository
     {
+        private static readonly Regex regexUpToDate;
+
+        static GitRepository()
+        {
+            regexUpToDate = new Regex(@"^\s=\s\[up to date\]\s.+?\s->\s.+$",RegexOptions.Compiled); 
+        }
+
         public GitRepository(string path) : base("Git", path, ScmRepository.PathType.Directory)
         {
             
@@ -48,19 +55,23 @@ namespace pocorall.SCM_Notifier
 
         public override void OpenChangeLogWindow(bool updateRevisions)
         {
+            this.OpenLogWindow();
+            return;
             if (updateRevisions)
             {
                 reviewedRevision = GetRepositoryHeadRevision();
                 updateRevision = GetRepositoryCommitedRevision();
             }
             string arguments = String.Format("/command:log /path:\"{0}\" /revend:{1}", Path, updateRevision);
-            ExecuteProcess(Config.TortoiseGitPath, null, arguments, false, false);
+            ExecuteProcess(Config.GitUIPath, null, arguments, false, false);
         }
 
         public override void OpenLogWindow()
         {
             string arguments = String.Format("/command:log /path:\"{0}\"", Path);
-            ExecuteProcess(Config.TortoiseGitPath, null, arguments, false, false);
+            if (this.IsGitExtensions(Config.GitUIPath))
+                arguments = String.Format("browse {0}", Path);
+            ExecuteProcess(Config.GitUIPath, null, arguments, false, false);
         }
 
         /// <summary>
@@ -69,13 +80,26 @@ namespace pocorall.SCM_Notifier
         public override void Update(bool updateAll)
         {
             string arguments = String.Format("/command:pull /path:\"{0}\" /notempfile", Path);
-            ExecuteResult er = ExecuteProcess(Config.TortoiseGitPath, Path, arguments, true, false);
+            if (this.IsGitExtensions(Config.GitUIPath))
+                arguments = String.Format("pull {0}", Path);
+
+            ExecuteResult er = ExecuteProcess(Config.GitUIPath, Path, arguments, true, false);
             string d = ( er.processOutput);
         }
 
         private bool isModified(string response)
         {
             return !(response.Contains("othing added to commit") || response.Contains("othing to commit"));
+        }
+        
+        private bool IsTortoiseGit(string path)
+        {
+            return path.EndsWith("TortoiseProc.exe");
+        }
+
+        private bool IsGitExtensions(string path)
+        {
+            return path.EndsWith("GitExtensions.exe");
         }
 
         public override void Commit()
@@ -84,16 +108,20 @@ namespace pocorall.SCM_Notifier
             ExecuteResult er = ExecuteProcess(Config.GitPath, Path, arguments, true, true);
             if (!isModified(er.processOutput))
             {
-                arguments = String.Format("/command:push /path:\"{0}\" /notempfile", Path);
-                er = ExecuteProcess(Config.TortoiseGitPath, null, arguments, false, false);
-                svnFolderProcesses.Add(new ScmRepositoryProcess(this, er.process, false));
+                if (this.IsGitExtensions(Config.GitUIPath))
+                    arguments = String.Format("push {0}", Path);
+                else
+                    arguments = String.Format("/command:push /path:\"{0}\" /notempfile", Path);
             }
             else
             {
-                arguments = String.Format("/command:commit /path:\"{0}\" /notempfile", Path);
-                er = ExecuteProcess(Config.TortoiseGitPath, null, arguments, false, false);
-                svnFolderProcesses.Add(new ScmRepositoryProcess(this, er.process, false));
+                if (this.IsGitExtensions(Config.GitUIPath))
+                    arguments = String.Format("commit {0}", Path);
+                else 
+                    arguments = String.Format("/command:commit /path:\"{0}\" /notempfile", Path);
             }
+            er = ExecuteProcess(Config.GitUIPath, null, arguments, false, false);
+            svnFolderProcesses.Add(new ScmRepositoryProcess(this, er.process, false));
         }
 
         public override ScmRepositoryStatus GetStatus()
@@ -107,19 +135,16 @@ namespace pocorall.SCM_Notifier
 
             try
             {
-                ExecuteResult er = ExecuteProcess(Config.GitPath, path, "remote update", true, true);
+                ExecuteResult er = ExecuteProcess(Config.GitPath, path,"fetch --all --dry-run -v", true, true);
                 if (er.processError.Contains("Could not fetch"))
                 {
                     return ScmRepositoryStatus.Error;
                 }
 
+                bool needUpdate = this.IsNeedUpdate(er.processError);
+
                 string arguments = String.Format("status -u \"{0}\"", path);
                 er = ExecuteProcess(Config.GitPath, path, arguments, true, true);
-
-                bool needUpdate = false;
-                if(er.processOutput.Contains("branch is behind")) {
-                    needUpdate = true;
-                }
 
                 if (er.processOutput.Contains("have diverged"))
                 {
@@ -129,22 +154,40 @@ namespace pocorall.SCM_Notifier
                 if (er.processOutput.Contains("branch is ahead of"))
                 {
                     return needUpdate ? ScmRepositoryStatus.NeedUpdate_Modified : ScmRepositoryStatus.UpToDate_Modified;
-                }else 
-                if (er.processOutput.Contains("Changed but not updated") || er.processOutput.Contains("Changes not staged for commit"))
+                }
+                else
+                if (er.processOutput.Contains("Changed but not updated") || er.processOutput.Contains("Changes not staged for commit")
+                    || er.processOutput.Contains("Changes to be committed"))
                 {
                     return needUpdate? ScmRepositoryStatus.NeedUpdate_Modified: ScmRepositoryStatus.UpToDate_Modified;
                 }
-                else if (!isModified(er.processOutput))
+                else
+                if (!isModified(er.processOutput))
                 {
                     return needUpdate? ScmRepositoryStatus.NeedUpdate : ScmRepositoryStatus.UpToDate;
                 }
 
                 return ScmRepositoryStatus.Unknown;
             }
-            catch
+            catch(Exception e)
             {
+                OnErrorAdded(path, e.Message);
                 return ScmRepositoryStatus.Error;
             }
+        }
+
+        private bool IsNeedUpdate(string str)
+        {
+            using (var sr = new StringReader(str))
+            {
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {  
+                    if (line.StartsWith("From")) continue;
+                    if (!regexUpToDate.IsMatch(line)) return true;
+                }
+            }
+            return false;
         }
 
         public override void BeginUpdateSilently()

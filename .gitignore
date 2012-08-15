@@ -3,6 +3,8 @@ target/
 .*/
 *.iml
 *.suo
+*.user
 release/
 debug/
 bin/
+_ReSharper*/

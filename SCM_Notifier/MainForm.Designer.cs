@@ -117,6 +117,7 @@ namespace pocorall.SCM_Notifier
             global::pocorall.SCM_Notifier.Properties.Resources.getBitmap(imageListFolderStatus.Images, "Svn_FolderStatus_Unknown");
             global::pocorall.SCM_Notifier.Properties.Resources.getBitmap(imageListFolderStatus.Images, "Svn_FolderStatus_UpToDate_Modified");
             global::pocorall.SCM_Notifier.Properties.Resources.getBitmap(imageListFolderStatus.Images, "Svn_FolderStatus_NeedUpdate_Modified");
+            global::pocorall.SCM_Notifier.Properties.Resources.getBitmap(imageListFolderStatus.Images, "Svn_FolderStatus_NeedUpdate");
             global::pocorall.SCM_Notifier.Properties.Resources.getBitmap(imageListFolderStatus.Images, "Git_FolderStatus_UpToDate");
             global::pocorall.SCM_Notifier.Properties.Resources.getBitmap(imageListFolderStatus.Images, "Git_FolderStatus_NeedUpdate");
             global::pocorall.SCM_Notifier.Properties.Resources.getBitmap(imageListFolderStatus.Images, "Git_FolderStatus_Error");
