@@ -155,10 +155,13 @@ namespace pocorall.SCM_Notifier
                 {
                     return needUpdate ? ScmRepositoryStatus.NeedUpdate_Modified : ScmRepositoryStatus.UpToDate_Modified;
                 }
-                if (er.processOutput.Contains("Changed but not updated") || er.processOutput.Contains("Changes not staged for commit"))
+                else
+                if (er.processOutput.Contains("Changed but not updated") || er.processOutput.Contains("Changes not staged for commit")
+                    || er.processOutput.Contains("Changes to be committed"))
                 {
                     return needUpdate? ScmRepositoryStatus.NeedUpdate_Modified: ScmRepositoryStatus.UpToDate_Modified;
                 }
+                else
                 if (!isModified(er.processOutput))
                 {
                     return needUpdate? ScmRepositoryStatus.NeedUpdate : ScmRepositoryStatus.UpToDate;
