@@ -42,7 +42,7 @@ namespace pocorall.SCM_Notifier
 		public static string TortoiseSvnPath;
 
         public static string GitPath;
-        public static string TortoiseGitPath;
+        public static string GitUIPath;
 
 		
 		/// <summary>
@@ -143,7 +143,7 @@ namespace pocorall.SCM_Notifier
 			SvnPath = iniFile.ReadString ("Settings", "SVN_path", @"C:\Program Files\Sliksvn\bin\svn.exe");
 			TortoiseSvnPath = iniFile.ReadString ("Settings", "TortoiseSVN_path", @"C:\Program Files\TortoiseSVN\bin\TortoiseProc.exe");
             GitPath = iniFile.ReadString("Settings", "GIT_path", @"C:\Program Files (x86)\git\bin\git.exe");
-            TortoiseGitPath = iniFile.ReadString("Settings", "TortoiseGIT_path", @"C:\Program Files\TortoiseGit\bin\TortoiseProc.exe");
+            GitUIPath = iniFile.ReadString("Settings", "TortoiseGIT_path", @"C:\Program Files\TortoiseGit\bin\TortoiseProc.exe");
 
 			DefaultActiveStatusUpdateInterval = iniFile.ReadInteger ("Settings", "DefaultActiveStatusUpdateInterval", 5);
 			DefaultIdleStatusUpdateInterval = iniFile.ReadInteger ("Settings", "DefaultIdleStatusUpdateInterval", 60);
@@ -167,7 +167,7 @@ namespace pocorall.SCM_Notifier
 
 		public static bool IsSettingsOK()
 		{
-            return File.Exists(SvnPath) && File.Exists(TortoiseSvnPath) && File.Exists(GitPath) && File.Exists(TortoiseGitPath);
+            return File.Exists(SvnPath) && File.Exists(TortoiseSvnPath) && File.Exists(GitPath) && File.Exists(GitUIPath);
 		}
 
 
@@ -176,7 +176,7 @@ namespace pocorall.SCM_Notifier
 			iniFile.Write ("Settings", "SVN_path", SvnPath);
 			iniFile.Write ("Settings", "TortoiseSVN_path", TortoiseSvnPath);
             iniFile.Write("Settings", "GIT_path", GitPath);
-            iniFile.Write("Settings", "TortoiseGIT_path", TortoiseGitPath);
+            iniFile.Write("Settings", "TortoiseGIT_path", GitUIPath);
 
 			iniFile.Write ("Settings", "DefaultActiveStatusUpdateInterval", DefaultActiveStatusUpdateInterval);
 			iniFile.Write ("Settings", "DefaultIdleStatusUpdateInterval", DefaultIdleStatusUpdateInterval);

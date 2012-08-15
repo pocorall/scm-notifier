@@ -328,7 +328,7 @@ namespace pocorall.SCM_Notifier
             // openFileDialog_TortoiseGit
             // 
             this.openFileDialog_TortoiseGit.DefaultExt = "exe";
-            this.openFileDialog_TortoiseGit.Filter = "TortoiseProc.exe|TortoiseProc.exe";
+            this.openFileDialog_TortoiseGit.Filter = "TortoiseProc.exe|TortoiseProc.exe|GitExtensions.exe|GitExtensions.exe";
             // 
             // comboBox_ItemActions
             // 
@@ -511,9 +511,9 @@ namespace pocorall.SCM_Notifier
             // 
             this.label23.Location = new System.Drawing.Point(8, 171);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(270, 17);
+            this.label23.Size = new System.Drawing.Size(350, 17);
             this.label23.TabIndex = 22;
-            this.label23.Text = "Path to TortoiseProc.exe of TortoiseGit:";
+            this.label23.Text = "Path to GitExtension.exe or TortoiseProc.exe of TortoiseGit:";
             this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label24
@@ -1092,7 +1092,7 @@ namespace pocorall.SCM_Notifier
 			textBox_SVNpath.Text = Config.SvnPath;
 			textBox_TortoiseSVNpath.Text = Config.TortoiseSvnPath;
             textBox_GitPath.Text = Config.GitPath;
-            textBox_TortoiseGitPath.Text = Config.TortoiseGitPath;
+            textBox_TortoiseGitPath.Text = Config.GitUIPath;
 			
 			numericUpDown_DefaultActiveStatusUpdateIntervalHour.Value = Config.DefaultActiveStatusUpdateInterval / 3600;
 			numericUpDown_DefaultActiveStatusUpdateIntervalMin.Value = (Config.DefaultActiveStatusUpdateInterval % 3600) / 60;
@@ -1138,7 +1138,7 @@ namespace pocorall.SCM_Notifier
 			Config.SvnPath = textBox_SVNpath.Text;
 			Config.TortoiseSvnPath = textBox_TortoiseSVNpath.Text;
             Config.GitPath = textBox_GitPath.Text;
-            Config.TortoiseGitPath = textBox_TortoiseGitPath.Text;
+            Config.GitUIPath = textBox_TortoiseGitPath.Text;
 
 			Config.DefaultActiveStatusUpdateInterval = 
 				(int)numericUpDown_DefaultActiveStatusUpdateIntervalHour.Value * 3600
