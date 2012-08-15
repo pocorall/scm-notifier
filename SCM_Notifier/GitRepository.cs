@@ -63,13 +63,15 @@ namespace pocorall.SCM_Notifier
                 updateRevision = GetRepositoryCommitedRevision();
             }
             string arguments = String.Format("/command:log /path:\"{0}\" /revend:{1}", Path, updateRevision);
-            ExecuteProcess(Config.TortoiseGitPath, null, arguments, false, false);
+            ExecuteProcess(Config.GitUIPath, null, arguments, false, false);
         }
 
         public override void OpenLogWindow()
         {
             string arguments = String.Format("/command:log /path:\"{0}\"", Path);
-            ExecuteProcess(Config.TortoiseGitPath, null, arguments, false, false);
+            if (this.IsGitExtensions(Config.GitUIPath))
+                arguments = String.Format("browse {0}", Path);
+            ExecuteProcess(Config.GitUIPath, null, arguments, false, false);
         }
 
         /// <summary>
@@ -78,13 +80,26 @@ namespace pocorall.SCM_Notifier
         public override void Update(bool updateAll)
         {
             string arguments = String.Format("/command:pull /path:\"{0}\" /notempfile", Path);
-            ExecuteResult er = ExecuteProcess(Config.TortoiseGitPath, Path, arguments, true, false);
+            if (this.IsGitExtensions(Config.GitUIPath))
+                arguments = String.Format("pull {0}", Path);
+
+            ExecuteResult er = ExecuteProcess(Config.GitUIPath, Path, arguments, true, false);
             string d = ( er.processOutput);
         }
 
         private bool isModified(string response)
         {
             return !(response.Contains("othing added to commit") || response.Contains("othing to commit"));
+        }
+        
+        private bool IsTortoiseGit(string path)
+        {
+            return path.EndsWith("TortoiseProc.exe");
+        }
+
+        private bool IsGitExtensions(string path)
+        {
+            return path.EndsWith("GitExtensions.exe");
         }
 
         public override void Commit()
@@ -93,16 +108,20 @@ namespace pocorall.SCM_Notifier
             ExecuteResult er = ExecuteProcess(Config.GitPath, Path, arguments, true, true);
             if (!isModified(er.processOutput))
             {
-                arguments = String.Format("/command:push /path:\"{0}\" /notempfile", Path);
-                er = ExecuteProcess(Config.TortoiseGitPath, null, arguments, false, false);
-                svnFolderProcesses.Add(new ScmRepositoryProcess(this, er.process, false));
+                if (this.IsGitExtensions(Config.GitUIPath))
+                    arguments = String.Format("push {0}", Path);
+                else
+                    arguments = String.Format("/command:push /path:\"{0}\" /notempfile", Path);
             }
             else
             {
-                arguments = String.Format("/command:commit /path:\"{0}\" /notempfile", Path);
-                er = ExecuteProcess(Config.TortoiseGitPath, null, arguments, false, false);
-                svnFolderProcesses.Add(new ScmRepositoryProcess(this, er.process, false));
+                if (this.IsGitExtensions(Config.GitUIPath))
+                    arguments = String.Format("commit {0}", Path);
+                else 
+                    arguments = String.Format("/command:commit /path:\"{0}\" /notempfile", Path);
             }
+            er = ExecuteProcess(Config.GitUIPath, null, arguments, false, false);
+            svnFolderProcesses.Add(new ScmRepositoryProcess(this, er.process, false));
         }
 
         public override ScmRepositoryStatus GetStatus()
