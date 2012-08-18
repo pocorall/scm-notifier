@@ -56,14 +56,7 @@ namespace pocorall.SCM_Notifier
         public override void OpenChangeLogWindow(bool updateRevisions)
         {
             this.OpenLogWindow();
-            return;
-            if (updateRevisions)
-            {
-                reviewedRevision = GetRepositoryHeadRevision();
-                updateRevision = GetRepositoryCommitedRevision();
-            }
-            string arguments = String.Format("/command:log /path:\"{0}\" /revend:{1}", Path, updateRevision);
-            ExecuteProcess(Config.GitUIPath, null, arguments, false, false);
+            // does not support chage log now
         }
 
         public override void OpenLogWindow()
