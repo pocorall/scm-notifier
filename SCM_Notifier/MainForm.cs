@@ -263,7 +263,7 @@ namespace pocorall.SCM_Notifier
                 }
                 else
                 {
-                    MessageBox.Show("This folder is not under SVN", "SCM Notifier", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("This folder is not repository", "SCM Notifier", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else

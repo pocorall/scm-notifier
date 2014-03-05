@@ -118,7 +118,7 @@ namespace pocorall.SCM_Notifier
             {
                 return new SvnRepository(path, ScmRepository.PathType.Directory);
             }
-            if (Directory.Exists(path + @"\.git"))
+            if (GitRepository.IsGitRepositoryDir(path))
             {
                 return new GitRepository(path);
             }
