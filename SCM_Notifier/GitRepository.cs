@@ -38,6 +38,20 @@ namespace pocorall.SCM_Notifier
             regexUpToDate = new Regex(@"^\s=\s\[up to date\]\s.+?\s->\s.+$",RegexOptions.Compiled); 
         }
 
+
+        public static bool IsGitRepositoryDir(string dir)
+        {
+
+            if (string.IsNullOrEmpty(dir))
+                return false;
+            dir = System.IO.Path.Combine(dir, ".git");
+
+            //.git file for submodule
+            if (Directory.Exists(dir) || File.Exists(dir))
+                return true;
+            return false;
+        }
+
         public GitRepository(string path) : base("Git", path, ScmRepository.PathType.Directory)
         {
             
