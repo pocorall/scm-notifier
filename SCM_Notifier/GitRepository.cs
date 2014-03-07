@@ -75,6 +75,7 @@ namespace pocorall.SCM_Notifier
 
         public override void OpenLogWindow()
         {
+            if (Config.GitUIPath == null || !File.Exists(Config.GitUIPath)) return;
             string arguments = String.Format("/command:log /path:\"{0}\"", Path);
             if (this.IsGitExtensions(Config.GitUIPath))
                 arguments = String.Format("browse {0}", Path);

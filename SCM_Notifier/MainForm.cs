@@ -579,7 +579,11 @@ namespace pocorall.SCM_Notifier
 				if ((folder.Status == ScmRepositoryStatus.NeedUpdate_Modified) || (folder.Status == ScmRepositoryStatus.UpToDate_Modified))
 					btnCommit.Enabled = true;
 
-				deleteToolStripMenuItem.Enabled = true;
+                // Disable Log Button when GitUIPath not configured
+                if (folder is GitRepository && (Config.GitUIPath == null || !File.Exists(Config.GitUIPath)))
+                    btnLog.Enabled = false;
+
+                deleteToolStripMenuItem.Enabled = true;
 				btnDelete.Enabled = true;
 				btnOpenFolder.Enabled = Directory.Exists (folder.Path) || File.Exists (folder.Path);
 
