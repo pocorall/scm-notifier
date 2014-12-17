@@ -102,7 +102,7 @@ namespace pocorall.SCM_Notifier
         
         private bool IsTortoiseGit(string path)
         {
-            return path.EndsWith("TortoiseProc.exe");
+            return path.EndsWith("TortoiseGitProc.exe");
         }
 
         private bool IsGitExtensions(string path)
