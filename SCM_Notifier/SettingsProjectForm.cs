@@ -26,6 +26,7 @@
 using System.ComponentModel;
 using System.Windows.Forms;
 using Iae.Windows.Forms;
+using pocorall.SCM_Notifier.Properties;
 
 namespace pocorall.SCM_Notifier
 {
@@ -78,7 +79,7 @@ namespace pocorall.SCM_Notifier
 			base.Dispose (disposing);
 		}
 
-		
+
 		private void InitializeComponent()
 		{
             this.btnOK = new System.Windows.Forms.Button();
@@ -111,9 +112,9 @@ namespace pocorall.SCM_Notifier
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_IdleStatusUpdateIntervalSec)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_ActiveStatusUpdateIntervalSec)).BeginInit();
             this.SuspendLayout();
-            // 
+            //
             // btnOK
-            // 
+            //
             this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
@@ -123,9 +124,9 @@ namespace pocorall.SCM_Notifier
             this.btnOK.TabIndex = 1;
             this.btnOK.Text = "OK";
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
-            // 
+            //
             // groupBox1
-            // 
+            //
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.label1);
@@ -147,9 +148,9 @@ namespace pocorall.SCM_Notifier
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Status update interval when...";
-            // 
+            //
             // label2
-            // 
+            //
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(237, 56);
             this.label2.Name = "label2";
@@ -157,9 +158,9 @@ namespace pocorall.SCM_Notifier
             this.label2.TabIndex = 25;
             this.label2.Text = ":";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
+            //
             // label7
-            // 
+            //
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(237, 32);
             this.label7.Name = "label7";
@@ -167,17 +168,17 @@ namespace pocorall.SCM_Notifier
             this.label7.TabIndex = 24;
             this.label7.Text = ":";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
+            //
             // label1
-            // 
+            //
             this.label1.Location = new System.Drawing.Point(199, 16);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(41, 16);
             this.label1.TabIndex = 23;
             this.label1.Text = "Hours";
-            // 
+            //
             // numericUpDown_IdleStatusUpdateIntervalHour
-            // 
+            //
             this.numericUpDown_IdleStatusUpdateIntervalHour.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.numericUpDown_IdleStatusUpdateIntervalHour.Location = new System.Drawing.Point(197, 56);
             this.numericUpDown_IdleStatusUpdateIntervalHour.Maximum = new decimal(new int[] {
@@ -194,9 +195,9 @@ namespace pocorall.SCM_Notifier
             0,
             0,
             0});
-            // 
+            //
             // numericUpDown_ActiveStatusUpdateIntervalHour
-            // 
+            //
             this.numericUpDown_ActiveStatusUpdateIntervalHour.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.numericUpDown_ActiveStatusUpdateIntervalHour.Location = new System.Drawing.Point(197, 32);
             this.numericUpDown_ActiveStatusUpdateIntervalHour.Maximum = new decimal(new int[] {
@@ -213,25 +214,25 @@ namespace pocorall.SCM_Notifier
             0,
             0,
             0});
-            // 
+            //
             // label8
-            // 
+            //
             this.label8.Location = new System.Drawing.Point(288, 16);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(48, 16);
             this.label8.TabIndex = 20;
             this.label8.Text = "Seconds";
-            // 
+            //
             // label5
-            // 
+            //
             this.label5.Location = new System.Drawing.Point(243, 16);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(48, 16);
             this.label5.TabIndex = 19;
             this.label5.Text = "Minutes";
-            // 
+            //
             // label9
-            // 
+            //
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.Location = new System.Drawing.Point(285, 56);
             this.label9.Name = "label9";
@@ -239,9 +240,9 @@ namespace pocorall.SCM_Notifier
             this.label9.TabIndex = 18;
             this.label9.Text = ":";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
+            //
             // numericUpDown_IdleStatusUpdateIntervalMin
-            // 
+            //
             this.numericUpDown_IdleStatusUpdateIntervalMin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.numericUpDown_IdleStatusUpdateIntervalMin.Location = new System.Drawing.Point(245, 56);
             this.numericUpDown_IdleStatusUpdateIntervalMin.Maximum = new decimal(new int[] {
@@ -258,9 +259,9 @@ namespace pocorall.SCM_Notifier
             0,
             0,
             0});
-            // 
+            //
             // numericUpDown_ActiveStatusUpdateIntervalMin
-            // 
+            //
             this.numericUpDown_ActiveStatusUpdateIntervalMin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.numericUpDown_ActiveStatusUpdateIntervalMin.Location = new System.Drawing.Point(245, 32);
             this.numericUpDown_ActiveStatusUpdateIntervalMin.Maximum = new decimal(new int[] {
@@ -277,9 +278,9 @@ namespace pocorall.SCM_Notifier
             0,
             0,
             0});
-            // 
+            //
             // label6
-            // 
+            //
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(285, 32);
             this.label6.Name = "label6";
@@ -287,18 +288,18 @@ namespace pocorall.SCM_Notifier
             this.label6.TabIndex = 15;
             this.label6.Text = ":";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
+            //
             // label3
-            // 
+            //
             this.label3.Location = new System.Drawing.Point(24, 32);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(168, 16);
             this.label3.TabIndex = 4;
             this.label3.Text = "... form is active:";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
+            //
             // numericUpDown_IdleStatusUpdateIntervalSec
-            // 
+            //
             this.numericUpDown_IdleStatusUpdateIntervalSec.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.numericUpDown_IdleStatusUpdateIntervalSec.Enabled = false;
             this.numericUpDown_IdleStatusUpdateIntervalSec.Location = new System.Drawing.Point(293, 56);
@@ -316,18 +317,18 @@ namespace pocorall.SCM_Notifier
             0,
             0,
             0});
-            // 
+            //
             // label4
-            // 
+            //
             this.label4.Location = new System.Drawing.Point(8, 56);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(184, 16);
             this.label4.TabIndex = 5;
             this.label4.Text = "... form is not active:";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
+            //
             // numericUpDown_ActiveStatusUpdateIntervalSec
-            // 
+            //
             this.numericUpDown_ActiveStatusUpdateIntervalSec.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.numericUpDown_ActiveStatusUpdateIntervalSec.Enabled = false;
             this.numericUpDown_ActiveStatusUpdateIntervalSec.Location = new System.Drawing.Point(293, 32);
@@ -345,9 +346,9 @@ namespace pocorall.SCM_Notifier
             0,
             0,
             0});
-            // 
+            //
             // btnCancel
-            // 
+            //
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
@@ -356,40 +357,40 @@ namespace pocorall.SCM_Notifier
             this.btnCancel.Size = new System.Drawing.Size(72, 23);
             this.btnCancel.TabIndex = 7;
             this.btnCancel.Text = "Cancel";
-            // 
+            //
             // checkBoxDisable
-            // 
+            //
             this.checkBoxDisable.Location = new System.Drawing.Point(8, 144);
             this.checkBoxDisable.Name = "checkBoxDisable";
             this.checkBoxDisable.Size = new System.Drawing.Size(136, 24);
             this.checkBoxDisable.TabIndex = 8;
             this.checkBoxDisable.Text = "Disable checking";
             this.checkBoxDisable.CheckedChanged += new System.EventHandler(this.checkBoxDisable_CheckedChanged);
-            // 
+            //
             // textBox_folder
-            // 
+            //
             this.textBox_folder.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox_folder.Location = new System.Drawing.Point(51, 12);
             this.textBox_folder.Name = "textBox_folder";
             this.textBox_folder.Size = new System.Drawing.Size(301, 20);
             this.textBox_folder.TabIndex = 9;
-            // 
+            //
             // folderBrowserDialog
-            // 
-            this.folderBrowserDialog.Description = "Select folder controlled by Subversion";
+            //
+            this.folderBrowserDialog.Description = Resources.selectFolder;
             this.folderBrowserDialog.ShowNewFolderButton = false;
-            // 
+            //
             // label10
-            // 
+            //
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(13, 14);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(32, 13);
             this.label10.TabIndex = 10;
             this.label10.Text = "Path:";
-            // 
+            //
             // SettingsProjectForm
-            // 
+            //
             this.AcceptButton = this.btnOK;
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
             this.CancelButton = this.btnCancel;
@@ -420,7 +421,7 @@ namespace pocorall.SCM_Notifier
 		}
 		#endregion
 
-		
+
 		public SettingsProjectForm (ScmRepository folder)
 		{
 			InitializeComponent();		// Required for Windows Form Designer support
@@ -467,12 +468,12 @@ namespace pocorall.SCM_Notifier
 			}
 			else
 			{
-				folder.ActiveStatusUpdateInterval = 
-					(int)numericUpDown_ActiveStatusUpdateIntervalHour.Value * 3600 
+				folder.ActiveStatusUpdateInterval =
+					(int)numericUpDown_ActiveStatusUpdateIntervalHour.Value * 3600
 					+ (int)numericUpDown_ActiveStatusUpdateIntervalMin.Value * 60
 					+ (int)numericUpDown_ActiveStatusUpdateIntervalSec.Value;
 
-				folder.IdleStatusUpdateInterval = 
+				folder.IdleStatusUpdateInterval =
 					(int)numericUpDown_IdleStatusUpdateIntervalHour.Value * 3600
 					+ (int)numericUpDown_IdleStatusUpdateIntervalMin.Value * 60
 					+ (int)numericUpDown_IdleStatusUpdateIntervalSec.Value;

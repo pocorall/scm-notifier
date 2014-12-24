@@ -1,6 +1,7 @@
 ﻿using System.Windows.Forms;
 using DragNDrop;
 using FolderSelect;
+using pocorall.SCM_Notifier.Properties;
 
 namespace pocorall.SCM_Notifier
 {
@@ -102,7 +103,7 @@ namespace pocorall.SCM_Notifier
 			//
 			// folderBrowserDialog
 			//
-			this.folderBrowserDialog.Title = "Select folder controlled by Subversion";
+		    this.folderBrowserDialog.Title = Resources.selectFolder;
 			//
 			// statusUpdateTimer
 			//
@@ -127,7 +128,7 @@ namespace pocorall.SCM_Notifier
             //
 			// openFileDialog
 			//
-			this.openFileDialog.Title = "Select file controlled by Subversion";
+            this.openFileDialog.Title = Resources.selectFolder;
 			//
 			// notifyIcon
 			//
