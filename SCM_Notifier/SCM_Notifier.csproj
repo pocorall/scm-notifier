@@ -161,6 +161,7 @@
     <Compile Include="ErrorLogForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FolderSelectDialog.cs" />
     <Compile Include="GitRepository.cs" />
     <Compile Include="IniFile.cs">
       <SubType>Code</SubType>
@@ -180,6 +181,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Reflector.cs" />
     <Compile Include="SettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>

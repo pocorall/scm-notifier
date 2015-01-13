@@ -64,7 +64,7 @@ namespace pocorall.SCM_Notifier
 				ShowInTaskbar = Config.ShowInTaskbar;
 
             ScmRepository.ErrorAdded += OnErrorAdded;
-			
+
 			AddPowerEventListener();
 
 			FormInit();
@@ -186,7 +186,7 @@ namespace pocorall.SCM_Notifier
 			{
 				if ((folders.Count > 0) && MessageBox.Show ("All current settings will be lost.\n\nDo you really want to change the settings?", "Attention", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes)
 					return;
-				
+
 				try
 				{
 					File.Copy (ofd.FileName, Config.iniFileName, true);
@@ -250,7 +250,7 @@ namespace pocorall.SCM_Notifier
             {
                 ScmRepository repo = ScmRepository.create(path);
 
-                if(repo !=null) 
+                if(repo !=null)
                 {
                     folders.Add(repo);
                     listViewFolders.Items.Add(new ListViewItem(path, repo.IconName));
@@ -272,9 +272,9 @@ namespace pocorall.SCM_Notifier
 
 		private void menuItemAddFolder_Click (object sender, EventArgs e)
 		{
-			if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
+			if (folderBrowserDialog.ShowDialog())
 			{
-				string path = folderBrowserDialog.SelectedPath;
+				string path = folderBrowserDialog.FileName;
 
                 AddFolder(path);
 			}
@@ -312,7 +312,7 @@ namespace pocorall.SCM_Notifier
 		{
 			if (openFileDialog.ShowDialog() == DialogResult.OK)
 			{
-				string fileName = openFileDialog.FileName;			
+				string fileName = openFileDialog.FileName;
 
                 AddFile(fileName);
 			}
@@ -670,7 +670,7 @@ namespace pocorall.SCM_Notifier
                         AddFile(p);
                     else if(Directory.Exists(p))
                         AddFolder(p);
-                }                
+                }
             }
             else // otherwise assume it is a DragAndDropListView.DragItem
             {
@@ -1159,7 +1159,7 @@ namespace pocorall.SCM_Notifier
 
 			if (!pauseTimer.Enabled)
 			{
-				// If the pauseTimer is running it will start up 
+				// If the pauseTimer is running it will start up
 				// the statusUpdateTimer once the pause is done.
 				StartTimer();
 			}
@@ -1419,7 +1419,7 @@ namespace pocorall.SCM_Notifier
         {
             //only inforce accepting dropped files, rest is handled by parent class.
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
-                e.Effect = DragDropEffects.Copy;                       
+                e.Effect = DragDropEffects.Copy;
         }
 	}
 }

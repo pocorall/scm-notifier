@@ -1,5 +1,7 @@
 ﻿using System.Windows.Forms;
 using DragNDrop;
+using FolderSelect;
+using pocorall.SCM_Notifier.Properties;
 
 namespace pocorall.SCM_Notifier
 {
@@ -33,7 +35,7 @@ namespace pocorall.SCM_Notifier
 		{
 			this.components = new System.ComponentModel.Container ();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager (typeof (MainForm));
-			this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog ();
+			this.folderBrowserDialog = new FolderSelectDialog();
 			this.statusUpdateTimer = new System.Timers.Timer ();
 			this.imageListFolderStatus = new System.Windows.Forms.ImageList (this.components);
 			this.openFileDialog = new System.Windows.Forms.OpenFileDialog ();
@@ -98,20 +100,19 @@ namespace pocorall.SCM_Notifier
 			this.statusStrip.SuspendLayout ();
 			this.toolStrip1.SuspendLayout ();
 			this.SuspendLayout ();
-			// 
+			//
 			// folderBrowserDialog
-			// 
-			this.folderBrowserDialog.Description = "Select folder controlled by Subversion";
-			this.folderBrowserDialog.ShowNewFolderButton = false;
-			// 
+			//
+		    this.folderBrowserDialog.Title = Resources.selectFolder;
+			//
 			// statusUpdateTimer
-			// 
+			//
 			this.statusUpdateTimer.AutoReset = false;
 			this.statusUpdateTimer.SynchronizingObject = this;
 			this.statusUpdateTimer.Elapsed += new System.Timers.ElapsedEventHandler (this.statusUpdateTimer_Elapsed);
-			// 
+			//
 			// imageListFolderStatus
-			// 
+			//
             global::pocorall.SCM_Notifier.Properties.Resources.getBitmap(imageListFolderStatus.Images, "Svn_FolderStatus_UpToDate");
             global::pocorall.SCM_Notifier.Properties.Resources.getBitmap(imageListFolderStatus.Images, "Svn_FolderStatus_Error");
             global::pocorall.SCM_Notifier.Properties.Resources.getBitmap(imageListFolderStatus.Images, "Svn_FolderStatus_Unknown");
@@ -124,22 +125,22 @@ namespace pocorall.SCM_Notifier
             global::pocorall.SCM_Notifier.Properties.Resources.getBitmap(imageListFolderStatus.Images, "Git_FolderStatus_Unknown");
             global::pocorall.SCM_Notifier.Properties.Resources.getBitmap(imageListFolderStatus.Images, "Git_FolderStatus_UpToDate_Modified");
             global::pocorall.SCM_Notifier.Properties.Resources.getBitmap(imageListFolderStatus.Images, "Git_FolderStatus_NeedUpdate_Modified");
-            // 
+            //
 			// openFileDialog
-			// 
-			this.openFileDialog.Title = "Select file controlled by Subversion";
-			// 
+			//
+            this.openFileDialog.Title = Resources.selectFolder;
+			//
 			// notifyIcon
-			// 
+			//
 			this.notifyIcon.ContextMenuStrip = this.trayContextMenuStrip;
 			this.notifyIcon.Icon = ((System.Drawing.Icon) (resources.GetObject ("notifyIcon.Icon")));
 			this.notifyIcon.Text = "SCM Notifier";
 			this.notifyIcon.Visible = true;
 			this.notifyIcon.BalloonTipClicked += new System.EventHandler (this.notifyIcon_BalloonTipClicked);
 			this.notifyIcon.MouseClick += new System.Windows.Forms.MouseEventHandler (this.notifyIcon_MouseClick);
-			// 
+			//
 			// trayContextMenuStrip
-			// 
+			//
 			this.trayContextMenuStrip.Items.AddRange (new System.Windows.Forms.ToolStripItem [] {
             this.menuItem_ShowList,
             this.toolStripMenuItem1,
@@ -148,40 +149,40 @@ namespace pocorall.SCM_Notifier
             this.menuItem_Exit});
 			this.trayContextMenuStrip.Name = "contextMenuStrip";
 			this.trayContextMenuStrip.Size = new System.Drawing.Size (187, 82);
-			// 
+			//
 			// menuItem_ShowList
-			// 
+			//
 			this.menuItem_ShowList.Name = "menuItem_ShowList";
 			this.menuItem_ShowList.Size = new System.Drawing.Size (186, 22);
 			this.menuItem_ShowList.Text = "Show Status Window";
 			this.menuItem_ShowList.Click += new System.EventHandler (this.menuItem_ShowList_Click);
-			// 
+			//
 			// toolStripMenuItem1
-			// 
+			//
 			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
 			this.toolStripMenuItem1.Size = new System.Drawing.Size (183, 6);
-			// 
+			//
 			// menuItem_UpdateAll
-			// 
+			//
 			this.menuItem_UpdateAll.Name = "menuItem_UpdateAll";
 			this.menuItem_UpdateAll.Size = new System.Drawing.Size (186, 22);
 			this.menuItem_UpdateAll.Text = "Update All";
 			this.menuItem_UpdateAll.Click += new System.EventHandler (this.menuItem_UpdateAll_Click);
-			// 
+			//
 			// toolStripMenuItem2
-			// 
+			//
 			this.toolStripMenuItem2.Name = "toolStripMenuItem2";
 			this.toolStripMenuItem2.Size = new System.Drawing.Size (183, 6);
-			// 
+			//
 			// menuItem_Exit
-			// 
+			//
 			this.menuItem_Exit.Name = "menuItem_Exit";
 			this.menuItem_Exit.Size = new System.Drawing.Size (186, 22);
 			this.menuItem_Exit.Text = "Exit";
 			this.menuItem_Exit.Click += new System.EventHandler (this.menuItem_Exit_Click);
-			// 
+			//
 			// menuStrip
-			// 
+			//
 			this.menuStrip.Items.AddRange (new System.Windows.Forms.ToolStripItem [] {
             this.fileToolStripMenuItem,
             this.editToolStripMenuItem,
@@ -192,9 +193,9 @@ namespace pocorall.SCM_Notifier
 			this.menuStrip.Size = new System.Drawing.Size (504, 24);
 			this.menuStrip.TabIndex = 9;
 			this.menuStrip.Text = "menuStrip";
-			// 
+			//
 			// fileToolStripMenuItem
-			// 
+			//
 			this.fileToolStripMenuItem.DropDownItems.AddRange (new System.Windows.Forms.ToolStripItem [] {
             this.importConfigurationToolStripMenuItem,
             this.exportConfigurationToolStripMenuItem,
@@ -203,35 +204,35 @@ namespace pocorall.SCM_Notifier
 			this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
 			this.fileToolStripMenuItem.Size = new System.Drawing.Size (35, 20);
 			this.fileToolStripMenuItem.Text = "&File";
-			// 
+			//
 			// importConfigurationToolStripMenuItem
-			// 
+			//
 			this.importConfigurationToolStripMenuItem.Name = "importConfigurationToolStripMenuItem";
 			this.importConfigurationToolStripMenuItem.Size = new System.Drawing.Size (197, 22);
 			this.importConfigurationToolStripMenuItem.Text = "&Import Configuration...";
 			this.importConfigurationToolStripMenuItem.Click += new System.EventHandler (this.menuItemImportConfig_Click);
-			// 
+			//
 			// exportConfigurationToolStripMenuItem
-			// 
+			//
 			this.exportConfigurationToolStripMenuItem.Name = "exportConfigurationToolStripMenuItem";
 			this.exportConfigurationToolStripMenuItem.Size = new System.Drawing.Size (197, 22);
 			this.exportConfigurationToolStripMenuItem.Text = "&Export Configuration...";
 			this.exportConfigurationToolStripMenuItem.Click += new System.EventHandler (this.menuItemExportConfig_Click);
-			// 
+			//
 			// toolStripMenuItem3
-			// 
+			//
 			this.toolStripMenuItem3.Name = "toolStripMenuItem3";
 			this.toolStripMenuItem3.Size = new System.Drawing.Size (194, 6);
-			// 
+			//
 			// exitToolStripMenuItem
-			// 
+			//
 			this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
 			this.exitToolStripMenuItem.Size = new System.Drawing.Size (197, 22);
 			this.exitToolStripMenuItem.Text = "E&xit";
 			this.exitToolStripMenuItem.Click += new System.EventHandler (this.menuItemExit_Click);
-			// 
+			//
 			// editToolStripMenuItem
-			// 
+			//
 			this.editToolStripMenuItem.DropDownItems.AddRange (new System.Windows.Forms.ToolStripItem [] {
             this.addFolderToolStripMenuItem,
             this.addFileToolStripMenuItem,
@@ -239,34 +240,34 @@ namespace pocorall.SCM_Notifier
 			this.editToolStripMenuItem.Name = "editToolStripMenuItem";
 			this.editToolStripMenuItem.Size = new System.Drawing.Size (37, 20);
 			this.editToolStripMenuItem.Text = "&Edit";
-			// 
+			//
 			// addFolderToolStripMenuItem
-			// 
+			//
 			this.addFolderToolStripMenuItem.Image = global::pocorall.SCM_Notifier.Properties.Resources.Toolbar_AddFolder;
 			this.addFolderToolStripMenuItem.Name = "addFolderToolStripMenuItem";
 			this.addFolderToolStripMenuItem.Size = new System.Drawing.Size (152, 22);
 			this.addFolderToolStripMenuItem.Text = "&Add Folder...";
 			this.addFolderToolStripMenuItem.Click += new System.EventHandler (this.menuItemAddFolder_Click);
-			// 
+			//
 			// addFileToolStripMenuItem
-			// 
+			//
 			this.addFileToolStripMenuItem.Image = global::pocorall.SCM_Notifier.Properties.Resources.Toolbar_AddFile;
 			this.addFileToolStripMenuItem.Name = "addFileToolStripMenuItem";
 			this.addFileToolStripMenuItem.Size = new System.Drawing.Size (152, 22);
 			this.addFileToolStripMenuItem.Text = "Add F&ile...";
 			this.addFileToolStripMenuItem.Click += new System.EventHandler (this.menuItemAddFile_Click);
-			// 
+			//
 			// deleteToolStripMenuItem
-			// 
+			//
 			this.deleteToolStripMenuItem.Enabled = false;
 			this.deleteToolStripMenuItem.Image = global::pocorall.SCM_Notifier.Properties.Resources.Toolbar_Remove;
 			this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
 			this.deleteToolStripMenuItem.Size = new System.Drawing.Size (152, 22);
 			this.deleteToolStripMenuItem.Text = "&Delete...";
 			this.deleteToolStripMenuItem.Click += new System.EventHandler (this.menuItemDelete_Click);
-			// 
+			//
 			// toolsToolStripMenuItem
-			// 
+			//
 			this.toolsToolStripMenuItem.DropDownItems.AddRange (new System.Windows.Forms.ToolStripItem [] {
             this.updateAllToolStripMenuItem,
             this.toolStripMenuItem4,
@@ -274,29 +275,29 @@ namespace pocorall.SCM_Notifier
 			this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
 			this.toolsToolStripMenuItem.Size = new System.Drawing.Size (44, 20);
 			this.toolsToolStripMenuItem.Text = "&Tools";
-			// 
+			//
 			// updateAllToolStripMenuItem
-			// 
+			//
 			this.updateAllToolStripMenuItem.Enabled = false;
 			this.updateAllToolStripMenuItem.Name = "updateAllToolStripMenuItem";
 			this.updateAllToolStripMenuItem.Size = new System.Drawing.Size (152, 22);
 			this.updateAllToolStripMenuItem.Text = "&Update All";
 			this.updateAllToolStripMenuItem.Click += new System.EventHandler (this.menuItemUpdateAll_Click);
-			// 
+			//
 			// toolStripMenuItem4
-			// 
+			//
 			this.toolStripMenuItem4.Name = "toolStripMenuItem4";
 			this.toolStripMenuItem4.Size = new System.Drawing.Size (149, 6);
-			// 
+			//
 			// settingsToolStripMenuItem
-			// 
+			//
 			this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
 			this.settingsToolStripMenuItem.Size = new System.Drawing.Size (152, 22);
 			this.settingsToolStripMenuItem.Text = "&Settings...";
 			this.settingsToolStripMenuItem.Click += new System.EventHandler (this.menuItemSettings_Click);
-			// 
+			//
 			// helpToolStripMenuItem
-			// 
+			//
 			this.helpToolStripMenuItem.DropDownItems.AddRange (new System.Windows.Forms.ToolStripItem [] {
             this.checkForUpdatesToolStripMenuItem,
             this.toolStripMenuItem5,
@@ -304,28 +305,28 @@ namespace pocorall.SCM_Notifier
 			this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
 			this.helpToolStripMenuItem.Size = new System.Drawing.Size (40, 20);
 			this.helpToolStripMenuItem.Text = "&Help";
-			// 
+			//
 			// checkForUpdatesToolStripMenuItem
-			// 
+			//
 			this.checkForUpdatesToolStripMenuItem.Name = "checkForUpdatesToolStripMenuItem";
 			this.checkForUpdatesToolStripMenuItem.Size = new System.Drawing.Size (174, 22);
 			this.checkForUpdatesToolStripMenuItem.Text = "&Check for Updates";
 			this.checkForUpdatesToolStripMenuItem.Click += new System.EventHandler (this.menuItemCheckNewVersion_Click);
-			// 
+			//
 			// toolStripMenuItem5
-			// 
+			//
 			this.toolStripMenuItem5.Name = "toolStripMenuItem5";
 			this.toolStripMenuItem5.Size = new System.Drawing.Size (171, 6);
-			// 
+			//
 			// aboutSVNNotifierToolStripMenuItem
-			// 
+			//
 			this.aboutSVNNotifierToolStripMenuItem.Name = "aboutSVNNotifierToolStripMenuItem";
 			this.aboutSVNNotifierToolStripMenuItem.Size = new System.Drawing.Size (174, 22);
 			this.aboutSVNNotifierToolStripMenuItem.Text = "&About SCM Notifier";
 			this.aboutSVNNotifierToolStripMenuItem.Click += new System.EventHandler (this.menuItemAbout_Click);
-			// 
+			//
 			// contextMenuStrip
-			// 
+			//
 			this.contextMenuStrip.Items.AddRange (new System.Windows.Forms.ToolStripItem [] {
             this.checkNowToolStripMenuItem,
             this.toolStripMenuItem6,
@@ -341,78 +342,78 @@ namespace pocorall.SCM_Notifier
 			this.contextMenuStrip.Name = "contextMenuStrip";
 			this.contextMenuStrip.Size = new System.Drawing.Size (155, 182);
 			this.contextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler (this.contextMenuStrip_Opening);
-			// 
+			//
 			// checkNowToolStripMenuItem
-			// 
+			//
 			this.checkNowToolStripMenuItem.Name = "checkNowToolStripMenuItem";
 			this.checkNowToolStripMenuItem.Size = new System.Drawing.Size (154, 22);
 			this.checkNowToolStripMenuItem.Text = "Check Now...";
 			this.checkNowToolStripMenuItem.Click += new System.EventHandler (this.checkNowToolStripMenuItem_Click);
-			// 
+			//
 			// toolStripMenuItem6
-			// 
+			//
 			this.toolStripMenuItem6.Name = "toolStripMenuItem6";
 			this.toolStripMenuItem6.Size = new System.Drawing.Size (151, 6);
-			// 
+			//
 			// changeLogToolStripMenuItem
-			// 
+			//
 			this.changeLogToolStripMenuItem.Name = "changeLogToolStripMenuItem";
 			this.changeLogToolStripMenuItem.Size = new System.Drawing.Size (154, 22);
 			this.changeLogToolStripMenuItem.Text = "Change Log...";
 			this.changeLogToolStripMenuItem.Click += new System.EventHandler (this.changeLogToolStripMenuItem_Click);
-			// 
+			//
 			// updateToolStripMenuItem
-			// 
+			//
 			this.updateToolStripMenuItem.Name = "updateToolStripMenuItem";
 			this.updateToolStripMenuItem.Size = new System.Drawing.Size (154, 22);
 			this.updateToolStripMenuItem.Text = "Update";
 			this.updateToolStripMenuItem.Click += new System.EventHandler (this.updateToolStripMenuItem_Click);
-			// 
+			//
 			// toolStripMenuItem7
-			// 
+			//
 			this.toolStripMenuItem7.Name = "toolStripMenuItem7";
 			this.toolStripMenuItem7.Size = new System.Drawing.Size (151, 6);
-			// 
+			//
 			// commitToolStripMenuItem
-			// 
+			//
 			this.commitToolStripMenuItem.Name = "commitToolStripMenuItem";
 			this.commitToolStripMenuItem.Size = new System.Drawing.Size (154, 22);
 			this.commitToolStripMenuItem.Text = "Commit...";
 			this.commitToolStripMenuItem.Click += new System.EventHandler (this.commitToolStripMenuItem_Click);
-			// 
+			//
 			// toolStripMenuItem8
-			// 
+			//
 			this.toolStripMenuItem8.Name = "toolStripMenuItem8";
 			this.toolStripMenuItem8.Size = new System.Drawing.Size (151, 6);
-			// 
+			//
 			// openToolStripMenuItem
-			// 
+			//
 			this.openToolStripMenuItem.Name = "openToolStripMenuItem";
 			this.openToolStripMenuItem.Size = new System.Drawing.Size (154, 22);
 			this.openToolStripMenuItem.Text = "Open...";
 			this.openToolStripMenuItem.Click += new System.EventHandler (this.openToolStripMenuItem_Click);
-			// 
+			//
 			// logToolStripMenuItem
-			// 
+			//
 			this.logToolStripMenuItem.Name = "logToolStripMenuItem";
 			this.logToolStripMenuItem.Size = new System.Drawing.Size (154, 22);
 			this.logToolStripMenuItem.Text = "Log...";
 			this.logToolStripMenuItem.Click += new System.EventHandler (this.contextMenuItemLog_Click);
-			// 
+			//
 			// toolStripMenuItem9
-			// 
+			//
 			this.toolStripMenuItem9.Name = "toolStripMenuItem9";
 			this.toolStripMenuItem9.Size = new System.Drawing.Size (151, 6);
-			// 
+			//
 			// propertiesToolStripMenuItem
-			// 
+			//
 			this.propertiesToolStripMenuItem.Name = "propertiesToolStripMenuItem";
 			this.propertiesToolStripMenuItem.Size = new System.Drawing.Size (154, 22);
 			this.propertiesToolStripMenuItem.Text = "Properties";
 			this.propertiesToolStripMenuItem.Click += new System.EventHandler (this.propertiesToolStripMenuItem_Click);
-			// 
+			//
 			// statusStrip
-			// 
+			//
 			this.statusStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Visible;
 			this.statusStrip.Items.AddRange (new System.Windows.Forms.ToolStripItem [] {
             this.toolStripStatusLabel1,
@@ -423,33 +424,33 @@ namespace pocorall.SCM_Notifier
 			this.statusStrip.Size = new System.Drawing.Size (504, 22);
 			this.statusStrip.TabIndex = 10;
 			this.statusStrip.Text = "statusStrip1";
-			// 
+			//
 			// toolStripStatusLabel1
-			// 
+			//
 			this.toolStripStatusLabel1.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
 			this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
 			this.toolStripStatusLabel1.Size = new System.Drawing.Size (369, 17);
 			this.toolStripStatusLabel1.Spring = true;
 			this.toolStripStatusLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
+			//
 			// toolStripStatusLabel2
-			// 
+			//
 			this.toolStripStatusLabel2.AutoSize = false;
 			this.toolStripStatusLabel2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
 			this.toolStripStatusLabel2.Image = ((System.Drawing.Image) (resources.GetObject ("toolStripStatusLabel2.Image")));
 			this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
 			this.toolStripStatusLabel2.Size = new System.Drawing.Size (20, 17);
 			this.toolStripStatusLabel2.Click += new System.EventHandler (this.toolStripStatusLabel2_Click);
-			// 
+			//
 			// toolStripStatusLabel3
-			// 
+			//
 			this.toolStripStatusLabel3.AutoSize = false;
 			this.toolStripStatusLabel3.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
 			this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
 			this.toolStripStatusLabel3.Size = new System.Drawing.Size (100, 17);
-			// 
+			//
 			// toolStrip1
-			// 
+			//
 			this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
 			this.toolStrip1.Items.AddRange (new System.Windows.Forms.ToolStripItem [] {
             this.btnChangeLog,
@@ -467,9 +468,9 @@ namespace pocorall.SCM_Notifier
 			this.toolStrip1.Size = new System.Drawing.Size (504, 29);
 			this.toolStrip1.TabIndex = 11;
 			this.toolStrip1.Text = "toolStrip1";
-			// 
+			//
 			// btnChangeLog
-			// 
+			//
 			this.btnChangeLog.Enabled = false;
 			this.btnChangeLog.Image = global::pocorall.SCM_Notifier.Properties.Resources.Toolbar_ShowChangeLogs;
 			this.btnChangeLog.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
@@ -478,9 +479,9 @@ namespace pocorall.SCM_Notifier
 			this.btnChangeLog.Size = new System.Drawing.Size (90, 26);
 			this.btnChangeLog.Text = "Change Log";
 			this.btnChangeLog.Click += new System.EventHandler (this.btnChangeLog_Click);
-			// 
+			//
 			// btnUpdate
-			// 
+			//
 			this.btnUpdate.Enabled = false;
 			this.btnUpdate.Image = global::pocorall.SCM_Notifier.Properties.Resources.Toolbar_Update;
 			this.btnUpdate.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
@@ -489,9 +490,9 @@ namespace pocorall.SCM_Notifier
 			this.btnUpdate.Size = new System.Drawing.Size (68, 26);
 			this.btnUpdate.Text = "Update";
 			this.btnUpdate.Click += new System.EventHandler (this.btnUpdate_Click);
-			// 
+			//
 			// btnCommit
-			// 
+			//
 			this.btnCommit.Enabled = false;
 			this.btnCommit.Image = global::pocorall.SCM_Notifier.Properties.Resources.Toolbar_Commit;
 			this.btnCommit.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
@@ -500,9 +501,9 @@ namespace pocorall.SCM_Notifier
 			this.btnCommit.Size = new System.Drawing.Size (68, 26);
 			this.btnCommit.Text = "Commit";
 			this.btnCommit.Click += new System.EventHandler (this.btnCommit_Click);
-			// 
+			//
 			// btnOpenFolder
-			// 
+			//
 			this.btnOpenFolder.Enabled = false;
 			this.btnOpenFolder.Image = global::pocorall.SCM_Notifier.Properties.Resources.Toolbar_OpenFolder;
 			this.btnOpenFolder.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
@@ -511,9 +512,9 @@ namespace pocorall.SCM_Notifier
 			this.btnOpenFolder.Size = new System.Drawing.Size (59, 26);
 			this.btnOpenFolder.Text = "Open";
 			this.btnOpenFolder.Click += new System.EventHandler (this.btnOpenFolder_Click);
-			// 
+			//
 			// btnLog
-			// 
+			//
 			this.btnLog.Enabled = false;
 			this.btnLog.Image = global::pocorall.SCM_Notifier.Properties.Resources.Toolbar_ShowLogs;
 			this.btnLog.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
@@ -522,9 +523,9 @@ namespace pocorall.SCM_Notifier
 			this.btnLog.Size = new System.Drawing.Size (50, 26);
 			this.btnLog.Text = "Log";
 			this.btnLog.Click += new System.EventHandler (this.btnLog_Click);
-			// 
+			//
 			// btnDelete
-			// 
+			//
 			this.btnDelete.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
 			this.btnDelete.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
 			this.btnDelete.Enabled = false;
@@ -535,15 +536,15 @@ namespace pocorall.SCM_Notifier
 			this.btnDelete.Size = new System.Drawing.Size (26, 26);
 			this.btnDelete.Text = "Remove";
 			this.btnDelete.Click += new System.EventHandler (this.menuItemDelete_Click);
-			// 
+			//
 			// toolStripSeparator1
-			// 
+			//
 			this.toolStripSeparator1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
 			this.toolStripSeparator1.Name = "toolStripSeparator1";
 			this.toolStripSeparator1.Size = new System.Drawing.Size (6, 29);
-			// 
+			//
 			// btnAddFile
-			// 
+			//
 			this.btnAddFile.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
 			this.btnAddFile.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
 			this.btnAddFile.Image = global::pocorall.SCM_Notifier.Properties.Resources.Toolbar_AddFile;
@@ -553,15 +554,15 @@ namespace pocorall.SCM_Notifier
 			this.btnAddFile.Size = new System.Drawing.Size (26, 26);
 			this.btnAddFile.Text = "Add File";
 			this.btnAddFile.Click += new System.EventHandler (this.menuItemAddFile_Click);
-			// 
+			//
 			// toolStripSeparator2
-			// 
+			//
 			this.toolStripSeparator2.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
 			this.toolStripSeparator2.Name = "toolStripSeparator2";
 			this.toolStripSeparator2.Size = new System.Drawing.Size (6, 29);
-			// 
+			//
 			// btnAddFolder
-			// 
+			//
 			this.btnAddFolder.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
 			this.btnAddFolder.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
 			this.btnAddFolder.Image = global::pocorall.SCM_Notifier.Properties.Resources.Toolbar_AddFolder;
@@ -571,13 +572,13 @@ namespace pocorall.SCM_Notifier
 			this.btnAddFolder.Size = new System.Drawing.Size (26, 26);
 			this.btnAddFolder.Text = "Add Folder";
 			this.btnAddFolder.Click += new System.EventHandler (this.menuItemAddFolder_Click);
-			// 
+			//
 			// pauseTimer
-			// 
+			//
 			this.pauseTimer.Tick += new System.EventHandler(this.pauseTimer_Tick);
-			// 
+			//
 			// listViewFolders
-			// 
+			//
 			this.listViewFolders.AllowDrop = true;
 			this.listViewFolders.AllowReorder = true;
 			this.listViewFolders.ContextMenuStrip = this.contextMenuStrip;
@@ -598,9 +599,9 @@ namespace pocorall.SCM_Notifier
 			this.listViewFolders.DragEnter += new System.Windows.Forms.DragEventHandler(this.listViewFolders_DragEnter);
 			this.listViewFolders.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listViewFolders_KeyDown);
 			this.listViewFolders.DragOver += new System.Windows.Forms.DragEventHandler(this.listViewFolders_DragOver);
-			// 
+			//
 			// MainForm
-			// 
+			//
 			this.AutoScaleBaseSize = new System.Drawing.Size (5, 13);
 			this.ClientSize = new System.Drawing.Size (504, 140);
 			this.Controls.Add (this.listViewFolders);
@@ -639,7 +640,7 @@ namespace pocorall.SCM_Notifier
 		#region Windows Forms Designer variables
 
 		private ImageList imageListFolderStatus;
-		private FolderBrowserDialog folderBrowserDialog;
+        private FolderSelect.FolderSelectDialog folderBrowserDialog;
 		private System.Timers.Timer statusUpdateTimer;
 		private Timer pauseTimer;
 		private DragAndDropListView listViewFolders;
@@ -696,7 +697,7 @@ namespace pocorall.SCM_Notifier
 		private ToolStripSeparator toolStripSeparator1;
 		private ToolStripSeparator toolStripSeparator2;
 		private ToolStripStatusLabel toolStripStatusLabel3;
-		
+
 		#endregion
 	}
 }
