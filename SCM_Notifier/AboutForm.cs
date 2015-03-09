@@ -34,7 +34,7 @@ namespace pocorall.SCM_Notifier
 	/// </summary>
 	public class AboutForm : Form
 	{
-		public static Version Version = new Version ("12.08.16");
+		public static Version Version = new Version ("15.03.10");
 		public static string VersionStatus = "";		// " alpha", " beta", ""
 
 		#region Windows Form Designer generated fields
@@ -131,7 +131,7 @@ namespace pocorall.SCM_Notifier
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(374, 34);
             this.label2.TabIndex = 4;
-            this.label2.Text = "Copyright (C) 2011 Sung-Ho Lee and Computer Hardware Design Ltd";
+            this.label2.Text = "Copyright (C) 2015 Sung-Ho Lee and Computer Hardware Design Ltd";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label3
