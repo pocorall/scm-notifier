@@ -9,15 +9,16 @@ This program is forked from SVN Notifier (http://svnnotifier.tigris.org/).
 * TortoiseSVN (optional)
 * Git
 * TortoiseGit
-* Microsoft Windows 2000/XP/Vista/7
+* Microsoft Windows 2000/XP/Vista/7/8/8.1
 * Microsoft .NET Framework 4.5
 
 Git update will **not work** properly if you do not [configure private key for TortoiseGit](http://serverfault.com/questions/194567/how-to-i-tell-git-for-windows-where-to-find-my-private-rsa-key).  
+Make sure you can run "git fetch" command in git repositories folder without errors or prompts before configuring them in SCM Notifier.
 
 If you want to use Git only, let the configuration for path to Subversion and TortoiseSVN left blank.
 
 ### Build requirements
-* Microsoft Visual Studio 2010 or above, C#
+* Microsoft Visual Studio 2012 or above, .net 4.5, C#
 
 
 ### Configuration
