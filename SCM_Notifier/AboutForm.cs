@@ -108,18 +108,18 @@ namespace pocorall.SCM_Notifier
             // btnOK
             // 
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnOK.Location = new System.Drawing.Point(298, 258);
+            this.btnOK.Location = new System.Drawing.Point(248, 240);
             this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(96, 25);
+            this.btnOK.Size = new System.Drawing.Size(80, 23);
             this.btnOK.TabIndex = 1;
             this.btnOK.Text = "OK";
             // 
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(10, 9);
+            this.label1.Location = new System.Drawing.Point(8, 8);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(384, 24);
+            this.label1.Size = new System.Drawing.Size(320, 23);
             this.label1.TabIndex = 3;
             this.label1.Text = "SCM Notifier. Version $VER";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -127,9 +127,9 @@ namespace pocorall.SCM_Notifier
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(10, 37);
+            this.label2.Location = new System.Drawing.Point(8, 34);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(374, 34);
+            this.label2.Size = new System.Drawing.Size(312, 32);
             this.label2.TabIndex = 4;
             this.label2.Text = "Copyright (C) 2015 Sung-Ho Lee and Computer Hardware Design Ltd";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -137,9 +137,9 @@ namespace pocorall.SCM_Notifier
             // label3
             // 
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(10, 121);
+            this.label3.Location = new System.Drawing.Point(8, 112);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(374, 34);
+            this.label3.Size = new System.Drawing.Size(312, 32);
             this.label3.TabIndex = 5;
             this.label3.Text = "SCM Notifier is Open Source Software released under the GNU General Public Licens" +
     "e v3.";
@@ -147,27 +147,27 @@ namespace pocorall.SCM_Notifier
             // 
             // label4
             // 
-            this.label4.Location = new System.Drawing.Point(0, 164);
+            this.label4.Location = new System.Drawing.Point(0, 152);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(403, 40);
+            this.label4.Size = new System.Drawing.Size(336, 37);
             this.label4.TabIndex = 6;
             this.label4.Text = "Developers: Sung-Ho Lee, Vlad Rudenko, Aleksej Vaschenko, Nikolaj Nahimov";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label5
             // 
-            this.label5.Location = new System.Drawing.Point(24, 95);
+            this.label5.Location = new System.Drawing.Point(20, 88);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(96, 17);
+            this.label5.Size = new System.Drawing.Size(80, 16);
             this.label5.TabIndex = 7;
             this.label5.Text = "Project home:";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // linkLabel3
             // 
-            this.linkLabel3.Location = new System.Drawing.Point(120, 95);
+            this.linkLabel3.Location = new System.Drawing.Point(100, 88);
             this.linkLabel3.Name = "linkLabel3";
-            this.linkLabel3.Size = new System.Drawing.Size(275, 17);
+            this.linkLabel3.Size = new System.Drawing.Size(229, 16);
             this.linkLabel3.TabIndex = 9;
             this.linkLabel3.TabStop = true;
             this.linkLabel3.Text = "https://github.com/pocorall/scm-notifier";
@@ -180,7 +180,7 @@ namespace pocorall.SCM_Notifier
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(406, 44);
+            this.pictureBox1.Size = new System.Drawing.Size(406, 41);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 10;
             this.pictureBox1.TabStop = false;
@@ -196,15 +196,15 @@ namespace pocorall.SCM_Notifier
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 44);
+            this.panel1.Location = new System.Drawing.Point(0, 41);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(406, 206);
+            this.panel1.Size = new System.Drawing.Size(406, 191);
             this.panel1.TabIndex = 11;
             // 
             // AboutForm
             // 
             this.AcceptButton = this.btnOK;
-            this.AutoScaleBaseSize = new System.Drawing.Size(6, 14);
+            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
             this.CancelButton = this.btnOK;
             this.ClientSize = new System.Drawing.Size(406, 295);
             this.Controls.Add(this.panel1);
