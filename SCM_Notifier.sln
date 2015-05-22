@@ -2,8 +2,6 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCM_Notifier", "SCM_Notifier\SCM_Notifier.csproj", "{047E30FF-665B-422C-9877-8983961F848A}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SCM_Notifier_Setup", "SCM_Notifier_Setup\SCM_Notifier_Setup.vdproj", "{32E9D32C-E6DF-4A7B-B5B0-FDF69724DA1C}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

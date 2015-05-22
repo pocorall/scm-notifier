@@ -17,7 +17,7 @@ Git update will **not work** properly if you do not [configure private key for T
 If you want to use Git only, let the configuration for path to Subversion and TortoiseSVN left blank.
 
 ### Build requirements
-* Microsoft Visual Studio 2010, C#
+* Microsoft Visual Studio 2010 or above, C#
 
 
 ### Configuration
