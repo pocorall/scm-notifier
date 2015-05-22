@@ -582,6 +582,9 @@ namespace pocorall.SCM_Notifier
                 // Disable Log Button when GitUIPath not configured
                 if (folder is GitRepository && (Config.GitUIPath == null || !File.Exists(Config.GitUIPath)))
                     btnLog.Enabled = false;
+                // MW: Override log button enabling if TortoiseGit not installed or defined
+                if (folder.Serialize().ToUpper().StartsWith("GIT") && (Config.GitUIPath == null || !File.Exists(Config.GitUIPath)))
+                    btnLog.Enabled = false;
 
                 deleteToolStripMenuItem.Enabled = true;
 				btnDelete.Enabled = true;
