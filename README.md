@@ -10,7 +10,7 @@ This program is forked from SVN Notifier (http://svnnotifier.tigris.org/).
 * Git
 * TortoiseGit
 * Microsoft Windows 2000/XP/Vista/7
-* Microsoft .NET Framework 4.0
+* Microsoft .NET Framework 4.5
 
 Git update will **not work** properly if you do not [configure private key for TortoiseGit](http://serverfault.com/questions/194567/how-to-i-tell-git-for-windows-where-to-find-my-private-rsa-key).  
 
