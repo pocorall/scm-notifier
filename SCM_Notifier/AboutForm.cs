@@ -34,7 +34,7 @@ namespace pocorall.SCM_Notifier
 	/// </summary>
 	public class AboutForm : Form
 	{
-		public static Version Version = new Version ("15.03.10");
+		public static Version Version = new Version ("15.08.09");
 		public static string VersionStatus = "";		// " alpha", " beta", ""
 
 		#region Windows Form Designer generated fields
