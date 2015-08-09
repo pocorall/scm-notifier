@@ -87,7 +87,7 @@ namespace pocorall.SCM_Notifier
         /// </summary>
         public override void Update(bool updateAll)
         {
-            string arguments = String.Format("/command:pull /path:\"{0}\" /notempfile", Path);
+            string arguments = String.Format("/command:fetch /path:\"{0}\" /notempfile", Path);
             if (this.IsGitExtensions(Config.GitUIPath))
                 arguments = String.Format("pull {0}", Path);
 
