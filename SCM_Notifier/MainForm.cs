@@ -1366,16 +1366,23 @@ namespace pocorall.SCM_Notifier
                 const string projectName = "scm-notifier";
                 const string directoryName = projectName;
 				const string iniFileName = projectName + ".ini";
-				if (File.Exists (iniFileName))
-					Config.Init (iniFileName);
-				else
-                {
-                    // MW: Ensure INI file is created in subdirectory of AppData folder
-                    if (!File.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), directoryName)))
-                        Directory.CreateDirectory(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), directoryName));
+                string appPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                string configPath = Path.Combine(appPath, directoryName);
+                string iniPath = Path.Combine(appPath, directoryName + @"\" + iniFileName);
 
-                    Config.Init(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), directoryName + @"\" + iniFileName));
+                if (!File.Exists(iniPath)) {
+                    if (!File.Exists(configPath))
+                        Directory.CreateDirectory(configPath);
+
+                    // migrate from old config file
+                    string oldPath = Path.Combine(appPath, "SCM_Notifier.ini");
+                    if (File.Exists(oldPath)) {
+                        File.Copy(oldPath, iniPath);
+                        File.Delete(oldPath);
+                    }
                 }
+
+                Config.Init(iniPath);
 
 				if (!Config.IsSettingsOK())
 					if (new SettingsForm().ShowDialog() != DialogResult.OK)
