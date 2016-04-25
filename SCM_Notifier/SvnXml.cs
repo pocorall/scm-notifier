@@ -60,7 +60,7 @@ namespace pocorall.SCM_Notifier
 
 						if ((elementName == "wc-status") && (attributeName == "item") && (xmlReader.Depth == 4))
 						{
-							if ((attributeValue != "normal") && (attributeValue != "unversioned"))
+							if ((attributeValue != "normal") && (attributeValue != "unversioned") && (attributeValue != "external"))
 								ht ["Modified"] = true;
 
 							skipNextReposStatus = (attributeValue == "conflicted");				// Because it always updated in repository
