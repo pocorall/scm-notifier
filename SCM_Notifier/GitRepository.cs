@@ -82,6 +82,15 @@ namespace pocorall.SCM_Notifier
             ExecuteProcess(Config.GitUIPath, null, arguments, false, false);
         }
 
+        public void OpenFetchWindow()
+        {
+            if (Config.GitUIPath == null || !File.Exists(Config.GitUIPath)) return;
+            string arguments = String.Format("/command:fetch /path:\"{0}\"", Path);
+            if (this.IsGitExtensions(Config.GitUIPath))
+                arguments = String.Format("browse {0}", Path);
+            ExecuteProcess(Config.GitUIPath, null, arguments, false, false);
+        }
+
         /// <summary>
         /// This method waits until updating will finish
         /// </summary>

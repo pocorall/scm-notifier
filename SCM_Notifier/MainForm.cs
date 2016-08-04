@@ -385,6 +385,12 @@ namespace pocorall.SCM_Notifier
 		}
 
 
+		private void btnFetch_Click (object sender, EventArgs e)
+		{
+			ShowFetch();
+		}
+
+
 		#endregion
 
 		//////////////////////////////////////////////////////////////////////////////
@@ -429,6 +435,12 @@ namespace pocorall.SCM_Notifier
 		private void contextMenuItemLog_Click (object sender, EventArgs e)
 		{
 			ShowFullLog();
+		}
+
+
+		private void contextMenuItemFetch_Click (object sender, EventArgs e)
+		{
+			ShowFetch();
 		}
 
 
@@ -479,12 +491,20 @@ namespace pocorall.SCM_Notifier
 				openToolStripMenuItem.Enabled =
 				changeLogToolStripMenuItem.Enabled =
 				logToolStripMenuItem.Enabled =
+				fetchToolStripMenuItem.Enabled =
 				propertiesToolStripMenuItem.Enabled = false;
 
 			if (listViewFolders.SelectedIndices.Count == 0) return;
 
 			int selectedIndex = listViewFolders.SelectedIndices[0];
-
+			if (folders[selectedIndex] is GitRepository)
+			{
+				fetchToolStripMenuItem.Visible = true;
+			}
+			else
+			{
+				fetchToolStripMenuItem.Visible = false;
+			}
 			switch (folders[selectedIndex].Status)
 			{
 				case ScmRepositoryStatus.NeedUpdate:
@@ -493,6 +513,7 @@ namespace pocorall.SCM_Notifier
 						openToolStripMenuItem.Enabled =
 						changeLogToolStripMenuItem.Enabled =
 						logToolStripMenuItem.Enabled =
+						fetchToolStripMenuItem.Enabled =
 						propertiesToolStripMenuItem.Enabled = true;
 					break;
 
@@ -503,6 +524,7 @@ namespace pocorall.SCM_Notifier
 						openToolStripMenuItem.Enabled =
 						changeLogToolStripMenuItem.Enabled =
 						logToolStripMenuItem.Enabled =
+						fetchToolStripMenuItem.Enabled =
 						propertiesToolStripMenuItem.Enabled = true;
 					break;
 
@@ -511,6 +533,7 @@ namespace pocorall.SCM_Notifier
 						commitToolStripMenuItem.Enabled =
 						openToolStripMenuItem.Enabled =
 						logToolStripMenuItem.Enabled =
+						fetchToolStripMenuItem.Enabled =
 						propertiesToolStripMenuItem.Enabled = true;
 					break;
 
@@ -518,6 +541,7 @@ namespace pocorall.SCM_Notifier
 					checkNowToolStripMenuItem.Enabled =
 						openToolStripMenuItem.Enabled =
 						logToolStripMenuItem.Enabled =
+						fetchToolStripMenuItem.Enabled =
 						propertiesToolStripMenuItem.Enabled = true;
 					break;
 
@@ -568,6 +592,7 @@ namespace pocorall.SCM_Notifier
 			if (listViewFolders.SelectedIndices.Count > 0)
 			{
 				ScmRepository folder = folders[listViewFolders.SelectedIndices[0]];
+				btnFetch.Visible = false;
 
 				btnChangeLog.Enabled = btnUpdate.Enabled = btnLog.Enabled = false;
 
@@ -579,12 +604,25 @@ namespace pocorall.SCM_Notifier
 				if ((folder.Status == ScmRepositoryStatus.NeedUpdate_Modified) || (folder.Status == ScmRepositoryStatus.UpToDate_Modified))
 					btnCommit.Enabled = true;
 
-                // Disable Log Button when GitUIPath not configured
-                if (folder is GitRepository && (Config.GitUIPath == null || !File.Exists(Config.GitUIPath)))
-                    btnLog.Enabled = false;
+
+				if (folder is GitRepository)
+				{
+					btnFetch.Visible = true;
+					btnFetch.Enabled = btnLog.Enabled;
+				}
+
+				// Disable Log Button when GitUIPath not configured
+				if (folder is GitRepository && (Config.GitUIPath == null || !File.Exists(Config.GitUIPath)))
+				{
+					btnLog.Enabled = false;
+					btnFetch.Enabled = false;
+				}
                 // MW: Override log button enabling if TortoiseGit not installed or defined
-                if (folder.Serialize().ToUpper().StartsWith("GIT") && (Config.GitUIPath == null || !File.Exists(Config.GitUIPath)))
-                    btnLog.Enabled = false;
+				if (folder.Serialize().ToUpper().StartsWith("GIT") && (Config.GitUIPath == null || !File.Exists(Config.GitUIPath)))
+				{
+					btnLog.Enabled = false;
+					btnFetch.Enabled = false;
+				}
 
                 deleteToolStripMenuItem.Enabled = true;
 				btnDelete.Enabled = true;
@@ -601,6 +639,8 @@ namespace pocorall.SCM_Notifier
 				btnDelete.Enabled = false;
 				btnOpenFolder.Enabled = false;
 				btnLog.Enabled = false;
+				btnFetch.Enabled = false;
+				btnFetch.Visible = false;
 
 				Text = Application.ProductName;
 			}
@@ -640,6 +680,11 @@ namespace pocorall.SCM_Notifier
 						ShowChangeLog();
 					else if (btnLog.Enabled)
 						ShowFullLog();
+					break;
+
+				case Config.Action.fetchAction:
+					if (btnFetch.Enabled)
+						ShowFetch();
 					break;
 
 				case Config.Action.updateAction:

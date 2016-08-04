@@ -74,6 +74,7 @@ namespace pocorall.SCM_Notifier
 			this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripSeparator ();
 			this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem ();
 			this.logToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem ();
+			this.fetchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem ();
 			this.toolStripMenuItem9 = new System.Windows.Forms.ToolStripSeparator ();
 			this.propertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem ();
 			this.statusStrip = new System.Windows.Forms.StatusStrip ();
@@ -86,6 +87,7 @@ namespace pocorall.SCM_Notifier
 			this.btnCommit = new System.Windows.Forms.ToolStripButton ();
 			this.btnOpenFolder = new System.Windows.Forms.ToolStripButton ();
 			this.btnLog = new System.Windows.Forms.ToolStripButton ();
+			this.btnFetch = new System.Windows.Forms.ToolStripButton ();
 			this.btnDelete = new System.Windows.Forms.ToolStripButton ();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator ();
 			this.btnAddFile = new System.Windows.Forms.ToolStripButton ();
@@ -337,6 +339,7 @@ namespace pocorall.SCM_Notifier
             this.toolStripMenuItem8,
             this.openToolStripMenuItem,
             this.logToolStripMenuItem,
+            this.fetchToolStripMenuItem,
             this.toolStripMenuItem9,
             this.propertiesToolStripMenuItem});
 			this.contextMenuStrip.Name = "contextMenuStrip";
@@ -400,6 +403,13 @@ namespace pocorall.SCM_Notifier
 			this.logToolStripMenuItem.Text = "Log...";
 			this.logToolStripMenuItem.Click += new System.EventHandler (this.contextMenuItemLog_Click);
 			//
+			// fetchToolStripMenuItem
+			//
+			this.fetchToolStripMenuItem.Name = "fetchToolStripMenuItem";
+			this.fetchToolStripMenuItem.Size = new System.Drawing.Size (154, 22);
+			this.fetchToolStripMenuItem.Text = "Fetch...";
+			this.fetchToolStripMenuItem.Click += new System.EventHandler (this.contextMenuItemFetch_Click);
+			//
 			// toolStripMenuItem9
 			//
 			this.toolStripMenuItem9.Name = "toolStripMenuItem9";
@@ -458,6 +468,7 @@ namespace pocorall.SCM_Notifier
             this.btnCommit,
             this.btnOpenFolder,
             this.btnLog,
+			this.btnFetch,
             this.btnDelete,
             this.toolStripSeparator1,
             this.btnAddFile,
@@ -523,6 +534,17 @@ namespace pocorall.SCM_Notifier
 			this.btnLog.Size = new System.Drawing.Size (50, 26);
 			this.btnLog.Text = "Log";
 			this.btnLog.Click += new System.EventHandler (this.btnLog_Click);
+			//
+			// btnFetch
+			//
+			this.btnFetch.Enabled = false;
+			this.btnFetch.Image = global::pocorall.SCM_Notifier.Properties.Resources.Toolbar_ShowLogs;
+			this.btnFetch.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+			this.btnFetch.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.btnFetch.Name = "btnFetch";
+			this.btnFetch.Size = new System.Drawing.Size (65, 26);
+			this.btnFetch.Text = "Fetch";
+			this.btnFetch.Click += new System.EventHandler (this.btnFetch_Click);
 			//
 			// btnDelete
 			//
@@ -680,6 +702,7 @@ namespace pocorall.SCM_Notifier
 		private ToolStripSeparator toolStripMenuItem8;
 		private ToolStripMenuItem openToolStripMenuItem;
 		private ToolStripMenuItem logToolStripMenuItem;
+		private ToolStripMenuItem fetchToolStripMenuItem;
 		private ToolStripSeparator toolStripMenuItem9;
 		private ToolStripMenuItem propertiesToolStripMenuItem;
 		private StatusStrip statusStrip;
@@ -694,6 +717,7 @@ namespace pocorall.SCM_Notifier
 		private ToolStripButton btnDelete;
 		private ToolStripButton btnAddFile;
 		private ToolStripButton btnAddFolder;
+		private ToolStripButton btnFetch;
 		private ToolStripSeparator toolStripSeparator1;
 		private ToolStripSeparator toolStripSeparator2;
 		private ToolStripStatusLabel toolStripStatusLabel3;
