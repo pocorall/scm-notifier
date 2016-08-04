@@ -150,6 +150,13 @@ namespace pocorall.SCM_Notifier
 		}
 
 
+		private void ShowFetch ()
+		{
+			int selectedIndex = listViewFolders.SelectedIndices[0];
+			((GitRepository)folders[selectedIndex]).OpenFetchWindow();
+		}
+
+
 		private void SelectFolder (string path)
 		{
 			foreach (ListViewItem item in listViewFolders.Items)

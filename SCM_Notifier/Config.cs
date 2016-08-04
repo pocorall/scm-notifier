@@ -93,7 +93,8 @@ namespace pocorall.SCM_Notifier
 			logAction = 1,
 			updateAction = 2,
 			commitAction = 3,
-			checkNow = 4
+			checkNow = 4,
+			fetchAction = 5
 		}
 		
 		
