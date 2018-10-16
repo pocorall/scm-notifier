@@ -29,6 +29,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -492,7 +493,8 @@ namespace pocorall.SCM_Notifier
 				changeLogToolStripMenuItem.Enabled =
 				logToolStripMenuItem.Enabled =
 				fetchToolStripMenuItem.Enabled =
-				propertiesToolStripMenuItem.Enabled = false;
+				propertiesToolStripMenuItem.Enabled = 
+                sortListToolStripMenuItem.Enabled = false;
 
 			if (listViewFolders.SelectedIndices.Count == 0) return;
 
@@ -514,7 +516,8 @@ namespace pocorall.SCM_Notifier
 						changeLogToolStripMenuItem.Enabled =
 						logToolStripMenuItem.Enabled =
 						fetchToolStripMenuItem.Enabled =
-						propertiesToolStripMenuItem.Enabled = true;
+						propertiesToolStripMenuItem.Enabled = 
+                        sortListToolStripMenuItem.Enabled = true;
 					break;
 
 				case ScmRepositoryStatus.NeedUpdate_Modified:
@@ -525,8 +528,9 @@ namespace pocorall.SCM_Notifier
 						changeLogToolStripMenuItem.Enabled =
 						logToolStripMenuItem.Enabled =
 						fetchToolStripMenuItem.Enabled =
-						propertiesToolStripMenuItem.Enabled = true;
-					break;
+                        propertiesToolStripMenuItem.Enabled =
+                        sortListToolStripMenuItem.Enabled = true;
+                    break;
 
 				case ScmRepositoryStatus.UpToDate_Modified:
 					checkNowToolStripMenuItem.Enabled =
@@ -534,28 +538,32 @@ namespace pocorall.SCM_Notifier
 						openToolStripMenuItem.Enabled =
 						logToolStripMenuItem.Enabled =
 						fetchToolStripMenuItem.Enabled =
-						propertiesToolStripMenuItem.Enabled = true;
-					break;
+                        propertiesToolStripMenuItem.Enabled =
+                        sortListToolStripMenuItem.Enabled = true;
+                    break;
 
 				case ScmRepositoryStatus.UpToDate:
 					checkNowToolStripMenuItem.Enabled =
 						openToolStripMenuItem.Enabled =
 						logToolStripMenuItem.Enabled =
 						fetchToolStripMenuItem.Enabled =
-						propertiesToolStripMenuItem.Enabled = true;
-					break;
+                        propertiesToolStripMenuItem.Enabled =
+                        sortListToolStripMenuItem.Enabled = true;
+                    break;
 
 				case ScmRepositoryStatus.Unknown:
 					checkNowToolStripMenuItem.Enabled =
 						openToolStripMenuItem.Enabled =
-						propertiesToolStripMenuItem.Enabled = true;
-					break;
+                        propertiesToolStripMenuItem.Enabled =
+                        sortListToolStripMenuItem.Enabled = true;
+                    break;
 
 				case ScmRepositoryStatus.Error:
 					checkNowToolStripMenuItem.Enabled =
 						openToolStripMenuItem.Enabled =
-						propertiesToolStripMenuItem.Enabled = true;
-					break;
+                        propertiesToolStripMenuItem.Enabled =
+                        sortListToolStripMenuItem.Enabled = true;
+                    break;
 			}
 		}
 
@@ -1484,5 +1492,21 @@ namespace pocorall.SCM_Notifier
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
                 e.Effect = DragDropEffects.Copy;
         }
-	}
+
+
+        private void sortListToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // current option MAX ? reset to 0 than.
+            if (listViewFolders.Sorting == Enum.GetValues(typeof(SortOrder)).Cast<SortOrder>().Max())
+            {
+                listViewFolders.Sorting = SortOrder.None;
+            }
+            else
+            {
+                // get next option
+                listViewFolders.Sorting = Enum.GetValues(typeof(SortOrder)).Cast<SortOrder>().SkipWhile(x => x != listViewFolders.Sorting).Skip(1).First();
+            }
+            sortListToolStripMenuItem.ToolTipText = String.Format("Current sorting way: {0}", listViewFolders.Sorting.ToString());
+        }
+    }
 }
