@@ -624,6 +624,7 @@ namespace pocorall.SCM_Notifier
 			this.listViewFolders.Size = new System.Drawing.Size (504, 65);
 			this.listViewFolders.SmallImageList = this.imageListFolderStatus;
 			this.listViewFolders.TabIndex = 0;
+      this.listViewFolders.ShowItemToolTips = true;
 			this.listViewFolders.UseCompatibleStateImageBehavior = false;
 			this.listViewFolders.View = System.Windows.Forms.View.List;
 			this.listViewFolders.SelectedIndexChanged += new System.EventHandler (this.listViewFolders_SelectedIndexChanged);

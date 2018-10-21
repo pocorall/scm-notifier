@@ -44,6 +44,12 @@ namespace pocorall.SCM_Notifier
         UpToDate_Modified=4
     }
 
+    public class ScmRepositoryStatusEx
+    {
+        public ScmRepositoryStatus status;
+        public string branchName;
+    }
+
     public class ScmRepositoryProcess
     {
         public readonly ScmRepository repository;
@@ -315,7 +321,7 @@ namespace pocorall.SCM_Notifier
 
         abstract public void Commit();
 
-        abstract public ScmRepositoryStatus GetStatus();
+        abstract public ScmRepositoryStatusEx GetStatus();
 
         abstract public void BeginUpdateSilently();
 

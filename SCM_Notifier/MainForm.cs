@@ -819,7 +819,7 @@ namespace pocorall.SCM_Notifier
 		////////////////////////////////////////////////////////////////////////////////////
 
 		private readonly SvnFolderCollection newNonUpdatedFolders = new SvnFolderCollection();
-		private delegate void UpdateListViewMethod (ScmRepository folder, ScmRepositoryStatus folderStatus, DateTime statusTime);
+		private delegate void UpdateListViewMethod (ScmRepository folder, ScmRepositoryStatusEx folderStatus, DateTime statusTime);
 		private delegate void SetStatusBarTextMethod (string text);
 		private delegate void UpdateErrorLogMethod (string path, string error);
 		private delegate void CheckedInvokeMethod (Delegate method, object[] args);
@@ -1141,7 +1141,7 @@ namespace pocorall.SCM_Notifier
 			SafeInvoke (new SetStatusBarTextMethod (SetStatusBarText), new object[] {"Checking '" + folder.Path + "'..."});
 			DateTime statusTime = DateTime.Now;
 			if (sessionEndInProgress) return;		// Need to avoid error on svn.exe invoking
-            ScmRepositoryStatus status = folder.GetStatus();
+            ScmRepositoryStatusEx status = folder.GetStatus();
 			SafeInvoke (new UpdateListViewMethod (UpdateListView), new object[] {folder, status, statusTime});
 		}
 
@@ -1158,7 +1158,7 @@ namespace pocorall.SCM_Notifier
 		}
 
 
-		private void UpdateListView (ScmRepository folder, ScmRepositoryStatus folderStatus, DateTime statusTime)
+		private void UpdateListView (ScmRepository folder, ScmRepositoryStatusEx folderStatus, DateTime statusTime)
 		{
 			int i = folders.IndexOf (folder);
 			if (i < 0) return;
@@ -1166,13 +1166,14 @@ namespace pocorall.SCM_Notifier
 			if (statusTime < folder.StatusUpdateTime)
 				return;
 
-			if (folder.Status != folderStatus)
+			if (folder.Status != folderStatus.status)
 			{
-                folder.Status = folderStatus;
+                folder.Status = folderStatus.status;
                 listViewFolders.Items[i].ImageKey = folder.IconName;
+                listViewFolders.Items[i].ToolTipText = folderStatus.branchName;
 
-				if ((folderStatus == ScmRepositoryStatus.NeedUpdate) ||
-					(folderStatus == ScmRepositoryStatus.NeedUpdate_Modified))
+                if ((folderStatus.status == ScmRepositoryStatus.NeedUpdate) ||
+					(folderStatus.status == ScmRepositoryStatus.NeedUpdate_Modified))
 				{
 					newNonUpdatedFolders.Add (folder);
 					UpdateTray (true);
@@ -1180,11 +1181,11 @@ namespace pocorall.SCM_Notifier
 				else
 					UpdateTray (false);
 
-				// Refresh buttons
-				listViewFolders_SelectedIndexChanged (null, null);
+                // Refresh buttons
+                listViewFolders_SelectedIndexChanged (null, null);
 			}
 			else
-				folder.Status = folderStatus;		// Update status time only
+				folder.Status = folderStatus.status;		// Update status time only
 		}
 
 

@@ -82,12 +82,12 @@ namespace pocorall.SCM_Notifier
             svnFolderProcesses.Add(new ScmRepositoryProcess(this, er.process, false));
         }
 
-        public override ScmRepositoryStatus GetStatus()
+        public override ScmRepositoryStatusEx GetStatus()
         {
             if (!Directory.Exists(Path) && !File.Exists(Path))
             {
                 OnErrorAdded(Path, "File or folder don't exist!");
-                return ScmRepositoryStatus.Error;
+                return new ScmRepositoryStatusEx() { status = ScmRepositoryStatus.Error };
             }
 
             try
@@ -107,30 +107,30 @@ namespace pocorall.SCM_Notifier
                     if (!SvnXml.ContainsKey("revision"))
                     {
                         OnErrorAdded(Path, "Folder not found in repository");
-                        return ScmRepositoryStatus.Error;
+                        return new ScmRepositoryStatusEx() { status = ScmRepositoryStatus.Error }; 
                     }
 
                     if (SvnXml.ContainsKey("NeedUpdate"))
                     {
                         if (SvnXml.ContainsKey("Modified"))
-                            return ScmRepositoryStatus.NeedUpdate_Modified;
+                            return new ScmRepositoryStatusEx() { status = ScmRepositoryStatus.NeedUpdate_Modified };
 
-                        return ScmRepositoryStatus.NeedUpdate;
+                        return new ScmRepositoryStatusEx() { status = ScmRepositoryStatus.NeedUpdate };
                     }
 
                     if (SvnXml.ContainsKey("Modified"))
-                        return ScmRepositoryStatus.UpToDate_Modified;
+                        return new ScmRepositoryStatusEx() { status = ScmRepositoryStatus.UpToDate_Modified };
 
-                    return ScmRepositoryStatus.UpToDate;
+                    return new ScmRepositoryStatusEx() { status = ScmRepositoryStatus.UpToDate };
                 }
                 catch
                 {
-                    return ScmRepositoryStatus.Error;
+                    return new ScmRepositoryStatusEx() { status = ScmRepositoryStatus.Error }; 
                 }
             }
             catch
             {
-                return ScmRepositoryStatus.Unknown;
+                return new ScmRepositoryStatusEx() { status = ScmRepositoryStatus.Unknown }; 
             }
         }
 

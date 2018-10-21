@@ -141,13 +141,45 @@ namespace pocorall.SCM_Notifier
             svnFolderProcesses.Add(new ScmRepositoryProcess(this, er.process, false));
         }
 
-        public override ScmRepositoryStatus GetStatus()
+        private string ResolveCurrentBranchName(string data)
+        {
+            const string CONST_STATUS_MARKER = "      ";
+            const string CONST_ORIGIN_MARKER = " -> ";
+
+            string result = "";
+
+            // Yes! Not "Environment.NewLine". We need "\n" ($0A) (UNIX)
+            string[] strings = data.Split('\n');
+
+            if (strings.Length > 2)
+            {
+                result = strings[2].Trim();
+
+                // 
+                int startPosition = result.IndexOf(CONST_STATUS_MARKER);
+                if (startPosition > 0)
+                {
+                    result = result.Remove(0, startPosition + CONST_STATUS_MARKER.Length);
+                }
+
+                // 
+                startPosition = result.IndexOf(CONST_ORIGIN_MARKER);
+                if (startPosition > 0)
+                {
+                    result = result.Remove(startPosition, result.Length - startPosition);
+                }
+            }
+
+            return result;
+        }
+
+        public override ScmRepositoryStatusEx GetStatus()
         {
             string path = Path;
             if (!Directory.Exists(path) && !File.Exists(path))
             {
                 OnErrorAdded(path, "File or folder don't exist!");
-                return ScmRepositoryStatus.Error;
+                return new ScmRepositoryStatusEx() { status = ScmRepositoryStatus.Error };
             }
 
             try
@@ -155,8 +187,11 @@ namespace pocorall.SCM_Notifier
                 ExecuteResult er = ExecuteProcess(Config.GitPath, path,"fetch --all --dry-run -v", true, true);
                 if (er.processError.Contains("Could not fetch"))
                 {
-                    return ScmRepositoryStatus.Error;
+                    return new ScmRepositoryStatusEx() { status = ScmRepositoryStatus.Error };
                 }
+
+                ScmRepositoryStatusEx result = new ScmRepositoryStatusEx();
+                result.branchName = ResolveCurrentBranchName(er.processError);
 
                 bool needUpdate = this.IsNeedUpdate(er.processError);
 
@@ -165,7 +200,7 @@ namespace pocorall.SCM_Notifier
 
                 if (er.processOutput.Contains("have diverged"))
                 {
-                    return ScmRepositoryStatus.NeedUpdate_Modified;
+                    return new ScmRepositoryStatusEx() { status = ScmRepositoryStatus.NeedUpdate_Modified };
                 }
                 if (er.processOutput.Contains("branch is behind"))
                 {
@@ -175,20 +210,23 @@ namespace pocorall.SCM_Notifier
                 if (er.processOutput.Contains("branch is ahead of") || er.processOutput.Contains("Changed but not updated") || er.processOutput.Contains("Changes not staged for commit")
                     || er.processOutput.Contains("Changes to be committed"))
                 {
-                    return needUpdate? ScmRepositoryStatus.NeedUpdate_Modified: ScmRepositoryStatus.UpToDate_Modified;
+                    result.status = needUpdate? ScmRepositoryStatus.NeedUpdate_Modified: ScmRepositoryStatus.UpToDate_Modified;
+                    return result;
                 }
                 else
                 if (!isModified(er.processOutput))
                 {
-                    return needUpdate? ScmRepositoryStatus.NeedUpdate : ScmRepositoryStatus.UpToDate;
+                    result.status = needUpdate ? ScmRepositoryStatus.NeedUpdate : ScmRepositoryStatus.UpToDate;
+                    return result;
                 }
 
-                return ScmRepositoryStatus.Unknown;
+                result.status = ScmRepositoryStatus.Unknown;
+                return result;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 OnErrorAdded(path, e.Message);
-                return ScmRepositoryStatus.Error;
+                return new ScmRepositoryStatusEx() { status = ScmRepositoryStatus.Error };
             }
         }
 
