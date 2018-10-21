@@ -77,9 +77,9 @@ namespace pocorall.SCM_Notifier
 			this.fetchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem ();
 			this.toolStripMenuItem9 = new System.Windows.Forms.ToolStripSeparator ();
 			this.propertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem ();
-      this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-      this.sortListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.sortListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
 			this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel ();
 			this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel ();
 			this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel ();
@@ -425,14 +425,14 @@ namespace pocorall.SCM_Notifier
 			this.propertiesToolStripMenuItem.Size = new System.Drawing.Size (154, 22);
 			this.propertiesToolStripMenuItem.Text = "Properties";
 			this.propertiesToolStripMenuItem.Click += new System.EventHandler (this.propertiesToolStripMenuItem_Click);
-      // 
-      // sortListToolStripMenuItem
-      // 
-      this.sortListToolStripMenuItem.Name = "sortListToolStripMenuItem";
-      this.sortListToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
-      this.sortListToolStripMenuItem.Text = "Sort list (Asc, Desc, None)";
-      this.sortListToolStripMenuItem.Click += new System.EventHandler(this.sortListToolStripMenuItem_Click);
-      //
+            // 
+            // sortListToolStripMenuItem
+            // 
+            this.sortListToolStripMenuItem.Name = "sortListToolStripMenuItem";
+            this.sortListToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.sortListToolStripMenuItem.Text = "Sort list (Asc, Desc, None)";
+            this.sortListToolStripMenuItem.Click += new System.EventHandler(this.sortListToolStripMenuItem_Click);
+            //
 			// statusStrip
 			//
 			this.statusStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Visible;
@@ -732,7 +732,9 @@ namespace pocorall.SCM_Notifier
 		private ToolStripSeparator toolStripSeparator1;
 		private ToolStripSeparator toolStripSeparator2;
 		private ToolStripStatusLabel toolStripStatusLabel3;
+        private ToolStripMenuItem sortListToolStripMenuItem;
+        private ToolStripSeparator toolStripSeparator3;
 
-		#endregion
-	}
+        #endregion
+    }
 }
