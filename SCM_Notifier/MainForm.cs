@@ -25,6 +25,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
@@ -1522,15 +1523,17 @@ namespace pocorall.SCM_Notifier
         /// </returns>
         private SortOrder GetNextSortingMethod(SortOrder sortOrder)
         {
+            IEnumerable<SortOrder> sortOrders = Enum.GetValues(typeof(SortOrder)).Cast<SortOrder>();
+
             // current option is MAX ? reset to MIN
-            if (sortOrder == Enum.GetValues(typeof(SortOrder)).Cast<SortOrder>().Max())
+            if (sortOrder == sortOrders.Max())
             {
-                sortOrder = Enum.GetValues(typeof(SortOrder)).Cast<SortOrder>().Min();
+                sortOrder = sortOrders.Min();
             }
             else
             {
                 // get next option
-                sortOrder = Enum.GetValues(typeof(SortOrder)).Cast<SortOrder>().SkipWhile(x => x != sortOrder).Skip(1).First();
+                sortOrder = sortOrders.SkipWhile(x => x != sortOrder).Skip(1).First();
             }
 
             return sortOrder;
@@ -1542,15 +1545,21 @@ namespace pocorall.SCM_Notifier
         private void InitFoldersListView(ScmRepository[] newFolders)
         {
             folders.Clear();
-            foreach (ScmRepository item in newFolders)
+            try
             {
-                folders.Add(item);
+                foreach (ScmRepository item in newFolders)
+                {
+                    folders.Add(item);
+                }
             }
-            InitFoldersListView(folders);
+            finally
+            {
+                InitFoldersListView(folders);
+            }
         }
 
         /// <summary>
-            /// </summary>
+        /// </summary>
         /// <param name="folders"></param>
         private void InitFoldersListView(SvnFolderCollection folders)
         {
