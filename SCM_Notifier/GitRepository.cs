@@ -153,7 +153,7 @@ namespace pocorall.SCM_Notifier
 
             if (strings.Length > 2)
             {
-                result = strings[2].Trim();
+                result = strings[1].Trim();
 
                 // 
                 int startPosition = result.IndexOf(CONST_STATUS_MARKER);
