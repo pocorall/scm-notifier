@@ -1,5 +1,8 @@
 ### This repository is no longer maintained
 
+Please consider to visit some of the fork of this repo, including:
+https://github.com/KohrAhr/scm-notifier
+
 ----
 
 SCM Notifier is a tool to monitor Git and SVN repositories.
