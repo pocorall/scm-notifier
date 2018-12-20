@@ -25,10 +25,12 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -50,6 +52,7 @@ namespace pocorall.SCM_Notifier
 		private readonly Queue forcedFolders = Queue.Synchronized (new Queue());
 		private bool timerEnabledWhenSuspended = true;
 
+        private SortOrder folderSortWay = SortOrder.None;
 
 		public MainForm()
 		{
@@ -102,22 +105,9 @@ namespace pocorall.SCM_Notifier
 
 		private void FormInit()
 		{
-			listViewFolders.Clear();
-
 			folders = Config.ReadSvnFolders();
 
-			foreach (ScmRepository folder in folders)
-			{
-                ListViewItem item = new ListViewItem(folder.Path, folder.IconName);
-
-				if (folder.Disable)
-				{
-					item.Font = new Font (listViewFolders.Font, FontStyle.Strikeout);
-					item.ForeColor = Color.LightGray;
-				}
-
-				listViewFolders.Items.Add (item);
-			}
+            InitFoldersListView(folders);
 
 			UpdateFormSize();
 
@@ -130,8 +120,7 @@ namespace pocorall.SCM_Notifier
 			pauseTimer.Enabled = Config.DoPauseAfterApplicationStartup && Config.PauseAfterApplicationStartupInterval > 0;
 		}
 
-
-		private void UpdateFormSize()
+        private void UpdateFormSize()
 		{
 			int[] size = Config.ReadMainFormSize();
 
@@ -488,13 +477,15 @@ namespace pocorall.SCM_Notifier
 			checkNowToolStripMenuItem.Enabled =
 				commitToolStripMenuItem.Enabled =
 				updateToolStripMenuItem.Enabled =
-				openToolStripMenuItem.Enabled =
 				changeLogToolStripMenuItem.Enabled =
 				logToolStripMenuItem.Enabled =
 				fetchToolStripMenuItem.Enabled =
-				propertiesToolStripMenuItem.Enabled = false;
+				propertiesToolStripMenuItem.Enabled =
+                sortListToolStripMenuItem.Enabled = false;
 
-			if (listViewFolders.SelectedIndices.Count == 0) return;
+            openToolStripMenuItem.Enabled = btnOpenFolder.Enabled;
+
+            if (listViewFolders.SelectedIndices.Count == 0) return;
 
 			int selectedIndex = listViewFolders.SelectedIndices[0];
 			if (folders[selectedIndex] is GitRepository)
@@ -510,51 +501,51 @@ namespace pocorall.SCM_Notifier
 				case ScmRepositoryStatus.NeedUpdate:
 					checkNowToolStripMenuItem.Enabled =
 						updateToolStripMenuItem.Enabled =
-						openToolStripMenuItem.Enabled =
 						changeLogToolStripMenuItem.Enabled =
 						logToolStripMenuItem.Enabled =
 						fetchToolStripMenuItem.Enabled =
-						propertiesToolStripMenuItem.Enabled = true;
+						propertiesToolStripMenuItem.Enabled =
+                        sortListToolStripMenuItem.Enabled = true;
 					break;
 
 				case ScmRepositoryStatus.NeedUpdate_Modified:
 					checkNowToolStripMenuItem.Enabled =
 						commitToolStripMenuItem.Enabled =
 						updateToolStripMenuItem.Enabled =
-						openToolStripMenuItem.Enabled =
 						changeLogToolStripMenuItem.Enabled =
 						logToolStripMenuItem.Enabled =
 						fetchToolStripMenuItem.Enabled =
-						propertiesToolStripMenuItem.Enabled = true;
+						propertiesToolStripMenuItem.Enabled =
+                        sortListToolStripMenuItem.Enabled = true;
 					break;
 
 				case ScmRepositoryStatus.UpToDate_Modified:
 					checkNowToolStripMenuItem.Enabled =
 						commitToolStripMenuItem.Enabled =
-						openToolStripMenuItem.Enabled =
 						logToolStripMenuItem.Enabled =
 						fetchToolStripMenuItem.Enabled =
-						propertiesToolStripMenuItem.Enabled = true;
+						propertiesToolStripMenuItem.Enabled =
+                        sortListToolStripMenuItem.Enabled = true;
 					break;
 
 				case ScmRepositoryStatus.UpToDate:
 					checkNowToolStripMenuItem.Enabled =
-						openToolStripMenuItem.Enabled =
 						logToolStripMenuItem.Enabled =
 						fetchToolStripMenuItem.Enabled =
-						propertiesToolStripMenuItem.Enabled = true;
+						propertiesToolStripMenuItem.Enabled =
+                        sortListToolStripMenuItem.Enabled = true;
 					break;
 
 				case ScmRepositoryStatus.Unknown:
 					checkNowToolStripMenuItem.Enabled =
-						openToolStripMenuItem.Enabled =
-						propertiesToolStripMenuItem.Enabled = true;
+						propertiesToolStripMenuItem.Enabled =
+                        sortListToolStripMenuItem.Enabled = true;
 					break;
 
 				case ScmRepositoryStatus.Error:
 					checkNowToolStripMenuItem.Enabled =
-						openToolStripMenuItem.Enabled =
-						propertiesToolStripMenuItem.Enabled = true;
+						propertiesToolStripMenuItem.Enabled =
+                        sortListToolStripMenuItem.Enabled = true;
 					break;
 			}
 		}
@@ -626,9 +617,9 @@ namespace pocorall.SCM_Notifier
 
                 deleteToolStripMenuItem.Enabled = true;
 				btnDelete.Enabled = true;
-				btnOpenFolder.Enabled = Directory.Exists (folder.Path) || File.Exists (folder.Path);
+                btnOpenFolder.Enabled = Directory.Exists(folder.Path) || File.Exists(folder.Path);
 
-				Text = Application.ProductName + " - " + folder.Path;
+                Text = Application.ProductName + " - " + folder.Path;
 			}
 			else
 			{
@@ -637,7 +628,7 @@ namespace pocorall.SCM_Notifier
 				btnCommit.Enabled = false;
 				deleteToolStripMenuItem.Enabled = false;
 				btnDelete.Enabled = false;
-				btnOpenFolder.Enabled = false;
+                btnOpenFolder.Enabled = false;
 				btnLog.Enabled = false;
 				btnFetch.Enabled = false;
 				btnFetch.Visible = false;
@@ -828,7 +819,7 @@ namespace pocorall.SCM_Notifier
 		////////////////////////////////////////////////////////////////////////////////////
 
 		private readonly SvnFolderCollection newNonUpdatedFolders = new SvnFolderCollection();
-		private delegate void UpdateListViewMethod (ScmRepository folder, ScmRepositoryStatus folderStatus, DateTime statusTime);
+		private delegate void UpdateListViewMethod (ScmRepository folder, ScmRepositoryStatusEx folderStatus, DateTime statusTime);
 		private delegate void SetStatusBarTextMethod (string text);
 		private delegate void UpdateErrorLogMethod (string path, string error);
 		private delegate void CheckedInvokeMethod (Delegate method, object[] args);
@@ -1150,7 +1141,7 @@ namespace pocorall.SCM_Notifier
 			SafeInvoke (new SetStatusBarTextMethod (SetStatusBarText), new object[] {"Checking '" + folder.Path + "'..."});
 			DateTime statusTime = DateTime.Now;
 			if (sessionEndInProgress) return;		// Need to avoid error on svn.exe invoking
-            ScmRepositoryStatus status = folder.GetStatus();
+            ScmRepositoryStatusEx status = folder.GetStatus();
 			SafeInvoke (new UpdateListViewMethod (UpdateListView), new object[] {folder, status, statusTime});
 		}
 
@@ -1167,7 +1158,7 @@ namespace pocorall.SCM_Notifier
 		}
 
 
-		private void UpdateListView (ScmRepository folder, ScmRepositoryStatus folderStatus, DateTime statusTime)
+		private void UpdateListView (ScmRepository folder, ScmRepositoryStatusEx folderStatus, DateTime statusTime)
 		{
 			int i = folders.IndexOf (folder);
 			if (i < 0) return;
@@ -1175,13 +1166,14 @@ namespace pocorall.SCM_Notifier
 			if (statusTime < folder.StatusUpdateTime)
 				return;
 
-			if (folder.Status != folderStatus)
+			if (folder.Status != folderStatus.status)
 			{
-                folder.Status = folderStatus;
+                folder.Status = folderStatus.status;
                 listViewFolders.Items[i].ImageKey = folder.IconName;
+                listViewFolders.Items[i].ToolTipText = folderStatus.branchName;
 
-				if ((folderStatus == ScmRepositoryStatus.NeedUpdate) ||
-					(folderStatus == ScmRepositoryStatus.NeedUpdate_Modified))
+                if ((folderStatus.status == ScmRepositoryStatus.NeedUpdate) ||
+					(folderStatus.status == ScmRepositoryStatus.NeedUpdate_Modified))
 				{
 					newNonUpdatedFolders.Add (folder);
 					UpdateTray (true);
@@ -1189,11 +1181,11 @@ namespace pocorall.SCM_Notifier
 				else
 					UpdateTray (false);
 
-				// Refresh buttons
-				listViewFolders_SelectedIndexChanged (null, null);
+                // Refresh buttons
+                listViewFolders_SelectedIndexChanged (null, null);
 			}
 			else
-				folder.Status = folderStatus;		// Update status time only
+				folder.Status = folderStatus.status;		// Update status time only
 		}
 
 
@@ -1484,5 +1476,116 @@ namespace pocorall.SCM_Notifier
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
                 e.Effect = DragDropEffects.Copy;
         }
-	}
+
+        private void sortListToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // get next sorting method
+            folderSortWay = GetNextSortingMethod(folderSortWay);
+
+            // hint
+            sortListToolStripMenuItem.ToolTipText = String.Format("Current sorting way: {0}", folderSortWay.ToString());
+
+            // real sort
+            ScmRepository[] newOrder = null;
+            switch (folderSortWay)
+            {
+                case SortOrder.Ascending:
+                    {
+                        newOrder = folders.Cast<ScmRepository>().OrderBy(x => x.VisiblePath).ToArray();
+                        break;
+                    }
+                case SortOrder.Descending:
+                    {
+                        newOrder = folders.Cast<ScmRepository>().OrderByDescending(x => x.VisiblePath).ToArray();
+                        break;
+                    }
+                case SortOrder.None:
+                    {
+                        //newOrder = folders.Cast<ScmRepository>().OrderBy(x => x.???).ToArray();
+                        break;
+                    }
+            }
+
+            // update list
+            if (newOrder != null)
+            {
+                InitFoldersListView(newOrder);
+            }
+        }
+
+        /// <summary>
+        ///     Get next sorting option: iterate over "SortOrder" values.
+        /// </summary>
+        /// <param name="sortOrder">
+        ///     Current sorting option
+        /// </param>
+        /// <returns>
+        ///     New sorting option
+        /// </returns>
+        private SortOrder GetNextSortingMethod(SortOrder sortOrder)
+        {
+            IEnumerable<SortOrder> sortOrders = Enum.GetValues(typeof(SortOrder)).Cast<SortOrder>();
+
+            // current option is MAX ? reset to MIN
+            if (sortOrder == sortOrders.Max())
+            {
+                sortOrder = sortOrders.Min();
+            }
+            else
+            {
+                // get next option
+                sortOrder = sortOrders.SkipWhile(x => x != sortOrder).Skip(1).First();
+            }
+
+            return sortOrder;
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="newFolders"></param>
+        private void InitFoldersListView(ScmRepository[] newFolders)
+        {
+            folders.Clear();
+            try
+            {
+                foreach (ScmRepository item in newFolders)
+                {
+                    folders.Add(item);
+                }
+            }
+            finally
+            {
+                InitFoldersListView(folders);
+            }
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="folders"></param>
+        private void InitFoldersListView(SvnFolderCollection folders)
+        {
+            listViewFolders.BeginUpdate();
+            try
+            {
+                listViewFolders.Clear();
+
+                foreach (ScmRepository folder in folders)
+                {
+                    ListViewItem item = new ListViewItem(folder.Path, folder.IconName);
+
+                    if (folder.Disable)
+                    {
+                        item.Font = new Font(listViewFolders.Font, FontStyle.Strikeout);
+                        item.ForeColor = Color.LightGray;
+                    }
+
+                    listViewFolders.Items.Add(item);
+                }
+            }
+            finally
+            {
+                listViewFolders.EndUpdate();
+            }
+        }
+    }
 }
